@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pa="http://primefaces.org/apollo">
+
+
+
+	<div class="topbar clearfix">
+		<p:graphicImage styleClass="logo" library="apollo-layout"
+			name="images/hrms.png" />
+
+		<a id="menu-button" href="#"> <i class="fa fa-align-left"></i>
+		</a>
+		
+			<a href="#" class="profile"> 
+			<span class="username">#{loginBean.userToken.user.username}</span> 
+					<p:graphicImage name="avatar.png" library="images" /> 
+					<i class="fa fa-angle-down"></i>
+			</a>
+
+			<span class="topbar-search"> <input type="text"
+				placeholder="Search" /> <span class="fa fa-search"></span>
+			</span>
+
+			<span class="topbar-themeswitcher"> 
+			<h:form>
+			    <p:inputSwitch
+					        value="#{guestPreferences.dark}">
+					<p:ajax listener="#{guestPreferences.changeScheme}"
+						oncomplete="setTimeout(function() {document.forms[0].submit()}, 500)" />
+				</p:inputSwitch>
+			</h:form>
+			</span>
+
+			<ul class="topbar-menu fadeInDown">
+			
+				<li>
+				<h:form>
+					 <p:commandLink onclick="PF('pass_ch_wid').show();">
+                            <i class="fa fa-fw fa-user"></i>
+                            <span>Ndrysho fjalëkalimin</span>
+                        </p:commandLink>
+                 </h:form>
+				</li>
+				<li role="menuitem">
+					<h:form>
+					<p:commandLink action="#{loginBean.logout()}">
+					    <i class="fa fa-fw fa-sign-out"></i> 
+							<span>Dil</span>
+					</p:commandLink>
+					</h:form>
+				</li>
+				
+			</ul>
+	</div>
+</ui:composition>

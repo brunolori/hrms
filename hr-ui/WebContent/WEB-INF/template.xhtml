@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title><ui:insert name="title">HRMS</ui:insert></title>
+        <h:outputScript name="js/nanoscroller.js" library="apollo-layout" />
+        <h:outputScript name="js/layout.js" library="apollo-layout" />
+
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body>
+    
+     <h:panelGroup rendered="false">
+		<h:form id="hidden_form">
+			<p:selectOneMenu/>
+			<p:scrollPanel/>
+			<p:inputSwitch/>
+			<p:panel/>
+			<p:dataTable/>
+			<p:knob/>
+		</h:form>
+	</h:panelGroup>   
+        
+        <div class="layout-wrapper layout-#{guestPreferences.layoutMode}">
+            
+            <ui:include src="topbar.xhtml" />
+            <ui:include src="menu.xhtml" />
+            
+            <div class="layout-content">
+                
+                
+                <div class="layout-content-container">
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+            
+            
+            <div class="layout-mask"></div>
+        </div>
+        
+        <p:dialog header="Ndrysho fjalëkalimin" modal="true" style="max-width: 400px" responsive="true" id="pass_ch_dlg" widgetVar="pass_ch_wid" closeOnEscape="true">
+        <h:form id="pass_ch_form">
+        	<div class="ui-g ui-fluid">
+        	
+        		<div class="ui-g-12">
+        			<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+        				<p:outputLabel value="Fjalëkalimi i vjetër" />
+        				<p:password value="#{loginBean.form.oldPassword}" />
+        				<p:outputLabel value="Fjalëkalimi i ri" />
+        				<p:password id="new_pass" match="repass" validatorMessage="Fjalekalimet nuk perputhen"
+        				value="#{loginBean.form.newPassword}" feedback="true" goodLabel="Mesatar" weakLabel="I Dobët" strongLabel="I Fortë" />
+        				<p:outputLabel value="Konfirmo fjalëkalimin" />
+        				<p:password id="repass"  />
+        				<p:commandButton value="Ruaj" action="#{loginBean.changePassword()}" update="@form" />
+        				<p:commandButton value="Anullo" process="@this" action="#{loginBean.clearPasswordForm()}" update="@form" oncomplete="PF('pass_ch_wid').hide();" />
+        			</p:panelGrid>
+        		</div>
+        		
+        		<div class="ui-g-12">
+        			<h:messages showDetail="true" showSummary="false" closable="true" errorStyle="color: red" infoStyle="color: green" warnStyle="color: orange" layout="table">
+        			</h:messages>
+        		</div>
+        	
+        	</div>
+        </h:form>
+        </p:dialog>
+        
+        <p:confirmDialog global="true" >
+	        <p:commandButton type="button" value="Po" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+	        <p:commandButton type="button" value="Jo" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+        </p:confirmDialog>
+        
+        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <f:facet name="start">
+                <i class="ajax-status-icon fa fa-spinner fa-spin"></i>
+            </f:facet>
+            
+            <f:facet name="complete">
+                <h:outputText />
+            </f:facet>
+        </p:ajaxStatus>
+        
+        <h:outputStylesheet name="css/nanoscroller.css" library="apollo-layout" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="apollo-layout" />
+        <h:outputStylesheet name="style.css" library="css" />
+    </h:body>
+
+</html>

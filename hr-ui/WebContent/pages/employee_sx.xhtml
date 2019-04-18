@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<h:form id="emp_sx_form">
+
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<div class="card card-w-title">
+						<h1 style="font-style: italic;">Kërko punonjësit</h1>
+						<div class="ui-g">
+							<div class="ui-g-12">
+
+								<p:panelGrid layout="grid" columns="6"
+									styleClass="ui-panelgrid-blank form-group">
+
+									<p:inputText placeholder="Emri" />
+									<p:inputText placeholder="Mbiemri" />
+									<p:inputText placeholder="Atësia" />
+									<p:inputText placeholder="NID"/>
+									<p:inputMask mask="99.99.9999" placeholder="Datëlindja"/>
+									<p:selectOneMenu placeholder="Struktura">
+										<f:selectItem itemValue="#{null}" itemLabel="Struktura" />								
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Pozicioni">
+										<f:selectItem itemValue="#{null}" itemLabel="Pozicioni" />								
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Grada">
+										<f:selectItem itemValue="#{null}" itemLabel="Grada" />
+									</p:selectOneMenu>
+									<p:inputText placeholder="Nr.Dosje" />
+									<p:inputText placeholder="Nr.Punonjësi" />
+									<p:selectOneMenu placeholder="Gjinia">
+										<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+										<f:selectItem itemValue="M" itemLabel="M" />
+										<f:selectItem itemValue="F" itemLabel="F" />
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Statusi Civil">
+										<f:selectItem itemValue="#{null}" itemLabel="Statusi Civil" />
+										<f:selectItem itemValue="M" itemLabel="Martuar"/>
+										<f:selectItem itemValue="B" itemLabel="Beqar/e"/>
+										<f:selectItem itemValue="D" itemLabel="Divorcuar"/>
+										<f:selectItem itemValue="V" itemLabel="i/e Ve"/>
+									</p:selectOneMenu>
+                                    <p:inputText placeholder="Nga Data"/>
+                                    <p:inputText placeholder="Në Datë"/>
+						
+
+								</p:panelGrid>
+
+
+							</div>
+
+							<div class="ui-g-12 ui-md-4">
+								<p:panelGrid layout="grid" columns="2"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Kërko" update="@form" styleClass="blue-btn" icon="ui-icon-search" />
+									<p:commandButton value="Pastro" update="@form" icon="ui-icon-trash" styleClass="green-btn"/>
+								</p:panelGrid>
+							</div>
+
+							<div class="ui-g-12">
+								<p:messages showDetail="true" closable="true" >
+									<p:autoUpdate />
+								</p:messages>
+							</div>
+
+						</div>
+					</div>
+				</div>
+							
+				<div class="ui-g-12 ui-fluid">
+					<p:dataTable value=" " var=" "
+						paginatorAlwaysVisible="false" paginator="true" rows="20"
+						rowIndexVar="r"	rowsPerPageTemplate="10,20,30,50" reflow="true">
+						<f:facet name="header">
+							Lista punonjësve
+						</f:facet>
+						<p:column headerText="#"> #{r+1}</p:column>
+						<p:column headerText="NID"></p:column>
+						<p:column headerText="Emri"> </p:column>
+						<p:column headerText="Atësia"></p:column>
+						<p:column headerText="Mbiemri"></p:column>
+						<p:column headerText="Datëlindja"></p:column>
+						<p:column headerText="Struktura"></p:column>
+						<p:column headerText="Pozicioni"></p:column>
+						<p:column headerText="Grada"></p:column>
+						<p:column headerText="Nr.Dosje"></p:column>
+						<p:column headerText="Nr.Punonjësi"></p:column>
+						<p:column headerText="Gjinia"></p:column>
+						<p:column headerText="Statusi Civil"></p:column>
+					</p:dataTable>
+				</div>
+
+			</div>
+	</h:form>
+
+</ui:composition>

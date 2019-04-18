@@ -1,0 +1,228 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+			<script type="text/javascript">
+				//<![CDATA[
+				function skinChart() {
+					this.cfg.animate = true;
+					this.cfg.shadow = false;
+					this.cfg.title = '';
+					this.cfg.seriesColors = [ '#4CAF50', '#39a3f4' ];
+					this.cfg.grid = {
+						background : 'transparent',
+						borderColor : 'transparent',
+						gridLineColor : '#{guestPreferences.dark ? "#121213" : "#dddddd"}',
+						shadow : false,
+					};
+					this.cfg.axesDefaults = {
+						rendererOptions : {
+							textColor : '#9fadb7'
+						},
+						tickOptions : {
+							textColor : '#9fadb7'
+						}
+					};
+					this.cfg.seriesDefaults = {
+						shadow : false,
+						lineWidth : 1,
+						markerOptions : {
+							shadow : false,
+							size : 7,
+							style : 'circle'
+						}
+					}
+					this.cfg.legend = {
+						show : false
+					}
+				}
+
+				setInterval(function() {
+					  setAnimation(PF('knob1'));
+					  setAnimation(PF('knob2'));
+					  setAnimation(PF('knob3'));
+					  setAnimation(PF('knob4'));
+					  PF('pb1').setValue(generateRandomNumber());
+					  PF('pb2').setValue(generateRandomNumber());
+					  PF('pb3').setValue(generateRandomNumber());
+				}, 2000);
+
+				function setAnimation(widget) {
+					widget.jq.animate({
+						value : generateRandomNumber()
+					}, {
+						duration : 1000,
+						easing : 'linear',
+						progress : function() {
+							widget.setValue(Math.floor(this.value));
+						}
+					});
+				}
+
+				function generateRandomNumber() {
+					return Math.floor(Math.random() * 100) + 1;
+				}
+				//]]>
+			</script>
+			<style type="text/css">
+.jqplot-xaxis-label {
+	color: #9fadb7;
+	display: none;
+}
+
+.jqplot-yaxis-label {
+	color: #9fadb7;
+}
+</style>
+
+
+	<h:form id="dashboard_form">
+	
+
+
+
+		<div class="ui-g dashboard">
+
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box overview-box-1">
+					<h1>SALES</h1>
+					<div class="overview-value">$25,620</div>
+					<div class="overview-ratio">
+						<div class="overview-direction">
+							<i class="fa fa-arrow-up" />
+						</div>
+						<div class="overview-ratio-value">51%</div>
+					</div>
+					<p:graphicImage name="images/dashboard/graph-blue.svg"
+						library="apollo-layout" />
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box overview-box-2">
+					<h1>VIEWS</h1>
+					<div class="overview-value">9521</div>
+					<div class="overview-ratio">
+						<div class="overview-direction">
+							<i class="fa fa-arrow-up" />
+						</div>
+						<div class="overview-ratio-value">36%</div>
+					</div>
+					<p:graphicImage name="images/dashboard/graph-green.svg"
+						library="apollo-layout" />
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box overview-box-3">
+					<h1>USERS</h1>
+					<div class="overview-value">452</div>
+					<div class="overview-ratio">
+						<div class="overview-direction">
+							<i class="fa fa-arrow-up" />
+						</div>
+						<div class="overview-ratio-value">19%</div>
+					</div>
+					<p:graphicImage name="images/dashboard/graph-yellow.svg"
+						library="apollo-layout" />
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box overview-box-4">
+					<h1>SOCIAL</h1>
+					<div class="overview-value">65922</div>
+					<div class="overview-ratio">
+						<div class="overview-direction">
+							<i class="fa fa-arrow-up" />
+						</div>
+						<div class="overview-ratio-value">25%</div>
+					</div>
+					<p:graphicImage name="images/dashboard/graph-red.svg"
+						library="apollo-layout" />
+				</div>
+			</div>
+			
+			
+			 <div class="ui-g-12">
+                <p:panel header="Status" styleClass="knobs">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-lg-3 ui-md-6 knob-users">
+                            <div class="knob-title">Users</div>
+                            <p:knob foregroundColor="#6ebc3b" backgroundColor="rgba(0,0,0,.3)" value="25" height="150" width="150" widgetVar="knob1" thickness=".1"/>
+                            <i class="fa fa-user" />
+                        </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6 knob-mobile">
+                            <div class="knob-title">Mobile</div>
+                            <p:knob foregroundColor="#f6a821" backgroundColor="rgba(0,0,0,.3)" value="57" height="150" width="150" widgetVar="knob2" thickness=".1"/>
+                            <i class="fa fa-mobile" />
+                        </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6 knob-pageviews">
+                            <div class="knob-title">Pageviews</div>
+                            <p:knob foregroundColor="#039ADE" backgroundColor="rgba(0,0,0,.3)" value="85" height="150" width="150" widgetVar="knob3" thickness=".1"/>
+                            <i class="fa fa-eye" />
+                        </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6 knob-sales">
+                            <div class="knob-title" style="color:#d66351">Sales</div>
+                            <p:knob foregroundColor="#d66351" backgroundColor="rgba(0,0,0,.3)" value="44" height="150" width="150" widgetVar="knob4" thickness=".1"/>
+                            <i class="fa fa-dollar" />
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
+                <p:panel header="Tasks">
+                    <ul>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Sales Reports</span>
+                            <i class="fa fa-briefcase"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Pay Invoices</span>
+                            <i class="fa fa-credit-card"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Dinner with Tony</span>
+                            <i class="fa fa-cutlery"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Client Meeting</span>
+                            <i class="fa fa-user"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">New Theme</span>
+                            <i class="fa fa-paint-brush"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Flight Ticket</span>
+                            <i class="fa fa-fighter-jet"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Generate Charts</span>
+                            <i class="fa fa-area-chart"></i>
+                        </li>
+                        <li>
+                            <p:selectBooleanCheckbox />
+                            <span class="task-name">Call Client</span>
+                            <i class="fa fa-phone"></i>
+                        </li>
+                    </ul>
+                </p:panel>
+            </div>
+			
+			
+			
+		</div>
+</h:form>
+
+</ui:composition>

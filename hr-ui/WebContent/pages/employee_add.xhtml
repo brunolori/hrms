@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="home_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h1>Regjistro Punonjës</h1>
+					<p:panel header="GJENERALITETET">
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
+							    <p:outputLabel value="NID"/>
+								<p:inputText placeholder="NID" />
+								<p:outputLabel value="Emri"/>
+								<p:inputText placeholder="Emri" />
+								<p:outputLabel value="Atësia"/>
+								<p:inputText placeholder="Atësia" />
+								<p:outputLabel value="Mbiemri"/>
+								<p:inputText placeholder="Mbiemri" />
+								<p:outputLabel value="Mëmësia"/>
+								<p:inputText placeholder="Mëmësia" />
+								<p:outputLabel value="Mbiemri vajzërisë"/>
+								<p:inputText placeholder="Mbiemri vajzërisë" />
+								<p:outputLabel value="Datëlindja"/>
+								<p:inputText placeholder="Datëlindja" />
+								<p:outputLabel value="Vendlindja"/>
+								<p:inputText placeholder="Vendlindja" />
+								<p:outputLabel value="Gjinia"/>
+								<p:selectOneMenu placeholder="Gjinia">
+										<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+										<f:selectItem itemValue="M" itemLabel="M" />
+										<f:selectItem itemValue="F" itemLabel="F" />
+									</p:selectOneMenu>
+									<p:outputLabel value="Kombësia"/>
+								<p:inputText placeholder="Kombësia" />
+								
+							</p:panelGrid>
+						</div>
+					</div>
+					</p:panel>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+</ui:composition>
