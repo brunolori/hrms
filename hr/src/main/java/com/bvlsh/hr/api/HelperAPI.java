@@ -63,7 +63,7 @@ public class HelperAPI {
 		
 	}
 	
-	@RequestMapping(value="/list/validationType", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/list/validationTypes", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> loadValidationTypes()
 	{
 				
@@ -153,7 +153,7 @@ public class HelperAPI {
 		
 	}
 	
-	@RequestMapping(value="/list/contactTypes", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/list/positions", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> loadPositions()
 	{
 				
