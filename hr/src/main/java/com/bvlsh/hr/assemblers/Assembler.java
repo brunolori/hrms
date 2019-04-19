@@ -468,7 +468,7 @@ public class Assembler {
 		
 	}
 
-	public List<ForeignLanguageDTO> foreingLanguageListToDto(List<ForeignLanguage> foreingLanguage) {
+	public List<ForeignLanguageDTO> foreignLanguageListToDto(List<ForeignLanguage> foreingLanguage) {
 
 		if (foreingLanguage == null || foreingLanguage.isEmpty()) return null;
 
