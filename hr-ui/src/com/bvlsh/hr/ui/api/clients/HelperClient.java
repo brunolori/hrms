@@ -332,7 +332,7 @@ public class HelperClient {
 		
 		ResponseEntity<List<StateDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
 		
-		if(response.getStatusCode() == HttpStatus.OK)
+		if(response.getStatusCode() == HttpStatus.OK )
 		{
 			return response.getBody();
 		}
