@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmploymentDAO {
+public class EmployeeDAO {
 	
 	@PersistenceContext
 	EntityManager em;
