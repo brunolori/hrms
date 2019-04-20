@@ -41,7 +41,7 @@ public class Messages {
     	}
     	else
     	{
-    		throwFacesMessage("FRONT-END ERROR - "+e.getMessage(), 4);
+    		throwFacesMessage("FRONT-END ERROR (or not set ApiExceptionHandler in request)- "+e.getMessage(), 4);
     		
     		e.printStackTrace();
     	}
