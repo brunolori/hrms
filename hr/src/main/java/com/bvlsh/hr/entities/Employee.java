@@ -11,14 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -29,29 +28,53 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Entity
-@Table(name = "employment")
+@Table(name = "person")
 @Getter @Setter
-public class Employment implements Serializable {
+public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "NID")
+    private String nid;
+    @Size(max = 45)
+    @Column(name = "NAME")
+    private String name;
+    @Size(max = 45)
+    @Column(name = "SURNAME")
+    private String surname;
+    @Size(max = 45)
+    @Column(name = "FATHER_NAME")
+    private String fatherName;
+    @Size(max = 45)
+    @Column(name = "MOTHER_NAME")
+    private String motherName;
+    @Size(max = 45)
+    @Column(name = "MAIDEN_NAME")
+    private String maidenName;
+    @Size(max = 45)
+    @Column(name = "GENDER")
+    private String gender;
+    @Column(name = "EMPLOYEE_NO")
+    private String employeeNo;
+    @Column(name = "DOSSIER_NO")
+    private String dossierNo;
     @Column(name = "START_DATE")
     @Temporal(TemporalType.DATE)
     private Date startDate;
     @Column(name = "END_DATE")
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    @Column(name = "DOB")
+    @Temporal(TemporalType.DATE)
+    private Date dob;
     @Size(max = 45)
-    @Column(name = "EMPLOYEE_NO")
-    private String employeeNo;
-    @Size(max = 45)
-    @Column(name = "DOSSIER_NO")
-    private String dossierNo;
-    @Column(name = "STATUS")
-    private Integer status;
+    @Column(name = "POB")
+    private String pob;
+    @Size(max = 1)
+    @Column(name = "CIVIL_STATUS")
+    private String civilStatus;
     @Size(max = 45)
     @Column(name = "CREATE_USER")
     private String createUser;
@@ -64,14 +87,20 @@ public class Employment implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "ID")
+    @Size(max = 45)
+    @JoinColumn(name = "CITIZENSHIP_CODE", referencedColumnName = "CODE")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private State citizenship;
+    @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "CODE")
     @ManyToOne(fetch = FetchType.LAZY)
     private DepartmentPosition departmentPosition;
+    @JoinColumn(name = "NATIONALITY_CODE", referencedColumnName = "CODE")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private State nationality;
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private PaymentCategory paymentCategory;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+
+   
     
 }

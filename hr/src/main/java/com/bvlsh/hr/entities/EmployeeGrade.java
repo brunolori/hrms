@@ -30,7 +30,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "person_grade")
 @Getter @Setter
-public class PersonGrade implements Serializable {
+public class EmployeeGrade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +50,6 @@ public class PersonGrade implements Serializable {
     private Grade grade;
     @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+    private Employee employee;
 
 }

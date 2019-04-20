@@ -40,7 +40,7 @@ public class User implements Serializable {
     private String secret;
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employment employee;
+    private EmployeeHistory employee;
     @JoinColumn(name = "ROLE_CODE", referencedColumnName = "CODE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;

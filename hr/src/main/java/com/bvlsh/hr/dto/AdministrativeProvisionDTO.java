@@ -30,7 +30,7 @@ public class AdministrativeProvisionDTO implements Serializable {
     private Date createTime;
     private String updateUser;
     private Date updateTime;
-    private PersonDTO person;
+    private EmployeeDTO employee;
     private ProvisionTypeDTO provisionType;
 
     

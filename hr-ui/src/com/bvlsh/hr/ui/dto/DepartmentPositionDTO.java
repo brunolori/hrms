@@ -24,7 +24,7 @@ public class DepartmentPositionDTO implements Serializable {
     private Date createTime;
     private String updateUser;
     private Date updateTime;
-    private EmploymentDTO currentEmployee;
+    private EmployeeHistoryDTO currentEmployee;
     private DepartmentDTO department;
     private PositionDTO position;
     private PaymentCategoryDTO paymentCategory;

@@ -14,15 +14,15 @@ import com.bvlsh.hr.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.dto.DocumentDTO;
 import com.bvlsh.hr.dto.EducationDTO;
 import com.bvlsh.hr.dto.EducationTypeDTO;
-import com.bvlsh.hr.dto.EmploymentDTO;
+import com.bvlsh.hr.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.dto.GradeDTO;
 import com.bvlsh.hr.dto.InstitutionDTO;
 import com.bvlsh.hr.dto.JobValidationDTO;
 import com.bvlsh.hr.dto.PaymentCategoryDTO;
-import com.bvlsh.hr.dto.PersonDTO;
-import com.bvlsh.hr.dto.PersonForeignLanguageDTO;
-import com.bvlsh.hr.dto.PersonGradeDTO;
+import com.bvlsh.hr.dto.EmployeeDTO;
+import com.bvlsh.hr.dto.EmployeeForeignLanguageDTO;
+import com.bvlsh.hr.dto.EmployeeGradeDTO;
 import com.bvlsh.hr.dto.PositionDTO;
 import com.bvlsh.hr.dto.ProvisionTypeDTO;
 import com.bvlsh.hr.dto.RoleDTO;
@@ -43,15 +43,15 @@ import com.bvlsh.hr.entities.DepartmentPosition;
 import com.bvlsh.hr.entities.Document;
 import com.bvlsh.hr.entities.Education;
 import com.bvlsh.hr.entities.EducationType;
-import com.bvlsh.hr.entities.Employment;
+import com.bvlsh.hr.entities.EmployeeHistory;
 import com.bvlsh.hr.entities.ForeignLanguage;
 import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
 import com.bvlsh.hr.entities.JobValidation;
 import com.bvlsh.hr.entities.PaymentCategory;
-import com.bvlsh.hr.entities.Person;
-import com.bvlsh.hr.entities.PersonForeignLanguage;
-import com.bvlsh.hr.entities.PersonGrade;
+import com.bvlsh.hr.entities.Employee;
+import com.bvlsh.hr.entities.EmployeeForeignLanguage;
+import com.bvlsh.hr.entities.EmployeeGrade;
 import com.bvlsh.hr.entities.Position;
 import com.bvlsh.hr.entities.ProvisionType;
 import com.bvlsh.hr.entities.Role;
@@ -82,7 +82,7 @@ public class Assembler {
 		dto.setUpdateUser(e.getUpdateUser());
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		dto.setProvisionType(toDto(e.getProvisionType()));
 
 		return dto;
@@ -118,7 +118,7 @@ public class Assembler {
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setBank(toDto(e.getBank()));
-        dto.setPerson(toDto(e.getPerson()));
+        dto.setEmployee(toDto(e.getEmployee()));
 		return dto;
 
 	}
@@ -181,7 +181,7 @@ public class Assembler {
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setContactType(toDto(e.getContactType()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 
 		return dto;
 
@@ -333,7 +333,7 @@ public class Assembler {
 		dto.setUpdateUser(e.getUpdateUser());
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 
 		return dto;
 
@@ -369,7 +369,7 @@ public class Assembler {
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setEducationType(toDto(e.getEducationType()));
 		dto.setInstitution(toDto(e.getInstitution()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		dto.setStudyField(toDto(e.getStudyField()));
 
 		return dto;
@@ -418,11 +418,11 @@ public class Assembler {
 	}
 	
 	
-	public EmploymentDTO toDto(Employment e) {
+	public EmployeeHistoryDTO toDto(EmployeeHistory e) {
 
 		if (e == null) return null;
 
-		EmploymentDTO dto = new EmploymentDTO();
+		EmployeeHistoryDTO dto = new EmployeeHistoryDTO();
 		dto.setId(e.getId());
 		dto.setStartDate(e.getStartDate());
 		dto.setEndDate(e.getEndDate());
@@ -435,19 +435,19 @@ public class Assembler {
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setDepartmentPosition(toDto(e.getDepartmentPosition()));
 		dto.setPaymentCategory(toDto(e.getPaymentCategory()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 
 		return dto;
 
 	}
 
-	public List<EmploymentDTO> employmentListToDto(List<Employment> employment) {
+	public List<EmployeeHistoryDTO> employeeHistoryListToDto(List<EmployeeHistory> employeeHistory) {
 
-		if (employment == null || employment.isEmpty()) return null;
+		if (employeeHistory == null || employeeHistory.isEmpty()) return null;
 
-		List<EmploymentDTO> list = new ArrayList<>();
+		List<EmployeeHistoryDTO> list = new ArrayList<>();
 
-		for (Employment em : employment) {
+		for (EmployeeHistory em : employeeHistory) {
 			list.add(toDto(em));
 		}
 
@@ -553,7 +553,7 @@ public class Assembler {
 		dto.setUpdateUser(e.getUpdateUser());
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		dto.setValidationType(toDto(e.getValidationType()));
 
 		return dto;
@@ -601,10 +601,10 @@ public class Assembler {
 	}
 	
 	
-	public PersonDTO toDto(Person e) {
+	public EmployeeDTO toDto(Employee e) {
 		if (e == null) return null;
 
-		PersonDTO dto = new PersonDTO();
+		EmployeeDTO dto = new EmployeeDTO();
 		dto.setNid(e.getNid());
 		dto.setName(e.getName());
 		dto.setSurname(e.getSurname());
@@ -632,13 +632,13 @@ public class Assembler {
 		
 	}
 
-	public List<PersonDTO> personListToDto(List<Person> person) {
+	public List<EmployeeDTO> employeeListToDto(List<Employee> employee) {
 
-		if (person == null || person.isEmpty()) return null;
+		if (employee == null || employee.isEmpty()) return null;
 
-		List<PersonDTO> list = new ArrayList<>();
+		List<EmployeeDTO> list = new ArrayList<>();
 
-		for (Person p : person) {
+		for (Employee p : employee) {
 			list.add(toDto(p));
 		}
 
@@ -647,10 +647,10 @@ public class Assembler {
 	}
 	
 	
-	public PersonForeignLanguageDTO toDto(PersonForeignLanguage e) {
+	public EmployeeForeignLanguageDTO toDto(EmployeeForeignLanguage e) {
 		if (e == null) return null;
 
-		PersonForeignLanguageDTO dto = new PersonForeignLanguageDTO();
+		EmployeeForeignLanguageDTO dto = new EmployeeForeignLanguageDTO();
 		dto.setId(e.getId());
 		dto.setLevel(e.getLevel());
 		dto.setDescription(e.getDescription());
@@ -660,19 +660,19 @@ public class Assembler {
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setForeignLanguage(toDto(e.getForeignLanguage()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		
 		return dto;
 		
 	}
 
-	public List<PersonForeignLanguageDTO> personForeignLanguageListToDto(List<PersonForeignLanguage> personForeignLanguage) {
+	public List<EmployeeForeignLanguageDTO> employeeForeignLanguageListToDto(List<EmployeeForeignLanguage> employeeForeignLanguage) {
 
-		if (personForeignLanguage == null || personForeignLanguage.isEmpty()) return null;
+		if (employeeForeignLanguage == null || employeeForeignLanguage.isEmpty()) return null;
 
-		List<PersonForeignLanguageDTO> list = new ArrayList<>();
+		List<EmployeeForeignLanguageDTO> list = new ArrayList<>();
 
-		for (PersonForeignLanguage pfl : personForeignLanguage) {
+		for (EmployeeForeignLanguage pfl : employeeForeignLanguage) {
 			list.add(toDto(pfl));
 		}
 
@@ -680,28 +680,28 @@ public class Assembler {
 
 	}
 	
-	public PersonGradeDTO toDto(PersonGrade e) {
+	public EmployeeGradeDTO toDto(EmployeeGrade e) {
 		if (e == null) return null;
 
-		PersonGradeDTO dto = new PersonGradeDTO();
+		EmployeeGradeDTO dto = new EmployeeGradeDTO();
 	    dto.setId(e.getId());
 	    dto.setStartDate(e.getStartDate());
 	    dto.setEndDate(e.getEndDate());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setGrade(toDto(e.getGrade()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		
 		return dto;
 		
 	}
 
-	public List<PersonGradeDTO> personGradeListToDto(List<PersonGrade> personGrade) {
+	public List<EmployeeGradeDTO> employeeGradeListToDto(List<EmployeeGrade> employeeGrade) {
 
-		if (personGrade == null || personGrade.isEmpty()) return null;
+		if (employeeGrade == null || employeeGrade.isEmpty()) return null;
 
-		List<PersonGradeDTO> list = new ArrayList<>();
+		List<EmployeeGradeDTO> list = new ArrayList<>();
 
-		for (PersonGrade pg : personGrade) {
+		for (EmployeeGrade pg : employeeGrade) {
 			list.add(toDto(pg));
 		}
 
@@ -861,7 +861,7 @@ public class Assembler {
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setInstitution(toDto(e.getInstitution()));
-		dto.setPerson(toDto(e.getPerson()));
+		dto.setEmployee(toDto(e.getEmployee()));
 		dto.setTrainingType(toDto(e.getTrainingType()));
 		
 		return dto;

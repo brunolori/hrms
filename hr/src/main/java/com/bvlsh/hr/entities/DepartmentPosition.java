@@ -55,7 +55,7 @@ public class DepartmentPosition implements Serializable {
     private Date updateTime;
     @JoinColumn(name = "CURRENT_EMPLOYEE_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employment currentEmployee;
+    private EmployeeHistory currentEmployee;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;

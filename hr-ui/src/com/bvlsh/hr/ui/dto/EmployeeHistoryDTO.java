@@ -15,14 +15,21 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Getter @Setter
-public class PersonGradeDTO implements Serializable {
+public class EmployeeHistoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    
     private Integer id;
     private Date startDate;
     private Date endDate;
+    private String employeeNo;
+    private String dossierNo;
     private boolean status;
-    private GradeDTO grade;
-    private PersonDTO person;
-
+    private String createUser;
+    private Date createTime;
+    private String updateUser;
+    private Date updateTime;
+    private DepartmentPositionDTO departmentPosition;
+    private PaymentCategoryDTO paymentCategory;
+    private EmployeeDTO employee;
+    
 }

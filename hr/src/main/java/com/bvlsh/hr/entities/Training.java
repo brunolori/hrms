@@ -68,7 +68,7 @@ public class Training implements Serializable {
     private Institution institution;
     @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+    private Employee employee;
     @JoinColumn(name = "TRAINING_TYPE_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private TrainingType trainingType;

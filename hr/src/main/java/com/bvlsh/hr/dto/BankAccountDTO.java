@@ -27,7 +27,7 @@ public class BankAccountDTO implements Serializable {
     private String updateUser;
     private Date updateTime;
     private BankDTO bank;
-    private PersonDTO person;
+    private EmployeeDTO employee;
 
     
 }

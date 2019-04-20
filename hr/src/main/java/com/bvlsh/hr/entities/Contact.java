@@ -60,7 +60,7 @@ public class Contact implements Serializable {
     private ContactType contactType;
     @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
+    private Employee employee;
 
   
 }

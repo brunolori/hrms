@@ -30,7 +30,7 @@ public class TrainingDTO implements Serializable {
 	private String updateUser;
 	private Date updateTime;
 	private InstitutionDTO institution;
-	private PersonDTO person;
+	private EmployeeDTO employee;
 	private TrainingTypeDTO trainingType;
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bvlsh.hr.ui.dto;
+package com.bvlsh.hr.dto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,21 +15,14 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Getter @Setter
-public class EmploymentDTO implements Serializable {
+public class EmployeeGradeDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private Integer id;
     private Date startDate;
     private Date endDate;
-    private String employeeNo;
-    private String dossierNo;
     private boolean status;
-    private String createUser;
-    private Date createTime;
-    private String updateUser;
-    private Date updateTime;
-    private DepartmentPositionDTO departmentPosition;
-    private PaymentCategoryDTO paymentCategory;
-    private PersonDTO person;
-    
+    private GradeDTO grade;
+    private EmployeeDTO employee;
+
 }

@@ -29,21 +29,27 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Entity
-@Table(name = "person_foreign_language")
+@Table(name = "employment")
 @Getter @Setter
-public class PersonForeignLanguage implements Serializable {
+public class EmployeeHistory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 100)
-    @Column(name = "LEVEL")
-    private String level;
-    @Size(max = 200)
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "START_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+    @Column(name = "END_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+    @Size(max = 45)
+    @Column(name = "EMPLOYEE_NO")
+    private String employeeNo;
+    @Size(max = 45)
+    @Column(name = "DOSSIER_NO")
+    private String dossierNo;
     @Column(name = "STATUS")
     private Integer status;
     @Size(max = 45)
@@ -58,13 +64,14 @@ public class PersonForeignLanguage implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @JoinColumn(name = "FOREIGN_LANGUAGE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private ForeignLanguage foreignLanguage;
+    private DepartmentPosition departmentPosition;
+    @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PaymentCategory paymentCategory;
     @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person person;
-
-   
+    private Employee employee;
     
 }

@@ -26,7 +26,7 @@ public class ContactDTO implements Serializable {
     private String updateUser;
     private Date updateTime;
     private ContactTypeDTO contactType;
-    private PersonDTO person;
+    private EmployeeDTO employee;
 
   
 }

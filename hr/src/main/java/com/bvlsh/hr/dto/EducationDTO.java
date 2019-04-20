@@ -28,7 +28,7 @@ public class EducationDTO implements Serializable {
     private Date updateTime;
     private EducationTypeDTO educationType;
     private InstitutionDTO institution;
-    private PersonDTO person;
+    private EmployeeDTO employee;
     private StudyFieldDTO studyField;
 
    

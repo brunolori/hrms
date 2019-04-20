@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 
 @Getter @Setter
-public class PersonForeignLanguageDTO implements Serializable {
+public class EmployeeForeignLanguageDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private Integer id;
@@ -28,7 +28,7 @@ public class PersonForeignLanguageDTO implements Serializable {
     private String updateUser;
     private Date updateTime;
     private ForeignLanguageDTO foreignLanguage;
-    private PersonDTO person;
+    private EmployeeDTO employee;
 
    
     
