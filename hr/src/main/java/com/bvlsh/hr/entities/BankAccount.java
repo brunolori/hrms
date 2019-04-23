@@ -57,7 +57,7 @@ public class BankAccount implements Serializable {
     @JoinColumn(name = "BANK_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Bank bank;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

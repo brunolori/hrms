@@ -38,7 +38,7 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "SECRET")
     private String secret;
-    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "EMPLOYEE_HISTORY_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private EmployeeHistory employee;
     @JoinColumn(name = "ROLE_CODE", referencedColumnName = "CODE")

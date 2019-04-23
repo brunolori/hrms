@@ -29,7 +29,7 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Entity
-@Table(name = "employment")
+@Table(name = "employee_history")
 @Getter @Setter
 public class EmployeeHistory implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -70,7 +70,7 @@ public class EmployeeHistory implements Serializable {
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private PaymentCategory paymentCategory;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
     

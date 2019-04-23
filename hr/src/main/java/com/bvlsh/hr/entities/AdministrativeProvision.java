@@ -68,7 +68,7 @@ public class AdministrativeProvision implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
     @JoinColumn(name = "PROVISION_TYPE_ID", referencedColumnName = "ID")

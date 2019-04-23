@@ -58,7 +58,7 @@ public class Contact implements Serializable {
     @JoinColumn(name = "CONTACT_TYPE_ID", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private ContactType contactType;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

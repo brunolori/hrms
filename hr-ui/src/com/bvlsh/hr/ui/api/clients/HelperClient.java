@@ -32,7 +32,7 @@ import com.bvlsh.hr.ui.dto.ValidationTypeDTO;
 
 public class HelperClient {
 	
-	public List<ProvisionTypeDTO> provisionTypes()
+	public List<ProvisionTypeDTO> loadProvisionTypes()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/provisionTypes";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -55,7 +55,7 @@ public class HelperClient {
 		return null;
 	}
 	
-	public List<TrainingTypeDTO> trainingTypes()
+	public List<TrainingTypeDTO> loadTrainingTypes()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/trainingTypes";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -78,7 +78,7 @@ public class HelperClient {
 		return null;
 	}
 	
-	public List<ValidationTypeDTO> validationTypes()
+	public List<ValidationTypeDTO> loadValidationTypes()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/validationTypes";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -102,7 +102,7 @@ public class HelperClient {
 	}
 	
 	
-	public List<ForeignLanguageDTO> foreignLanguages()
+	public List<ForeignLanguageDTO> loadForeignLanguages()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/foreignLanguages";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -126,7 +126,7 @@ public class HelperClient {
 	}
 	
 	
-	public List<StudyFieldDTO> studyFields()
+	public List<StudyFieldDTO> loadStudyFields()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/studyFields";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -149,7 +149,7 @@ public class HelperClient {
 		return null;
 	}
 	
-	public List<EducationTypeDTO> educationTypes()
+	public List<EducationTypeDTO> loadEducationTypes()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/educationTypes";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -172,7 +172,7 @@ public class HelperClient {
 		return null;
 	}
 	
-	public List<InstitutionDTO> institutions()
+	public List<InstitutionDTO> loadInstitutions()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/institutions";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -197,7 +197,7 @@ public class HelperClient {
 	
 	
 	
-	public List<ContactTypeDTO> contactTypes()
+	public List<ContactTypeDTO> loadContactTypes()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/contactTypes";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -222,7 +222,7 @@ public class HelperClient {
 	
 	
 	
-	public List<PositionDTO> positions()
+	public List<PositionDTO> loadPositions()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/positions";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -246,7 +246,7 @@ public class HelperClient {
 	}
 
 
-	public List<BankDTO> banks()
+	public List<BankDTO> loadBanks()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/banks";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -269,7 +269,7 @@ public class HelperClient {
 		return null;
 	}
 	
-	public List<PaymentCategoryDTO> paymentCategories()
+	public List<PaymentCategoryDTO> loadPaymentCategories()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/paymentCategories";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -293,7 +293,7 @@ public class HelperClient {
 	}
 	
 	
-	public List<DepartmentCategoryDTO> departmentCategories()
+	public List<DepartmentCategoryDTO> loadDepartmentCategories()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/departmentCategories";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -317,7 +317,7 @@ public class HelperClient {
 	}
 	
 	
-	public List<StateDTO> states()
+	public List<StateDTO> loadStates()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/states";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -342,7 +342,7 @@ public class HelperClient {
 	
 	
 	
-	public List<RoleDTO> roles()
+	public List<RoleDTO> loadRoles()
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/roles";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -364,55 +364,6 @@ public class HelperClient {
 				
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 }

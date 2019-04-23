@@ -28,7 +28,7 @@ import lombok.Setter;
  * @author lorela.shehu
  */
 @Entity
-@Table(name = "person")
+@Table(name = "employee")
 @Getter @Setter
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
