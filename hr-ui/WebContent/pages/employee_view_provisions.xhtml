@@ -9,14 +9,58 @@
 
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+			
+			
 				<div class="card card-w-title">
-					<h1>Home</h1>
+					<h1>Masa Disiplinore</h1>
 					<div class="ui-g">
 						<div class="ui-g-12">
-							
+						<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
+							    
+								<p:outputLabel value="Lloji masës" />
+								<p:selectOneMenu placeholder="Lloji masës">
+									<f:selectItem itemValue="#{null}" itemLabel="Lloji" />
+									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Data"/>
+								<p:inputText placeholder="Data" />
+								<p:outputLabel value="Shënime"/>
+								<p:inputText placeholder="Shënime" />
+								
+							</p:panelGrid>
 						</div>
+						
+						
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Regjistro" icon="ui-icon-save" styleClass="blue-btn" />
+								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+						
 					</div>
 				</div>
+				
+				<div class="ui-g-12">
+					<p:dataTable value="" var="" rowIndexVar="r"
+						emptyMessage="Asnjë masë disiplinore e listuar">
+						<p:column headerText="#">
+							#{r+1}
+							</p:column>
+						<p:column headerText="Lloji masës"></p:column>
+						<p:column headerText="Data"></p:column>
+						<p:column headerText="Shënime"></p:column>						
+					</p:dataTable>
+				</div>
+		
+				
 			</div>
 		</div>
 

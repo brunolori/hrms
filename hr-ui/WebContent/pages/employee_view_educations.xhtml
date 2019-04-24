@@ -9,14 +9,67 @@
 
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+			
 				<div class="card card-w-title">
-					<h1>Home</h1>
+					<h1>Edukimi</h1>
 					<div class="ui-g">
 						<div class="ui-g-12">
-							
+						<p:panelGrid columns="2" layout="grid"
+								columnClasses="right bold ui-md-2, ui-md-4"
+								styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Institucioni" />
+								<p:selectOneMenu placeholder="Institucioni">
+									<f:selectItem itemValue="#{null}" itemLabel="Institucioni" />
+									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Tipi shkollimit" />
+								<p:selectOneMenu placeholder="Tipi shkollimit">
+									<f:selectItem itemValue="#{null}" itemLabel="Tipi" />
+									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Fusha e studimit" />
+								<p:selectOneMenu placeholder="Fusha e studimit">
+									<f:selectItem itemValue="#{null}" itemLabel="Tipi" />
+									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Data e fillimit" />
+								<p:inputText placeholder="Data e fillimit" />
+								<p:outputLabel value="Shënime" />
+								<p:inputText placeholder="Shënime" />
+							</p:panelGrid>
+						</div>
+
+
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Regjistro" styleClass="blue-btn" icon="ui-icon-save" />
+								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
 						</div>
 					</div>
 				</div>
+				<div class="ui-g-12">
+					<p:dataTable value="" var="" rowIndexVar="r"
+						emptyMessage="Asnjë edukim i listuar">
+						<p:column headerText="#">
+							#{r+1}
+							</p:column>
+						<p:column headerText="Institucioni"></p:column>
+						<p:column headerText="Tipi shkollimit"></p:column>
+						<p:column headerText="Fusha studimit"></p:column>
+						<p:column headerText="Data a fillimit"></p:column>
+						<p:column headerText="Shënime"></p:column>
+					</p:dataTable>
+				</div>
+
+
 			</div>
 		</div>
 

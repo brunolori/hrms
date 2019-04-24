@@ -48,8 +48,6 @@
 									</p:selectOneMenu>
                                     <p:inputText placeholder="Nga Data"/>
                                     <p:inputText placeholder="Në Datë"/>
-						
-
 								</p:panelGrid>
 
 
@@ -77,9 +75,7 @@
 					<p:dataTable value=" " var=" "
 						paginatorAlwaysVisible="false" paginator="true" rows="20"
 						rowIndexVar="r"	rowsPerPageTemplate="10,20,30,50" reflow="true">
-						<f:facet name="header">
-							Lista punonjësve
-						</f:facet>
+						<f:facet name="header">Lista punonjësve</f:facet>
 						<p:column headerText="#"> #{r+1}</p:column>
 						<p:column headerText="NID"></p:column>
 						<p:column headerText="Emri"> </p:column>

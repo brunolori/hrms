@@ -9,6 +9,13 @@
 
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
 				<div class="card card-w-title">
 					<h1>Regjistro Punonjës</h1>
 					<p:panel header="GJENERALITETET">
@@ -62,6 +69,15 @@
 								<p:commandButton value="Pastro"/>
 							</p:panelGrid>
 						</div>
+						
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Regjistro" styleClass="blue-btn" icon="ui-icon-save" />
+								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+				
 					</div>
 					</p:panel>
 				</div>
