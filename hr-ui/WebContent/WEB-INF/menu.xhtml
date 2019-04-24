@@ -14,8 +14,8 @@
                     <pa:menu>
                         <p:menuitem id="apl_dashboard" value="Dashboard" icon="fa fa-dashboard" action="#{menuBean.navigate('dashboard','pages')}"/>
                         <p:submenu  id="apl_emp" label="Punonjësit" icon="fa fa-user">
-                        <p:menuitem id="apl_mp_sx" value="Lista Punonjësve" icon="fa fa-list-ol" action="#{menuBean.navigate('employee_sx','pages')}"/>
-                        <p:menuitem id="apl_emp_add" value="Regjistro Punonjës" icon="fa fa-user-plus" action="#{menuBean.navigate('employee_add','pages')}"/>
+	                        <p:menuitem id="apl_mp_sx" value="Lista Punonjësve" icon="fa fa-list-ol" action="#{menuBean.navigate('employee_sx','pages')}"/>
+	                        <p:menuitem id="apl_emp_add" value="Regjistro Punonjës" icon="fa fa-user-plus" action="#{menuBean.navigate('employee_add','pages')}"/>
                         </p:submenu>
                         <p:menuitem id="apl_dept" value="Departamentet" icon="fa fa-building" action="#{menuBean.navigate('department_sx','pages')}"/>
                         <p:menuitem id="apl_org" value="Organigrama" icon="fa fa-sitemap" action="#{menuBean.navigate('organigrama','pages')}"/>
@@ -26,17 +26,7 @@
                    
                     </pa:menu>
 
-                    <div class="layout-menu-footer">
-                        <div class="layout-menu-footer-title">TASKS</div>
-
-                        <div class="layout-menu-footer-content">
-                            <p:progressBar value="50" labelTemplate="" displayOnly="true"/>
-                            Today
-
-                            <p:progressBar value="80" labelTemplate=""  displayOnly="true"/>
-                            Overall
-                        </div>
-                    </div>
+                    
 
                 </h:form>
                 

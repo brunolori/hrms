@@ -21,7 +21,7 @@ public class DepartmentDTO implements Serializable {
    
     private Integer id;
     private String name;
-    private String positionsNo;
+    private Integer positionsNo;
     private boolean expanded;
     private String color;
     private boolean status;

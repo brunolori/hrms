@@ -2,18 +2,94 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" >
 
+<style>
+.ui-organigram .ui-organigram-node.division {
+	background: #93e7ff;
+	background: -moz-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: -webkit-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: linear-gradient(to bottom, #93e7ff 0%, #007efc 100%);
+}
 
-	<h:form id="home_form">
+.ui-organigram .ui-organigram-node.employee {
+	background: #88c048;
+	background: -moz-linear-gradient(top, #88c048 0%, #69a038 100%);
+	background: -webkit-linear-gradient(top, #88c048 0%, #69a038 100%);
+	background: linear-gradient(to bottom, #88c048 0%, #69a038 100%);
+}
+</style>
 
+	<h:form id="organigrama_form">
+<p:growl showDetail="true">
+				     	<p:autoUpdate/>
+					</p:growl>
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h1>Home</h1>
+					<h1>Organigrama e Ministrisë së Brendshme</h1>
 					<div class="ui-g">
+					
 						<div class="ui-g-12">
-							
+							<p:organigram id="organigram" widgetVar="organigram"
+								value="#{opOrganigramBean.rootNode}" var="node"
+								leafNodeConnectorHeight="#{opOrganigramBean.leafNodeConnectorHeight}"
+								autoScrollToSelection="#{opOrganigramBean.autoScrollToSelection}"
+								zoom="#{opOrganigramBean.zoom}"
+								selection="#{opOrganigramBean.selection}">
+
+								<p:ajax event="select" process="@this" update="@form" />
+								<p:ajax event="contextmenu" process="@this" />
+								<p:ajax event="expand" process="@this" update="@form" />
+
+								<p:organigramNode>
+									<h:outputText value="#{node.data.display()}" escape="false"/>
+								</p:organigramNode>
+
+								<p:organigramNode type="root" style="border-radius: 10px;">
+									<p:graphicImage value="#{photoBean.photo}" width="50px">
+										<f:param name="nid" value="#{node.data.nid}" />
+									</p:graphicImage>
+									<br />
+									<h:outputText value="#{node.data.display()}" escape="false" />
+								</p:organigramNode>
+
+								<p:organigramNode type="division" skipLeafHandling="true"
+									styleClass="division" style="background:#{node.data.color==null?'#63a935':node.data.color};" >
+									<h:panelGroup layout="block" rendered="#{node.data.singlePosition}">
+										<p:graphicImage value="#{photoBean.photo}"  width="50px">
+											<f:param name="nid" value="#{node.data.nid}" />
+										</p:graphicImage>
+										<br/>
+									</h:panelGroup>
+									     <h:outputText value="#{node.data.display()}" escape="false" /><br/>
+								</p:organigramNode>
+
+								<p:organigramNode type="employee" styleClass="employee" >
+									<p:graphicImage value="#{photoBean.photo}" width="50px">
+										<f:param name="nid" value="#{node.data.nid}" />
+									</p:graphicImage><br/>
+									<h:outputText value="#{node.data.display()}" escape="false" />
+								</p:organigramNode>
+							</p:organigram>
+
+							<p:contextMenu for="organigram" nodeType="employee">
+								<p:menuitem value="Hiq punonjesin" update="organigram" action="#{opOrganigramBean.removePerson()}" />
+							</p:contextMenu>
+
+							<p:contextMenu for="organigram" nodeType="division">
+								<p:menuitem value="Shto punonjës" action="#{opOrganigramBean.prepareAddPosition()}"
+							            	update=":add_position_dlg" oncomplete="PF('addPositionWid').show();" />
+								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPersons()}"
+											update=":list_dept_pos_dlg" oncomplete="PF('listDeptPosWid').show();" />
+								<p:menuitem value="Historiku pozicionit" action="#{opOrganigramBean.listDepartmentPositionsHistory()}"
+											update=":list_dept_history_dlg" oncomplete="PF('listDeptHistoryWid').show();"/>
+								<p:menuitem value="Shto departament" action="#{opOrganigramBean.prepareAddDepartment()}"
+								            update=":add_dept_dlg" oncomplete="PF('addDeptWid').show();"  />
+								<p:menuitem value="Shfaq punonjësit në diagramë" action="#{opOrganigramBean.expandDepartmentPersons()}"
+											update="@form" />
+							</p:contextMenu>
 						</div>
 					</div>
 				</div>
@@ -21,5 +97,178 @@
 		</div>
 
 	</h:form>
+	
+	
+	<p:dialog id="add_dept_dlg" widgetVar="addDeptWid" header="Shto Departament" modal="true"
+	                   width="800" closeOnEscape="true" responsive="true">
+	
+		<h:form id="add_dept_frm">
+			
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+						<p:outputLabel value="Emri Departamentit"/>
+						<p:inputTextarea id="dept_name" value="#{opOrganigramBean.departmentForm.name}"/>
+						<p:outputLabel value="Nr pozicioneve"/>
+						<p:inputText value="#{opOrganigramBean.departmentForm.positionsNo}"/>
+						<p:outputLabel value="Expanded(hapur)"/>
+						<p:selectBooleanCheckbox id="expanded" value="#{opOrganigramBean.departmentForm.expanded}"/>
+						<p:outputLabel value="Ngjyra"/>
+						<p:colorPicker value="#{opOrganigramBean.departmentForm.color}" mode="inline" />
+						<p:outputLabel value="Zona"/>
+						
+						
+							
+							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addDepartment()}"
+							                 update=":party_structure_form" oncomplete="PF('addDeptWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Regjistro departamentin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('addDeptWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+							</p:commandButton>
+							
+							
+					</p:panelGrid>
+				</div>
+
+			</div>
+						
+		</h:form>
+		
+	</p:dialog>
+	
+	
+	<p:dialog id="add_position_dlg" widgetVar="addPositionWid" modal="true"
+	 header="Shto Person" width="500" closeOnEscape="true" responsive="true">
+	
+		<h:form id="add_position_frm">
+			
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+				    
+				    	<p:outputLabel value="Personi"/>
+						<p:autoComplete id="ac_entity"
+										placeholder="Emër (Atësi) Mbiemër"
+										value="#{opOrganigramBean.selectedEmployee}" queryDelay="500"
+										completeMethod="#{opOrganigramBean.searchEmployee}" var="e"
+										itemLabel="#{e.fullName()}" itemValue="#{e}">
+								<o:converter converterId="omnifaces.ListIndexConverter"
+											list="#{opOrganigramBean.employees}" />
+							  
+						</p:autoComplete>
+						
+						<p:outputLabel value="Funksioni" />
+						<p:selectOneMenu value="#{opOrganigramBean.positionId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Funksioni"/>
+							<f:selectItems value="#{viewPartyStructureBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
+						</p:selectOneMenu>						
+						
+							
+							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addPosition()}"
+							                 update=":party_structure_form" oncomplete="PF('addPositionWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Regjistro pozicionin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('addPositionWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+							</p:commandButton>
+							
+							
+					</p:panelGrid>
+				</div>
+
+			</div>
+						
+		</h:form>
+		
+	</p:dialog>
+	
+	
+	<p:dialog id="list_dept_pos_dlg" widgetVar="listDeptPosWid" modal="true"
+	 header="Lista e personave" width="800" closeOnEscape="true" responsive="true">
+		<h:form id="dept_persons_frm">
+		
+			<p:dataTable value="#{opOrganigramBean.departmentPositions}" var="dp" emptyMessage="Nuk ka persona"
+		                 rowIndexVar="r" rows="10" paginator="true" paginatorAlwaysVisible="false" 
+		                 rowsPerPageTemplate="5,10,15,20,50" styleClass="no-border">
+			<p:column headerText="#">
+				#{r+1}
+			</p:column>
+			<p:column headerText="Foto">
+			    <p:graphicImage value="#{photoBean.photo}"  width="50px">
+							<f:param name="nid" value="#{dp.person.nid}" />
+				</p:graphicImage>
+			</p:column>
+			<p:column headerText="Personi">
+			 #{dp.person.name} #{dp.person.fatherName} #{dp.person.surname}
+			</p:column>
+			<p:column headerText="Struktura">
+				#{dp.department.name}
+			</p:column>
+			<p:column headerText="Funksioni">
+				#{dp.function.name}
+			</p:column>
+			<p:column headerText="Data pozicionit">
+			    #{formatBean.formatDate(dp.startDate)}
+			</p:column>
+			
+			</p:dataTable>
+		
+		
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog id="list_dept_history_dlg" widgetVar="listDeptHistoryWid" modal="true"
+	 header="Lista e personave" width="800" closeOnEscape="true" responsive="true">
+		<h:form id="dept_history_persons_frm">
+		
+			<p:dataTable value="#{opOrganigramBean.departmentPositions}" var="dp" emptyMessage="Nuk ka persona"
+		                 rowIndexVar="r" rows="10" paginator="true" paginatorAlwaysVisible="false" 
+		                 rowsPerPageTemplate="5,10,15,20,50" styleClass="no-border">
+			<p:column headerText="#">
+				#{r+1}
+			</p:column>
+			<p:column headerText="Foto">
+			    <p:graphicImage value="#{photoBean.photo}"  width="50px">
+							<f:param name="nid" value="#{dp.person.nid}" />
+				</p:graphicImage>
+			</p:column>
+			<p:column headerText="Personi">
+			 #{dp.person.name} #{dp.person.fatherName} #{dp.person.surname}
+			</p:column>
+			<p:column headerText="Funksioni">
+				#{dp.function.name}
+			</p:column>
+			<p:column headerText="Struktura">
+				#{dp.department.name}
+			</p:column>
+			<p:column headerText="Nga data">
+			    #{formatBean.formatDate(dp.startDate)}
+			</p:column>
+			<p:column headerText="Në datën">
+			    #{formatBean.formatDate(dp.endDate)}
+			</p:column>
+			
+			</p:dataTable>
+		
+		
+		</h:form>
+	</p:dialog>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </ui:composition>

@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<h:form id="home_form">
+	<h:form id="add_emp_form">
 
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
@@ -16,30 +16,50 @@
 						<div class="ui-g-12">
 							<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
 							    <p:outputLabel value="NID"/>
-								<p:inputText placeholder="NID" />
+								<p:inputText placeholder="NID" value="#{opEmployeeAddBean.form.nid}" />
 								<p:outputLabel value="Emri"/>
-								<p:inputText placeholder="Emri" />
+								<p:inputText placeholder="Emri" value="#{opEmployeeAddBean.form.name}" />
 								<p:outputLabel value="Atësia"/>
-								<p:inputText placeholder="Atësia" />
+								<p:inputText placeholder="Atësia" value="#{opEmployeeAddBean.form.fatherName}"/>
 								<p:outputLabel value="Mbiemri"/>
-								<p:inputText placeholder="Mbiemri" />
+								<p:inputText placeholder="Mbiemri" value="#{opEmployeeAddBean.form.surname}"/>
 								<p:outputLabel value="Mëmësia"/>
-								<p:inputText placeholder="Mëmësia" />
+								<p:inputText placeholder="Mëmësia" value="#{opEmployeeAddBean.form.motherName}"/>
 								<p:outputLabel value="Mbiemri vajzërisë"/>
-								<p:inputText placeholder="Mbiemri vajzërisë" />
+								<p:inputText placeholder="Mbiemri vajzërisë" value="#{opEmployeeAddBean.form.maidenName}"/>
 								<p:outputLabel value="Datëlindja"/>
-								<p:inputText placeholder="Datëlindja" />
+								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Datëlindja" value="#{opEmployeeAddBean.form.dob}"/>
 								<p:outputLabel value="Vendlindja"/>
-								<p:inputText placeholder="Vendlindja" />
+								<p:inputText placeholder="Vendlindja" value="#{opEmployeeAddBean.form.pob}"/>
 								<p:outputLabel value="Gjinia"/>
-								<p:selectOneMenu placeholder="Gjinia">
+								<p:selectOneMenu placeholder="Gjinia" value="#{opEmployeeAddBean.form.gender}">
 										<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
 										<f:selectItem itemValue="M" itemLabel="M" />
 										<f:selectItem itemValue="F" itemLabel="F" />
-									</p:selectOneMenu>
-									<p:outputLabel value="Kombësia"/>
-								<p:inputText placeholder="Kombësia" />
-								
+								</p:selectOneMenu>
+								<p:outputLabel value="Kombësia"/>
+								<p:autocomplete placeholder="Kombësia" />
+								<p:outputLabel value="Shtetësia"/>
+								<p:autocomplete placeholder="Shtetësia" />
+								<p:outputLabel value="Departamenti"/>
+								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeAddBean.departmentId}" >
+									<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Pozicioni"/>
+								<p:selectOneMenu placeholder="Pozicioni" value="#{opEmployeeAddBean.form.departmentPositionId}" >
+									<f:selectItem itemValue="#{null}" itemLabel="Pozicioni"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Kategoria e pagës"/>
+								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeAddBean.form.paymentCategoryId}" >
+									<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
+								</p:selectOneMenu>
+																
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12">
+							<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Regjistro"/>
+								<p:commandButton value="Pastro"/>
 							</p:panelGrid>
 						</div>
 					</div>

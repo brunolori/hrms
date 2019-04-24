@@ -1,8 +1,11 @@
 package com.bvlsh.hr.ui.beans.application;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+
+import com.bvlsh.hr.ui.dto.PositionDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +22,8 @@ public class CacheBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	List<PositionDTO> positions;
+	
 	
 	
 	@PostConstruct
@@ -27,6 +32,11 @@ public class CacheBean implements Serializable {
 		
 		
 	}
+	
+	
+	
+	
+	
 	
 	
 	/*

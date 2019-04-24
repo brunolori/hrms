@@ -43,7 +43,7 @@ public class Department implements Serializable {
     private String name;
     @Size(max = 45)
     @Column(name = "POSITIONS_NO")
-    private String positionsNo;
+    private Integer positionsNo;
     @Column(name = "EXPANDED")
     private Integer expanded;
     @Size(max = 45)

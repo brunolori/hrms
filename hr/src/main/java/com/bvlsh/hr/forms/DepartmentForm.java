@@ -11,7 +11,7 @@ public class DepartmentForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	String name;
-	String positionsNo;
+	Integer positionsNo;
 	boolean expanded;
 	String color;
 	Integer categoryId;

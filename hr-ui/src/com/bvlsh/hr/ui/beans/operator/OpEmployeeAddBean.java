@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import com.bvlsh.hr.ui.forms.EmployeeForm;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +14,14 @@ import lombok.Setter;
 @ViewScoped
 @Getter @Setter
 public class OpEmployeeAddBean implements Serializable {
+	
+	
+	
+	
+	EmployeeForm form;
+	Integer departmentId;
+	
+	
+	
 
 }

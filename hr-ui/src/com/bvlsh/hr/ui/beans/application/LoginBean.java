@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
-import com.bvlsh.hr.ui.constants.IRole;
 import com.bvlsh.hr.ui.forms.PasswordForm;
 import com.bvlsh.hr.ui.models.Principal;
 import com.bvlsh.hr.ui.models.UserToken;
@@ -41,9 +40,6 @@ public class LoginBean implements Serializable {
 	String password;
 	
 	UserToken userToken;
-	
-	String menu;
-	
 	
 	PasswordForm form;
 	
@@ -83,15 +79,9 @@ public class LoginBean implements Serializable {
 		try {
 			
 			this.userToken = new UserService().login(principal);
-
 			
-			if(userToken.getUser().getRole().getCode().equals(IRole.OPERATOR))
-			{
-				menu = "operator_menu.xhtml";
-				nav.navigate("home");
-				Util.redirect("operator/main");
-			}
-			
+			nav.navigate("home");
+			Util.redirect("pages/main");			
 
 		}catch(Exception a) {
 			Messages.throwFacesMessage(a);
@@ -119,7 +109,7 @@ public class LoginBean implements Serializable {
 	public void changePassword()
 	{
 		try {
-		//	new UserService().changePassword(form);
+			new UserService().changePassword(form);
 			this.form = new PasswordForm();
 			Messages.throwFacesMessage("Fjalekalimi u ndryshua me sukses",1);
 		}catch(Exception e)
