@@ -310,6 +310,22 @@ body {
             padding: $headerPadding;
         }
     }
+    
+    .ui-dataview {
+        .ui-dataview-header {
+            padding: $headerPadding;
+            
+            .ui-dataview-layout-options {
+                .ui-button-icon-only {
+                    width: 2.5em;
+                }
+            }
+        }
+
+        .ui-paginator {
+            padding: $headerPadding;
+        }
+    }
 
     .ui-picklist {
         .ui-picklist-buttons {

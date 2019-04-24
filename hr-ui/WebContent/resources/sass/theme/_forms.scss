@@ -1,4 +1,4 @@
-body {    
+body { 
     .ui-inputfield {
         color: $textColor;
         font-size: $fontSize;
@@ -390,6 +390,41 @@ body {
         }
     }
     
+    .ui-toggleswitch {
+        height: 16px;
+        width: 36px !important;
+        
+        .ui-toggleswitch-slider {
+            @include transition(background-color $transitionDuration);
+            background-color: $inputBgColor;
+            border: 1px solid $inputBorderColor;
+            @include border-radius(8px);
+            
+            &:before {
+                background-color: darken($inputBgColor, 10%);
+                @include border-radius(50%);
+                @include transition($transitionDuration);
+                width: 20px !important;
+                height: 20px !important;
+                left: auto;
+                bottom: -3px;
+            }
+        }
+        
+        &.ui-toggleswitch-checked {
+            .ui-toggleswitch-slider {
+                background-color: lighten($primaryColor, 15%);
+                border-color: lighten($primaryColor, 15%);
+            
+                &:before {
+                    background-color: lighten($primaryColor, 5%);
+                    color: lighten($primaryColor, 5%);
+                    @include translateX(15px);
+                }
+            }
+        }
+    }
+    
     .ui-autocomplete {
         .ui-autocomplete-dropdown {
             width: 28px;
@@ -578,7 +613,7 @@ body {
                       
             .ui-icon-triangle-1-s {
                 color: $textSecondaryColor;
-                margin-top: 7px;
+                margin-top: 6px;
                 @include icon_override("\f078");
             }
         }
@@ -612,6 +647,12 @@ body {
                     .ui-selectcheckboxmenu-token-icon {
                         margin-top: -7px;
                     }
+                }
+            }
+            
+            .ui-selectcheckboxmenu-trigger {
+                .ui-icon {
+                    top: auto;
                 }
             }
         }
@@ -1190,6 +1231,146 @@ body {
         }
     }
     
+    .p-datepicker-panel {
+        border: 0 none;
+
+        &:not(.ui-datepicker-inline) {
+            @include overlay-shadow();
+        }
+
+        .ui-datepicker-header {
+            .ui-datepicker-prev {
+                outline: 0 none;
+
+                &:hover {
+                    color: $headerIconHoverColor;
+                    left: 2px;
+                }
+            }
+            
+            .ui-datepicker-next {
+                outline: 0 none;
+
+                &:hover {
+                    color: $headerIconHoverColor;
+                    right: 2px;
+                }
+            }
+        }
+        
+        table {
+            td {
+                a {
+                    &:hover {
+                        @include list-item-hover();
+                    }
+
+                    &.ui-state-highlight {
+                        color: $primaryTextColor;
+                        background-color: $primaryColor;
+                    }
+                    
+                    &.ui-state-active {
+                        color: $primaryTextColor;
+                        background-color: $primaryColor;
+                    }
+                }
+                
+                a,span {
+                    width: 100%;
+                    @include box-sizing(border-box);
+                }
+                
+                &.ui-datepicker-today {
+                    a {
+                        background-color: $dividerColor;
+                        color: $textColor;
+                    }
+                }
+            }
+        }
+
+        &.ui-datepicker-multiple-month {            
+            .ui-datepicker-group {
+                width: 17em;
+                
+                &:last-child {
+                    border-right-width: 0px;
+                }
+            }
+        }
+        
+        &.ui-datepicker-monthpicker {
+            .ui-monthpicker {
+                .ui-monthpicker-month {
+                    color: $textColor;
+                    @include box-sizing(border-box);
+                    
+                    &:hover {
+                        @include list-item-hover();
+                    }
+                    
+                    &.ui-state-active {
+                        color: $primaryTextColor;
+                        background-color: $primaryColor;
+                    }
+                }
+            }
+        }
+        
+        .ui-timepicker {
+            font-weight: normal;
+            border-top: 0 none;
+            
+            .ui-picker-up {
+                color: $headerIconColor;
+                @include icon_override("\f077");
+                display: block;
+                margin-bottom: .2em;
+                
+                span {
+                    display: none;
+                }
+                
+                &:hover {
+                    color: $headerIconHoverColor;
+                }
+            }
+            
+            .ui-picker-down {
+                color: $headerIconColor;
+                @include icon_override("\f078");
+                display: block;
+                margin-top: .2em;
+                
+                span {
+                    display: none;
+                }
+                
+                &:hover {
+                    color: $headerIconHoverColor;
+                }
+            }
+        }
+        
+        .ui-datepicker-buttonbar {
+            border-top: 0 none;
+            
+            .ui-button {
+                width: auto;
+                
+                &:focus {
+                    outline: 0 none;
+                    @include shadow(0 0 14px 0 $primaryColor);
+                }
+
+                &:hover {
+                    background-color: darken($primaryColor,5%);
+                }
+            }
+        }
+    }
+    
     .ui-inplace {
         .ui-inplace-display {
             padding: $inputPadding;
@@ -1227,7 +1408,8 @@ body {
         }
     }
     
-    #keypad-div {
+    #keypad-div,
+    .keypad-popup {
         padding: $contentPadding;
         
         button {

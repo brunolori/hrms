@@ -58,6 +58,12 @@ body {
         }
     }
     
+    .ui-panelgrid { 
+        .ui-panelgrid-cell {
+            border-color: $headerBorderColor; 
+        }
+    }
+    
     .ui-fieldset {         
         padding: 0 0 6px 0;
                

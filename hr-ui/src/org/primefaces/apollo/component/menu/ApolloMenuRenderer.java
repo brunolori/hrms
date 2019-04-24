@@ -1,6 +1,7 @@
 package org.primefaces.apollo.component.menu;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,11 +16,13 @@ import org.primefaces.component.menu.AbstractMenu;
 import org.primefaces.component.menu.BaseMenuRenderer;
 import org.primefaces.component.menuitem.UIMenuItem;
 import org.primefaces.component.submenu.UISubmenu;
+import org.primefaces.expression.SearchExpressionFacade;
 import org.primefaces.model.menu.MenuElement;
 import org.primefaces.model.menu.MenuItem;
 import org.primefaces.model.menu.Separator;
 import org.primefaces.model.menu.Submenu;
-import org.primefaces.util.ComponentUtils;
+import org.primefaces.util.AjaxRequestBuilder;
+import org.primefaces.util.ComponentTraversalUtils;
 import org.primefaces.util.WidgetBuilder;
 
 public class ApolloMenuRenderer extends BaseMenuRenderer {
@@ -210,7 +213,7 @@ public class ApolloMenuRenderer extends BaseMenuRenderer {
             else {
                 writer.writeAttribute("href", "#", null);
 
-                UIComponent form = ComponentUtils.findParentForm(context, menu);
+                UIComponent form = ComponentTraversalUtils.closestForm(context, menu);
                 if(form == null) {
                     throw new FacesException("MenuItem must be inside a form element");
                 }
@@ -226,10 +229,10 @@ public class ApolloMenuRenderer extends BaseMenuRenderer {
                     idParams.add(menuitem.getId());
                     params.put(menuClientId + "_menuid", idParams);
 
-                    command = menuitem.isAjax() ? buildAjaxRequest(context, menu, (AjaxSource) menuitem, form, params) : buildNonAjaxRequest(context, menu, form, menuClientId, params, true);
+                    command = menuitem.isAjax() ? createAjaxRequest(context, menu, (AjaxSource) menuitem, form, params) : buildNonAjaxRequest(context, menu, form, menuClientId, params, true);
                 } 
                 else {
-                    command = menuitem.isAjax() ? buildAjaxRequest(context, (AjaxSource) menuitem, form) : buildNonAjaxRequest(context, ((UIComponent) menuitem), form, ((UIComponent) menuitem).getClientId(context), true);
+                    command = menuitem.isAjax() ? createAjaxRequest(context, (AjaxSource) menuitem, form) : buildNonAjaxRequest(context, ((UIComponent) menuitem), form, ((UIComponent) menuitem).getClientId(context), true);
                 }
 
                 onclick = (onclick == null) ? command : onclick + ";" + command;
@@ -302,4 +305,99 @@ public class ApolloMenuRenderer extends BaseMenuRenderer {
         wb.init("Apollo", menu.resolveWidgetVar(), clientId).finish();
     }
     
+    protected String createAjaxRequest(FacesContext context, AjaxSource source, UIComponent form) {
+        UIComponent component = (UIComponent) source;
+        String clientId = component.getClientId(context);
+        
+        AjaxRequestBuilder builder = getAjaxRequestBuilder();
+
+        builder.init()
+                .source(clientId)
+                .form(SearchExpressionFacade.resolveClientId(context, component, source.getForm()))
+                .process(component, source.getProcess())
+                .update(component, source.getUpdate())
+                .async(source.isAsync())
+                .global(source.isGlobal())
+                .delay(source.getDelay())
+                .timeout(source.getTimeout())
+                .partialSubmit(source.isPartialSubmit(), source.isPartialSubmitSet(), source.getPartialSubmitFilter())
+                .resetValues(source.isResetValues(), source.isResetValuesSet())
+                .ignoreAutoUpdate(source.isIgnoreAutoUpdate())
+                .onstart(source.getOnstart())
+                .onerror(source.getOnerror())
+                .onsuccess(source.getOnsuccess())
+                .oncomplete(source.getOncomplete())
+                .params(component);
+
+        if (form != null) {
+            builder.form(form.getClientId(context));
+        }
+
+        builder.preventDefault();
+
+        return builder.build();
+    }
+    
+    protected String createAjaxRequest(FacesContext context, AbstractMenu menu, AjaxSource source, UIComponent form,
+            Map<String, List<String>> params) {
+        
+        String clientId = menu.getClientId(context);
+
+        AjaxRequestBuilder builder = getAjaxRequestBuilder();
+
+        builder.init()
+                .source(clientId)
+                .process(menu, source.getProcess())
+                .update(menu, source.getUpdate())
+                .async(source.isAsync())
+                .global(source.isGlobal())
+                .delay(source.getDelay())
+                .timeout(source.getTimeout())
+                .partialSubmit(source.isPartialSubmit(), source.isPartialSubmitSet(), source.getPartialSubmitFilter())
+                .resetValues(source.isResetValues(), source.isResetValuesSet())
+                .ignoreAutoUpdate(source.isIgnoreAutoUpdate())
+                .onstart(source.getOnstart())
+                .onerror(source.getOnerror())
+                .onsuccess(source.getOnsuccess())
+                .oncomplete(source.getOncomplete())
+                .params(params);
+
+        if (form != null) {
+            builder.form(form.getClientId(context));
+        }
+
+        builder.preventDefault();
+
+        return builder.build();
+    }
+    
+    protected AjaxRequestBuilder getAjaxRequestBuilder() {
+        @SuppressWarnings("rawtypes")
+		Class rootContext;
+        Object requestContextInstance;
+        AjaxRequestBuilder builder;
+
+        try {
+            rootContext = Class.forName("org.primefaces.context.PrimeRequestContext");
+        } catch (ClassNotFoundException ex) {
+            try {
+                rootContext = Class.forName("org.primefaces.context.RequestContext");
+            } catch (ClassNotFoundException ex1) {
+                throw new RuntimeException(ex1);
+            }
+        }
+
+        try {
+            @SuppressWarnings("unchecked")
+			Method method = rootContext.getMethod("getCurrentInstance");
+            requestContextInstance = method.invoke(null);
+
+            method = requestContextInstance.getClass().getMethod("getAjaxRequestBuilder");
+            builder = (AjaxRequestBuilder) method.invoke(requestContextInstance);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return builder;
+    }
 }
