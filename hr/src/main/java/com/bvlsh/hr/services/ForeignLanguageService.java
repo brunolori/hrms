@@ -25,6 +25,6 @@ public class ForeignLanguageService {
 
 	public EmployeeForeignLanguage modifyForeignLanguage(ForeignLanguageForm form, String uname) {return null;}
 
-	public EmployeeForeignLanguage deleteForeignLanguage(Integer foreignLanguageId, String uname) {return null;}
+	public void deleteForeignLanguage(Integer foreignLanguageId, String uname) {}
 
 }

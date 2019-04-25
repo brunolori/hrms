@@ -13,26 +13,16 @@ import com.bvlsh.hr.forms.EducationSx;
 @Service
 public class EducationService {
 
-	@Autowired
-	EducationDAO educationDAO;
+	@Autowired EducationDAO educationDAO;
 
 	public List<Education> searchEducations(EducationSx sx, String uname) {
 		return educationDAO.searchEducations(sx);
 	}
 
-	public Education registerEducation(EducationForm form, String uname) {
+	public Education registerEducation(EducationForm form, String uname) {return null;}
 
-		return null;
-	}
+	public Education modifyEducation(EducationForm form, String uname) {return null;}
 
-	public Education modifyEducation(EducationForm form, String uname) {
-
-		return null;
-	}
-
-	public Education deleteEducation(Integer educationId, String uname) {
-
-		return null;
-	}
+	public void deleteEducation(Integer educationId, String uname) {}
 
 }

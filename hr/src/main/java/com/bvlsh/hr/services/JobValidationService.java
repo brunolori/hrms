@@ -23,6 +23,6 @@ public class JobValidationService {
 	
 	public JobValidation registerJobValidation(JobValidationForm form, String uname) {return null;}
 	public JobValidation modifyJobValidation(JobValidationForm form, String uname) {return null;}
-	public JobValidation deleteJobValidation(Integer jobValidationId, String uname) {return null;}
+	public void deleteJobValidation(Integer jobValidationId, String uname) {}
 
 }
