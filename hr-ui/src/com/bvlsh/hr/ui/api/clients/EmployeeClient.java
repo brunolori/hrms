@@ -137,28 +137,25 @@ public class EmployeeClient {
 		return null;
 	}
 
-	public List<EmployeeDTO> getEmployeeByNid(String nid) 
+	public EmployeeDTO getEmployeeByNid(String nid)
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/employee/getEmployeeByNid" + nid;
-		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
-
+		final String BASE_URL = IApiClient.SERVER+"/api/employee/getEmployeeByNid"+nid;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setErrorHandler(new ApiErrorHandler());
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer " + Util.getToken());
-		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		headers.set("Authorization", "Bearer "+Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
 		HttpEntity<?> entity = new HttpEntity<>(headers);
-
-		ParameterizedTypeReference<List<EmployeeDTO>> typeRef = new ParameterizedTypeReference<List<EmployeeDTO>>() {
-		};
-
-		ResponseEntity<List<EmployeeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
-				entity, typeRef);
-
-		if (response.getStatusCode() == HttpStatus.OK) {
+				
+		ResponseEntity<EmployeeDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, EmployeeDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
 			return response.getBody();
 		}
-
+				
 		return null;
 	}
 
