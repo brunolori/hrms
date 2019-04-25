@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.bvlsh.hr.ui.api.security.ApiErrorHandler;
 import com.bvlsh.hr.ui.constants.IApiClient;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
+import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.EmployeeSx;
 import com.bvlsh.hr.ui.utils.Util;
@@ -112,7 +113,7 @@ public class EmployeeClient {
 		return null;
 	}
 
-	public List<EmployeeDTO> getEmployeeHistory(String nid) 
+	public List<EmployeeHistoryDTO> getEmployeeHistory(String nid) 
 	{
 		final String BASE_URL = IApiClient.SERVER + "/api/employee/getEmployeeHistory" + nid;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
@@ -124,10 +125,10 @@ public class EmployeeClient {
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-		ParameterizedTypeReference<List<EmployeeDTO>> typeRef = new ParameterizedTypeReference<List<EmployeeDTO>>() {
+		ParameterizedTypeReference<List<EmployeeHistoryDTO>> typeRef = new ParameterizedTypeReference<List<EmployeeHistoryDTO>>() {
 		};
 
-		ResponseEntity<List<EmployeeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
+		ResponseEntity<List<EmployeeHistoryDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
 				entity, typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {

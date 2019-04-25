@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bvlsh.hr.ui.api.clients.EmployeeClient;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
+import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.EmployeeSx;
 
@@ -31,7 +32,7 @@ public class EmployeeService {
 		return new EmployeeClient().searchEmployee(sx);
 	}
 
-	public List<EmployeeDTO> getEmployeeHistory(String nid) 
+	public List<EmployeeHistoryDTO> getEmployeeHistory(String nid) 
 	{
 		return new EmployeeClient().getEmployeeHistory(nid);
 	}
