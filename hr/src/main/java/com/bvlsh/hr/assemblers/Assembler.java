@@ -298,6 +298,14 @@ public class Assembler {
 			return null;
 
 		DepartmentPositionDTO dto = new DepartmentPositionDTO();
+		dto.setPaymentCategory(toDto(e.getPaymentCategory()));
+		dto.setCreateTime(e.getCreateTime());
+		dto.setCreateUser(e.getCreateUser());
+		dto.setCurrentEmployee(toDto(e.getCurrentEmployee()));
+		dto.setDepartment(toDto(e.getDepartment()));
+		dto.setPosition(toDto(e.getPosition()));
+		dto.setUpdateTime(e.getUpdateTime());
+		dto.setUpdateUser(e.getUpdateUser());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		dto.setId(e.getId());
 

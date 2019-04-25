@@ -2,6 +2,7 @@ package com.bvlsh.hr.ui.models;
 
 import java.io.Serializable;
 
+import com.bvlsh.hr.ui.dto.UserDTO;
 
 import lombok.Getter;
 import lombok.Setter;

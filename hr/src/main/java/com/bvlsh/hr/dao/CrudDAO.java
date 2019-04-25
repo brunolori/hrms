@@ -62,13 +62,13 @@ public class CrudDAO {
 	
 	public List<ValidationType> loadValidationTypes(){
 		
-		return em.createQuery("FROM ValidationTypr vt WHERE vt.status=:status").setParameter("status", IStatus.ACTIVE)
+		return em.createQuery("FROM ValidationType vt WHERE vt.status=:status").setParameter("status", IStatus.ACTIVE)
 				.getResultList();
 	}
 	
 	public List<ForeignLanguage> loadForeignLanguages(){
 		
-		return em.createQuery("FROM ForeignLaguage fl WHERE fl.status=:status").setParameter("status", IStatus.ACTIVE)
+		return em.createQuery("FROM ForeignLanguage fl WHERE fl.status=:status").setParameter("status", IStatus.ACTIVE)
 				.getResultList();
 	}
 	

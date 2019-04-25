@@ -33,16 +33,16 @@
 
                             <div class="ui-g ui-fluid">
                                 <div class="ui-g-12">
-                                    <p:inputText placeholder="Username" autocomplete="off" />
+                                    <p:inputText value="#{loginBean.username}" placeholder="Përdoruesi" autocomplete="off" />
                                 </div>
                                 <div class="ui-g-12">
-                                    <p:password placeholder="Password" autocomplete="off" feedback="false"/>
+                                    <p:password  value="#{loginBean.password}" placeholder="Fjalëkalimi" autocomplete="off" feedback="false"/>
                                 </div>
                                 <div class="ui-g-6">
-                                    <p:commandButton action="empty?faces-redirect=true" value="Login" icon="fa fa-check" />
+                                    <p:commandButton value="Hyr" action="#{loginBean.login()}" icon="fa fa-check" />
                                 </div>
                                 <div class="ui-g-6 password-container">
-                                    <p:link>Forgot Password?</p:link>
+                                    <p:link>Harruat fjalëkalimin?</p:link>
                                 </div>
                             </div>
                         </div>

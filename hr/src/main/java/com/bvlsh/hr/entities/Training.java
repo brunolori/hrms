@@ -64,13 +64,13 @@ public class Training implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "INSTITUTION_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Institution institution;
     @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
     @JoinColumn(name = "TRAINING_TYPE_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private TrainingType trainingType;
     
 }

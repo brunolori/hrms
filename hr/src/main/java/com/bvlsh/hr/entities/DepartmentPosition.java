@@ -54,16 +54,16 @@ public class DepartmentPosition implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "CURRENT_EMPLOYEE_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private EmployeeHistory currentEmployee;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Department department;
     @JoinColumn(name = "POSITION_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Position position;
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private PaymentCategory paymentCategory;
 
     

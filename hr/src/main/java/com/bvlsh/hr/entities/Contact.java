@@ -56,10 +56,10 @@ public class Contact implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "CONTACT_TYPE_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ContactType contactType;
     @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
 
   

@@ -61,6 +61,8 @@ public class OpOrganigramBean implements Serializable {
     @PostConstruct
     public void init() {
     	     	
+    	this.departmentForm = new DepartmentForm();
+    	this.deptPositionForm = new DepartmentPositionForm();
     	DepartmentDTO root = new DepartmentService().getRootDepartment();
     	DepartmentPositionDTO dp = new DepartmentService().getDepartmentSinglePosition(root.getId());
     	OrganigramModel o = (dp == null)? new OrganigramModel(root) : new OrganigramModel(dp);

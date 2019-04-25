@@ -89,16 +89,16 @@ public class Employee implements Serializable {
     private Date updateTime;
     @Size(max = 45)
     @JoinColumn(name = "CITIZENSHIP_CODE", referencedColumnName = "CODE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private State citizenship;
-    @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "CODE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "ID")
+    @ManyToOne
     private DepartmentPosition departmentPosition;
     @JoinColumn(name = "NATIONALITY_CODE", referencedColumnName = "CODE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private State nationality;
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private PaymentCategory paymentCategory;
 
    

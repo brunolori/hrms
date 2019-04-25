@@ -108,16 +108,20 @@
 				<div class="ui-g-12">
 					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
 						<p:outputLabel value="Emri Departamentit"/>
-						<p:inputTextarea id="dept_name" value="#{opOrganigramBean.departmentForm.name}"/>
+						<p:inputText id="dept_name" value="#{opOrganigramBean.departmentForm.name}"/>
+						<p:outputLabel value="Kategoria" />
+						<p:selectOneMenu value="#{opOrganigramBean.departmentForm.categoryId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Kategoria"/>
+							<f:selectItems value="#{cacheBean.departmentCategories}" var="dc" itemValue="#{dc.id}" itemLabel="#{dc.tag}"/>
+						</p:selectOneMenu>
 						<p:outputLabel value="Nr pozicioneve"/>
 						<p:inputText value="#{opOrganigramBean.departmentForm.positionsNo}"/>
 						<p:outputLabel value="Expanded(hapur)"/>
 						<p:selectBooleanCheckbox id="expanded" value="#{opOrganigramBean.departmentForm.expanded}"/>
 						<p:outputLabel value="Ngjyra"/>
 						<p:colorPicker value="#{opOrganigramBean.departmentForm.color}" mode="inline" />
-						<p:outputLabel value="Zona"/>							
 							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addDepartment()}"
-							                 update=":party_structure_form" oncomplete="PF('addDeptWid').hide();"
+							                 update=":organigrama_form" oncomplete="PF('addDeptWid').hide();"
 							                 styleClass="green-btn">
 							   <p:confirm header="Regjistro departamentin" message="Jeni të sigurt?"/>
 							 </p:commandButton>
@@ -137,7 +141,7 @@
 	
 	
 	<p:dialog id="add_position_dlg" widgetVar="addPositionWid" modal="true"
-	 header="Shto Person" width="500" closeOnEscape="true" responsive="true">
+	 header="Shto Pozicion" width="500" closeOnEscape="true" responsive="true">
 	
 		<h:form id="add_position_frm">
 			
@@ -152,11 +156,16 @@
 						<p:selectOneMenu value="#{opOrganigramBean.deptPositionForm.positionId}" autoWidth="false">
 							<f:selectItem itemValue="#{null}" itemLabel="Funksioni"/>
 							<f:selectItems value="#{cacheBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
+						</p:selectOneMenu>	
+						<p:outputLabel value="Kategoria pagës" />
+						<p:selectOneMenu value="#{opOrganigramBean.deptPositionForm.paymentCategoryId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
+							<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
 						</p:selectOneMenu>						
 						
 							
 							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addPosition()}"
-							                 update=":party_structure_form" oncomplete="PF('addPositionWid').hide();"
+							                 update=":organigrama_form" oncomplete="PF('addPositionWid').hide();"
 							                 styleClass="green-btn">
 							   <p:confirm header="Regjistro pozicionin" message="Jeni të sigurt?"/>
 							 </p:commandButton>
@@ -187,7 +196,7 @@
 			</p:column>
 			<p:column headerText="Foto">
 			    <p:graphicImage value="#{photoBean.photo}"  width="50px">
-							<f:param name="nid" value="#{dp.person.nid}" />
+							<f:param name="nid" value="#{dp.currentEmployee.employee.nid}" />
 				</p:graphicImage>
 			</p:column>
 			<p:column headerText="Punonjësi">
@@ -197,7 +206,7 @@
 				#{dp.department.name}
 			</p:column>
 			<p:column headerText="Pozicioni">
-				#{dp.position.name}
+				#{dp.position.tag}
 			</p:column>
 			
 			

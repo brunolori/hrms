@@ -16,7 +16,7 @@ import com.bvlsh.hr.ui.api.security.ApiErrorHandler;
 import com.bvlsh.hr.ui.constants.IApiClient;
 import com.bvlsh.hr.ui.forms.PasswordForm;
 import com.bvlsh.hr.ui.models.Principal;
-import com.bvlsh.hr.ui.models.UserDTO;
+import com.bvlsh.hr.ui.dto.UserDTO;
 import com.bvlsh.hr.ui.models.UserToken;
 import com.bvlsh.hr.ui.utils.Util;
 

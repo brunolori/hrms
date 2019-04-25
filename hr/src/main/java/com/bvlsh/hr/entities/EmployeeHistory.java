@@ -65,13 +65,13 @@ public class EmployeeHistory implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "DEPARTMENT_POSITION_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private DepartmentPosition departmentPosition;
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private PaymentCategory paymentCategory;
     @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
     
 }

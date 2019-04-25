@@ -55,10 +55,10 @@ public class BankAccount implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "BANK_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Bank bank;
     @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
 
     

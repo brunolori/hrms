@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import com.bvlsh.hr.ui.dto.BankDTO;
 import com.bvlsh.hr.ui.dto.ContactTypeDTO;
+import com.bvlsh.hr.ui.dto.DepartmentCategoryDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
@@ -46,6 +47,7 @@ public class CacheBean implements Serializable {
 	List<TrainingTypeDTO> trainingTypes;
 	List<ValidationTypeDTO> validationTypes;
 	List<StateDTO> states;
+	List<DepartmentCategoryDTO> departmentCategories;
 	
 	
 	@PostConstruct
@@ -62,6 +64,7 @@ public class CacheBean implements Serializable {
 		this.foreignLanguages = new HelperService().loadForeignLanguages();
 		this.trainingTypes = new HelperService().loadTrainingTypes();
 		this.validationTypes = new HelperService().loadValidationTypes();
+		this.departmentCategories = new HelperService().loadDepartmentCategories();
 		
 	}
 	

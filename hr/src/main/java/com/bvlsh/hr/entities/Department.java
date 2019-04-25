@@ -41,7 +41,6 @@ public class Department implements Serializable {
     @Size(max = 45)
     @Column(name = "NAME")
     private String name;
-    @Size(max = 45)
     @Column(name = "POSITIONS_NO")
     private Integer positionsNo;
     @Column(name = "EXPANDED")
@@ -64,10 +63,10 @@ public class Department implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private DepartmentCategory category;
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Department parent;
    
 

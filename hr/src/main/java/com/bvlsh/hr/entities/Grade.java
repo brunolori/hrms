@@ -43,7 +43,7 @@ public class Grade implements Serializable {
     @Column(name = "STATUS")
     private Integer status;
     @JoinColumn(name = "DEPARTMENT_CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private DepartmentCategory departmentCategory;
 
 }

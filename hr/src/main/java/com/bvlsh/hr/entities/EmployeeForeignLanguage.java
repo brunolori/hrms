@@ -59,10 +59,10 @@ public class EmployeeForeignLanguage implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
     @JoinColumn(name = "FOREIGN_LANGUAGE_ID", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ForeignLanguage foreignLanguage;
     @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Employee employee;
 
    
