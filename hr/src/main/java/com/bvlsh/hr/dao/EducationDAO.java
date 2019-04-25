@@ -28,7 +28,7 @@ public class EducationDAO {
 		String sql = "FROM Education e WHERE 1=1 ";
 
 		if (sx.getIssueDate() != null) {
-			sql += "AND e.issueDate >=:issue_dt ";
+			sql += "AND e.issueDate=:issue_dt ";
 			params.put("issue_dt", sx.getIssueDate());
 		}
 

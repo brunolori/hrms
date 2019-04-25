@@ -21,13 +21,13 @@ public class JobValidationDAO {
 	EntityManager em;
 
 	@SuppressWarnings("rawtypes")
-	public List<JobValidation> searchProvisions(JobValidationSx sx) {
+	public List<JobValidation> searchJobValidations(JobValidationSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM JobValidation jv WHERE 1=1 ";
 		
 		if (sx.getValidationDate() != null) {
-			sql += "AND jv.validationDate >=:val_dt ";
+			sql += "AND jv.validationDate=:val_dt ";
 			params.put("val_dt", sx.getValidationDate());
 		}
 

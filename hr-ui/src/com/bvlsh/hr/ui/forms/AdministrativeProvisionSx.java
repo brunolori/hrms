@@ -1,4 +1,4 @@
-package com.bvlsh.hr.forms;
+package com.bvlsh.hr.ui.forms;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -140,7 +140,7 @@ public class EmployeeClient {
 
 	public EmployeeDTO getEmployeeByNid(String nid)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/employee/getEmployeeByNid/"+nid;
+		final String BASE_URL = IApiClient.SERVER+"/api/employee/"+nid;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();

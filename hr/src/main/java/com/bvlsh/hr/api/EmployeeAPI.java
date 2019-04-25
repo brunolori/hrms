@@ -78,7 +78,7 @@ public class EmployeeAPI {
 		
 	}
 	
-	@RequestMapping(value="/getEmployeeHistory", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/getEmployeeHistory/{nid}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> getEmployeeHistory(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
 	{
 		String uname = tokenService.getUsername(token);
@@ -95,7 +95,7 @@ public class EmployeeAPI {
 	}
 
 	
-	@RequestMapping(value="/getEmployeeByNid", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/{nid}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> getEmployeeByNid(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
 	{
 		String uname = tokenService.getUsername(token);

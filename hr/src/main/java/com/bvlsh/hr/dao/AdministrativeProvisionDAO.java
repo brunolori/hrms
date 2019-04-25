@@ -34,7 +34,7 @@ public class AdministrativeProvisionDAO {
 		}
 		
 		if (sx.getActDate() != null) {
-			sql += "AND ap.actDate >=:act_dt ";
+			sql += "AND ap.actDate=:act_dt ";
 			params.put("act_dt", sx.getActDate());
 		}
 
