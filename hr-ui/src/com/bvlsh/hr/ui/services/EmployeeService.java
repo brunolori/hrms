@@ -38,7 +38,7 @@ public class EmployeeService {
 
 	public List<EmployeeDTO> getEmployeeByNid(String nid) 
 	{
-		return new EmployeeClient().getEmployeeHistory(nid);
+		return new EmployeeClient().getEmployeeByNid(nid);
 	}
 	
 	
