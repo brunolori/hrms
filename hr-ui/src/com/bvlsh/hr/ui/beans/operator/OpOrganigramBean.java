@@ -17,14 +17,10 @@ import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.DepartmentDTO;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
-import com.bvlsh.hr.ui.dto.PositionDTO;
 import com.bvlsh.hr.ui.forms.DepartmentForm;
 import com.bvlsh.hr.ui.forms.DepartmentPositionForm;
-import com.bvlsh.hr.ui.forms.EmployeeSx;
 import com.bvlsh.hr.ui.models.OrganigramModel;
 import com.bvlsh.hr.ui.services.DepartmentService;
-import com.bvlsh.hr.ui.services.EmployeeService;
-import com.bvlsh.hr.ui.services.HelperService;
 import com.bvlsh.hr.ui.utils.Messages;
 
 import lombok.Getter;
@@ -50,18 +46,13 @@ public class OpOrganigramBean implements Serializable {
     private int leafNodeConnectorHeight = 0;
     private boolean autoScrollToSelection = false;
  
-
-    List<PositionDTO> positions;
     
     DepartmentForm departmentForm;
     
     
     List<EmployeeDTO> employees;
     EmployeeDTO selectedEmployee;
-    DepartmentPositionForm deptPositionForm;
-    
-    Integer positionId;
-    
+    DepartmentPositionForm deptPositionForm;    
     
     List<DepartmentPositionDTO> departmentPositions;
     
@@ -69,9 +60,7 @@ public class OpOrganigramBean implements Serializable {
     
     @PostConstruct
     public void init() {
-    	 
-    	this.positions = new HelperService().loadPositions();
-    	
+    	     	
     	DepartmentDTO root = new DepartmentService().getRootDepartment();
     	DepartmentPositionDTO dp = new DepartmentService().getDepartmentSinglePosition(root.getId());
     	OrganigramModel o = (dp == null)? new OrganigramModel(root) : new OrganigramModel(dp);
@@ -147,7 +136,6 @@ public class OpOrganigramBean implements Serializable {
     	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
         OrganigramModel o = (OrganigramModel)currentSelection.getData();
         
-        this.positionId = null;
         this.deptPositionForm = new DepartmentPositionForm();
         this.deptPositionForm.setDepartmentId(o.getDepartmentId());
         
@@ -156,15 +144,7 @@ public class OpOrganigramBean implements Serializable {
     public void addPosition()
     {
     	try {
-    		
-    		if(this.selectedEmployee == null)
-    		{
-    			Messages.throwFacesMessage("Zgjidhni personin",2);
-    			return;
-    		}
-    		
-    		this.deptPositionForm.setPersonNid(selectedEmployee.getNid());
-    		this.deptPositionForm.setPositionId(positionId);
+    		    		
 	    	DepartmentPositionDTO d = new DepartmentService().registerDepartmentPosition(this.deptPositionForm);
 	    	if(d.getDepartment().getPositionsNo() == 1) {
 		    	OrganigramModel o = new OrganigramModel(d);
@@ -180,80 +160,39 @@ public class OpOrganigramBean implements Serializable {
     	}
     }
     
-    public List<EmployeeDTO> searchEmployee(String query)
+    public void prepareAddEmployee()
     {
-    	if (       query.length() > 3 
-    			&& query.contains(" ") 
-    			&& (query.length() > (query.indexOf(" ")+1)) 
-    			&& Character.isLetter(query.charAt(query.indexOf(" ")+1)))
-	    {
-	    	String[] names = query.split(" ",-1);
-	    	
-	    	String name = null;
-	    	String fatherName = null;
-	    	String surname = null;
-	    	
-	    	if(names != null && names.length > 1)
-	    	{
-	    		name = names[0];
-	    		if(names.length == 2)
-	    		{
-	    			surname = names[1];
-	    			
-	    		}
-	    		else
-	    		{
-	    			fatherName = names[1];
-	    			surname = names[2];
-	    		}
-	    	}
-	    	
-	    	EmployeeSx sx = new EmployeeSx();
-	    	sx.setName(name+"%");
-	    	sx.setSurname(surname+"%");
-	    	sx.setFatherName(fatherName==null?null:(fatherName+"%"));
-	    	List<EmployeeDTO> emps = new EmployeeService().searchEmployee(sx);		    	
-	    	
-	    	this.employees = emps;
-	    	
-	    	return emps;
-	    	
-	    }
-    	
-    	return null;
+    	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
+        OrganigramModel o = (OrganigramModel)currentSelection.getData();
+        o.display();
+        
+    }
+    
+    public void prepareRemoveEmployee()
+    {
+    	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
+        OrganigramModel o = (OrganigramModel)currentSelection.getData();
+        o.display();
+        
     }
     
     
-    public void listDepartmentPersons()
+    public void listDepartmentPositions()
     {
     	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
     	
     	OrganigramModel data = (OrganigramModel)currentSelection.getData();
     	if(data == null)
     	{
-    		Messages.throwFacesMessage("Nuk ka persona", 2);
+    		Messages.throwFacesMessage("Nuk ka pozicione", 2);
     		return;
     	}
     		    	
     	this.departmentPositions = new DepartmentService().getDepartmentPositions(data.getDepartmentId());
     }
     
-    public void listDepartmentPositionsHistory()
-    {
-    	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
-    	
-    	OrganigramModel data = (OrganigramModel)currentSelection.getData();
-    	if(data == null)
-    	{
-    		Messages.throwFacesMessage("Nuk ka persona", 2);
-    		return;
-    	}
-    		    	
-    	this.departmentPositions = new DepartmentService().getDepartmentPositionsHistory(data.getDepartmentId());
-    }
     
-    
-    public void expandDepartmentPersons()
+    public void expandDepartmentPositions()
     {    		
 	    	
 	    	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
@@ -261,7 +200,7 @@ public class OpOrganigramBean implements Serializable {
 	    	OrganigramModel data = (OrganigramModel)currentSelection.getData();
 	    	if(data == null)
 	    	{
-	    		Messages.throwFacesMessage("Nuk ka persona", 2);
+	    		Messages.throwFacesMessage("Nuk ka pozicione", 2);
 	    		return;
 	    	}
 	    		    	
@@ -269,7 +208,7 @@ public class OpOrganigramBean implements Serializable {
 	    	
 	    	if(posList == null || posList.isEmpty())
 	    	{
-	    		Messages.throwFacesMessage("Nuk ka persona", 2);
+	    		Messages.throwFacesMessage("Nuk ka pozicione", 2);
 	    		return;
 	    	}
 	    	
@@ -280,7 +219,7 @@ public class OpOrganigramBean implements Serializable {
 	    	
     }
     
-    public void collapseDepartmentPersons()
+    public void collapseDepartmentPositions()
     {    		
 	    	
 	    	OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
@@ -296,7 +235,7 @@ public class OpOrganigramBean implements Serializable {
         currentSelection.getData();
     }
  
-    public void removePerson() {
+    public void removePosition() {
         // re-evaluate selection - might be a differenct object instance if viewstate serialization is enabled
         OrganigramNode currentSelection = OrganigramHelper.findTreeNode(rootNode, selection);
         currentSelection.getParent().getChildren().remove(currentSelection);

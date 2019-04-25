@@ -1,20 +1,16 @@
-package com.bvlsh.hr.ui.forms;
-
-import java.io.Serializable;
-
-
+package com.bvlsh.hr.forms;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class DepartmentPositionForm implements Serializable {
+public class DepartmentPositionForm {
 
+	
 	Integer departmentId;
 	Integer positionId;
 	String name;
 	Integer paymentCategoryId;
-	
 	
 	
 }

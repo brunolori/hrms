@@ -75,19 +75,19 @@
 							</p:organigram>
 
 							<p:contextMenu for="organigram" nodeType="employee">
-								<p:menuitem value="Hiq punonjesin" update="organigram" action="#{opOrganigramBean.removePerson()}" />
+								<p:menuitem value="Hiq punonjësin" update="organigram" action="#{opOrganigramBean.prepareRemoveEmployee()}" />
+								<p:menuitem value="Shto punonjës" update="organigram" action="#{opOrganigramBean.prepareAddEmployee()}" />
+								<p:menuitem value="Hiq pozicionin" update="organigram" action="#{opOrganigramBean.removePosition()}" />
 							</p:contextMenu>
 
 							<p:contextMenu for="organigram" nodeType="division">
-								<p:menuitem value="Shto punonjës" action="#{opOrganigramBean.prepareAddPosition()}"
+								<p:menuitem value="Shto pozicion" action="#{opOrganigramBean.prepareAddPosition()}"
 							            	update=":add_position_dlg" oncomplete="PF('addPositionWid').show();" />
-								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPersons()}"
+								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPositions()}"
 											update=":list_dept_pos_dlg" oncomplete="PF('listDeptPosWid').show();" />
-								<p:menuitem value="Historiku pozicionit" action="#{opOrganigramBean.listDepartmentPositionsHistory()}"
-											update=":list_dept_history_dlg" oncomplete="PF('listDeptHistoryWid').show();"/>
 								<p:menuitem value="Shto departament" action="#{opOrganigramBean.prepareAddDepartment()}"
 								            update=":add_dept_dlg" oncomplete="PF('addDeptWid').show();"  />
-								<p:menuitem value="Shfaq punonjësit në diagramë" action="#{opOrganigramBean.expandDepartmentPersons()}"
+								<p:menuitem value="Shfaq pozicionet në diagramë" action="#{opOrganigramBean.expandDepartmentPositions()}"
 											update="@form" />
 							</p:contextMenu>
 						</div>
@@ -115,10 +115,7 @@
 						<p:selectBooleanCheckbox id="expanded" value="#{opOrganigramBean.departmentForm.expanded}"/>
 						<p:outputLabel value="Ngjyra"/>
 						<p:colorPicker value="#{opOrganigramBean.departmentForm.color}" mode="inline" />
-						<p:outputLabel value="Zona"/>
-						
-						
-							
+						<p:outputLabel value="Zona"/>							
 							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addDepartment()}"
 							                 update=":party_structure_form" oncomplete="PF('addDeptWid').hide();"
 							                 styleClass="green-btn">
@@ -148,21 +145,13 @@
 				<div class="ui-g-12">
 					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
 				    
-				    	<p:outputLabel value="Personi"/>
-						<p:autoComplete id="ac_entity"
-										placeholder="Emër (Atësi) Mbiemër"
-										value="#{opOrganigramBean.selectedEmployee}" queryDelay="500"
-										completeMethod="#{opOrganigramBean.searchEmployee}" var="e"
-										itemLabel="#{e.fullName()}" itemValue="#{e}">
-								<o:converter converterId="omnifaces.ListIndexConverter"
-											list="#{opOrganigramBean.employees}" />
-							  
-						</p:autoComplete>
+				    	<p:outputLabel value="Emri pozicionit"/>
+						<p:inputText value="#{opOrganigramBean.deptPositionForm.name}"/>
 						
 						<p:outputLabel value="Funksioni" />
-						<p:selectOneMenu value="#{opOrganigramBean.positionId}" autoWidth="false">
+						<p:selectOneMenu value="#{opOrganigramBean.deptPositionForm.positionId}" autoWidth="false">
 							<f:selectItem itemValue="#{null}" itemLabel="Funksioni"/>
-							<f:selectItems value="#{viewPartyStructureBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
+							<f:selectItems value="#{cacheBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
 						</p:selectOneMenu>						
 						
 							
@@ -187,7 +176,7 @@
 	
 	
 	<p:dialog id="list_dept_pos_dlg" widgetVar="listDeptPosWid" modal="true"
-	 header="Lista e personave" width="800" closeOnEscape="true" responsive="true">
+	 header="Lista e pozicioneve" width="800" closeOnEscape="true" responsive="true">
 		<h:form id="dept_persons_frm">
 		
 			<p:dataTable value="#{opOrganigramBean.departmentPositions}" var="dp" emptyMessage="Nuk ka persona"
@@ -201,64 +190,22 @@
 							<f:param name="nid" value="#{dp.person.nid}" />
 				</p:graphicImage>
 			</p:column>
-			<p:column headerText="Personi">
-			 #{dp.person.name} #{dp.person.fatherName} #{dp.person.surname}
+			<p:column headerText="Punonjësi">
+			 #{dp.currentEmployee.employee.name} #{dp.currentEmployee.employee.fatherName} #{dp.currentEmployee.employee.surname}
 			</p:column>
-			<p:column headerText="Struktura">
+			<p:column headerText="Departamenti">
 				#{dp.department.name}
 			</p:column>
-			<p:column headerText="Funksioni">
-				#{dp.function.name}
+			<p:column headerText="Pozicioni">
+				#{dp.position.name}
 			</p:column>
-			<p:column headerText="Data pozicionit">
-			    #{formatBean.formatDate(dp.startDate)}
-			</p:column>
+			
 			
 			</p:dataTable>
 		
 		
 		</h:form>
 	</p:dialog>
-	
-	<p:dialog id="list_dept_history_dlg" widgetVar="listDeptHistoryWid" modal="true"
-	 header="Lista e personave" width="800" closeOnEscape="true" responsive="true">
-		<h:form id="dept_history_persons_frm">
-		
-			<p:dataTable value="#{opOrganigramBean.departmentPositions}" var="dp" emptyMessage="Nuk ka persona"
-		                 rowIndexVar="r" rows="10" paginator="true" paginatorAlwaysVisible="false" 
-		                 rowsPerPageTemplate="5,10,15,20,50" styleClass="no-border">
-			<p:column headerText="#">
-				#{r+1}
-			</p:column>
-			<p:column headerText="Foto">
-			    <p:graphicImage value="#{photoBean.photo}"  width="50px">
-							<f:param name="nid" value="#{dp.person.nid}" />
-				</p:graphicImage>
-			</p:column>
-			<p:column headerText="Personi">
-			 #{dp.person.name} #{dp.person.fatherName} #{dp.person.surname}
-			</p:column>
-			<p:column headerText="Funksioni">
-				#{dp.function.name}
-			</p:column>
-			<p:column headerText="Struktura">
-				#{dp.department.name}
-			</p:column>
-			<p:column headerText="Nga data">
-			    #{formatBean.formatDate(dp.startDate)}
-			</p:column>
-			<p:column headerText="Në datën">
-			    #{formatBean.formatDate(dp.endDate)}
-			</p:column>
-			
-			</p:dataTable>
-		
-		
-		</h:form>
-	</p:dialog>
-	
-	
-	
 	
 	
 	

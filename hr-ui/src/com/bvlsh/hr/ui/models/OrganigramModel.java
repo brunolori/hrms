@@ -42,8 +42,11 @@ public class OrganigramModel implements Serializable {
 		this.positionId = d.getId();
 		this.departmentId = d.getDepartment().getId();
 		this.singlePosition = (d.getDepartment().getPositionsNo() != null && d.getDepartment().getPositionsNo() == 1);
-		this.nid = d.getCurrentEmployee().getEmployee().getNid();
-		this.name = d.getCurrentEmployee().getEmployee().getName()+" "+d.getCurrentEmployee().getEmployee().getSurname();
+		if(d.getCurrentEmployee() != null)
+		{
+			this.nid = d.getCurrentEmployee().getEmployee().getNid();
+			this.name = d.getCurrentEmployee().getEmployee().getName()+" "+d.getCurrentEmployee().getEmployee().getSurname();
+		}
 		this.departmentName = d.getDepartment().getName();
 		this.position = d.getPosition().getTag();
 		this.expanded = d.getDepartment().isExpanded();
