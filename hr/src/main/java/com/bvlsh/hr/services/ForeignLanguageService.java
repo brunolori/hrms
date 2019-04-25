@@ -15,9 +15,9 @@ public class ForeignLanguageService {
 
 	@Autowired ForeignLanguageDAO foreignLanguageDAO;
 
-	public List<EmployeeForeignLanguage> searchEmpFgnLanguages(ForeignLanguageSx sx, String uname) {
+	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx, String uname) {
 
-		return foreignLanguageDAO.searchEmpFgnLanguages(sx);
+		return foreignLanguageDAO.searchForeignLanguages(sx);
 
 	}
 

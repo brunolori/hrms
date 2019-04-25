@@ -19,7 +19,7 @@ public class ForeignLanguageDAO {
 	EntityManager em;
 	
 	@SuppressWarnings("rawtypes")
-	public List<EmployeeForeignLanguage> searchEmpFgnLanguages(ForeignLanguageSx sx) {
+	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx) {
 
 		HashMap<String,Object> params = new HashMap<>();
 		String sql = "FROM EmployeeForeignLanguage efl WHERE 1=1 ";

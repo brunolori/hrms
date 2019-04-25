@@ -25,7 +25,7 @@
 }
 .ui-inputfield:disabled
 {
-    cursor: not-allowed !important;*/
+    cursor: not-allowed !important;
     border-bottom:1px #aaaaaa solid !important;
 }
 */
@@ -37,7 +37,7 @@
 }
 */
 
-.right
+.right td
 {
 	text-align: right !important;
 }

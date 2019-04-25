@@ -61,12 +61,12 @@ public class ForeignLanguageAPI {
 	}
 	
 	
-	@RequestMapping(value="/searchEmpFgnLanguages", method=RequestMethod.POST, produces={"application/json"})
-	public ResponseEntity<?> searchEmpFgnLanguages(@RequestHeader(value="Authorization") String token,@RequestBody ForeignLanguageSx sx)
+	@RequestMapping(value="/searchForeignLanguages", method=RequestMethod.POST, produces={"application/json"})
+	public ResponseEntity<?> searchForeignLanguages(@RequestHeader(value="Authorization") String token,@RequestBody ForeignLanguageSx sx)
 	{
 		String uname = tokenService.getUsername(token);
 				
-		List<EmployeeForeignLanguageDTO> list = new Assembler().employeeForeignLanguageListToDto(foreignLanguageService.searchEmpFgnLanguages(sx, uname));
+		List<EmployeeForeignLanguageDTO> list = new Assembler().employeeForeignLanguageListToDto(foreignLanguageService.searchForeignLanguages(sx, uname));
 		
 		if(list == null || list.isEmpty())
 		{

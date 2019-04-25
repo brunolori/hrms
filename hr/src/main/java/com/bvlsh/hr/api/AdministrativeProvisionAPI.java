@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.bvlsh.hr.assemblers.Assembler;
 import com.bvlsh.hr.dto.AdministrativeProvisionDTO;
-import com.bvlsh.hr.forms.AdministrationProvisionForm;
+import com.bvlsh.hr.forms.AdministrativeProvisionForm;
 import com.bvlsh.hr.forms.AdministrativeProvisionSx;
 import com.bvlsh.hr.services.AdministrativeProvisionService;
 import com.bvlsh.hr.services.TokenService;
@@ -27,7 +27,7 @@ public class AdministrativeProvisionAPI {
 	
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST, produces={"application/json"})
-	public ResponseEntity<?> registerEmployee(@RequestHeader(value="Authorization") String token, @RequestBody AdministrationProvisionForm form)
+	public ResponseEntity<?> registerEmployee(@RequestHeader(value="Authorization") String token, @RequestBody AdministrativeProvisionForm form)
 	{
 			String uname = tokenService.getUsername(token);
 			
@@ -38,7 +38,7 @@ public class AdministrativeProvisionAPI {
 	
 	
 	@RequestMapping(value="/modifyProvision", method=RequestMethod.POST, produces={"application/json"})
-	public ResponseEntity<?> modifyProvision(@RequestHeader(value="Authorization") String token, @RequestBody AdministrationProvisionForm form)
+	public ResponseEntity<?> modifyProvision(@RequestHeader(value="Authorization") String token, @RequestBody AdministrativeProvisionForm form)
 	{
 			String uname = tokenService.getUsername(token);
 			
