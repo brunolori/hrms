@@ -115,7 +115,7 @@ public class EmployeeClient {
 
 	public List<EmployeeHistoryDTO> getEmployeeHistory(String nid) 
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/employee/getEmployeeHistory" + nid;
+		final String BASE_URL = IApiClient.SERVER + "/api/employee/getEmployeeHistory/" + nid;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -140,7 +140,7 @@ public class EmployeeClient {
 
 	public EmployeeDTO getEmployeeByNid(String nid)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/employee/getEmployeeByNid"+nid;
+		final String BASE_URL = IApiClient.SERVER+"/api/employee/getEmployeeByNid/"+nid;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();
