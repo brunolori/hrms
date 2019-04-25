@@ -98,7 +98,7 @@ public class EmployeeAPI {
 	
 	
 	@RequestMapping(value="/getEmployeeByNid", method=RequestMethod.GET, produces={"application/json"})
-	public ResponseEntity<?> getFamilyByNid(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	public ResponseEntity<?> getEmployeeByNid(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
 	{
 		String uname = tokenService.getUsername(token);
 				

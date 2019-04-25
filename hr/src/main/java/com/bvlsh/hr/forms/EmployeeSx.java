@@ -20,13 +20,23 @@ public class EmployeeSx implements Serializable{
     private String gender;
     private String employeeNo;
     private String dossierNo;
-    private Date startDate;
-    private Date endDate;
+    private Date startDateFrom;
+    private Date startDateTo;
+    private Date endDateFrom;
+    private Date endDateTo;
     private Date dob;
     private String civilStatus;
-    private Integer departmentPositionId;
+   // private Integer departmentPositionId;
     private Integer paymentCategoryId;
     private Integer departmentId;
     private Integer positionId;
+    
+    private Boolean onlyActive;
+    private Boolean childDepartments;
+    
+    
+    Integer firstResult;
+	Integer maxResult;
+    
 
 }

@@ -299,17 +299,17 @@ public class EmployeeService {
 	
 	public List<Employee> searchEmployee(EmployeeSx sx, String uname)
 	{
-		return null;
+		return employeeDAO.searchEmployee(sx);
 	}
 	
 	public List<EmployeeHistory> getEmployeeHistory(String nid, String uname)
 	{
-		return null;
+		return employeeDAO.getEmployeeHistory(nid);
 	}
 	
-	public List<Employee> getEmployeeByNid(String nid, String uname)
+	public Employee getEmployeeByNid(String nid, String uname)
 	{
-		return null;
+		return employeeDAO.findEmployeeByNid(nid);
 	}
 	
 	
