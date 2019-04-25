@@ -100,14 +100,10 @@ public class EmployeeAPI {
 	{
 		String uname = tokenService.getUsername(token);
 				
-		List<EmployeeDTO> list = new Assembler().employeeListToDto(employeeService.getEmployeeByNid(nid, uname));
+		EmployeeDTO dto  = new Assembler().toDto(employeeService.getEmployeeByNid(nid, uname));		
 		
-		if(list == null || list.isEmpty())
-		{
-			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
-		}
 		
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return new ResponseEntity<>(dto,HttpStatus.OK);
 		
 	}
 	
