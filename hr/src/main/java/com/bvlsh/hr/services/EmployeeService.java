@@ -34,57 +34,57 @@ public class EmployeeService {
 		
 		if(form == null)
 		{
-			throw new ValidationException("Forma e pa plotesuar");
+			throw new ValidationException("Forma e pa plotësuar!");
 		}
 		
 		if(!StringUtil.isValid(form.getNid()))
 		{
-			throw new ValidationException("Plotesoni Numrin Personal");
+			throw new ValidationException("Plotësoni Numrin Personal!");
 		}
 		
 		if(!StringUtil.isValid(form.getName()))
 		{
-			throw new ValidationException("Plotesoni Emrin");
+			throw new ValidationException("Plotësoni Emrin!");
 		}
 		
 		if(!StringUtil.isValid(form.getSurname()))
 		{
-			throw new ValidationException("Plotesoni Mbiemrin");
+			throw new ValidationException("Plotësoni Mbiemrin!");
 		}
 		
 		if(form.getDob() == null)
 		{
-			throw new ValidationException("Plotesoni Datelindjen");
+			throw new ValidationException("Plotësoni Datëlindjen!");
 		}
 		
 		if(!StringUtil.isValid(form.getGender()))
 		{
-			throw new ValidationException("Plotesoni Gjinine");
+			throw new ValidationException("Plotësoni Gjininë!");
 		}
 		
 		if(!StringUtil.isValid(form.getEmployeeNo()))
 		{
-			throw new ValidationException("Plotesoni Numrin e Punonjesit");
+			throw new ValidationException("Plotësoni Numrin e Punonjësit!");
 		}
 		
 		if(!StringUtil.isValid(form.getDossierNo()))
 		{
-			throw new ValidationException("Plotesoni Numrin e Dosjes");
+			throw new ValidationException("Plotësoni Numrin e Dosjes!");
 		}
 		
 		if(form.getDepartmentPositionId() == null)
 		{
-			throw new ValidationException("Plotesoni Pozicionin e Punes");
+			throw new ValidationException("Plotesoni Pozicionin e Punës!");
 		}
 		
 		if(form.getPaymentCategoryId() == null)
 		{
-			throw new ValidationException("Plotesoni Kategorine e Pages");
+			throw new ValidationException("Plotësoni Kategorinë e Pagës!");
 		}
 		
 		if(form.getStartDate() == null)
 		{
-			throw new ValidationException("Plotesoni daten e fillimit te punes");
+			throw new ValidationException("Plotësoni datën e fillimit të punës!");
 		}
 		
 		Employee emp;
@@ -165,32 +165,32 @@ public class EmployeeService {
 		
 		if(form == null)
 		{
-			throw new ValidationException("Forma e pa plotesuar");
+			throw new ValidationException("Forma e pa plotësuar!");
 		}
 		
 		if(!StringUtil.isValid(form.getNid()))
 		{
-			throw new ValidationException("Plotesoni Numrin Personal");
+			throw new ValidationException("Plotësoni Numrin Personal!");
 		}
 		
 		if(form.getDepartmentPositionId() == null)
 		{
-			throw new ValidationException("Plotesoni Pozicionin e Punes");
+			throw new ValidationException("Plotësoni Pozicionin e Punës!");
 		}
 		
 		if(form.getPaymentCategoryId() == null)
 		{
-			throw new ValidationException("Plotesoni Kategorine e Pages");
+			throw new ValidationException("Plotësoni Kategorinë e Pagës!");
 		}
 		
 		if(form.getEndDate() == null)
 		{
-			throw new ValidationException("Plotesoni daten e lenies se pozicionit te meparshem");
+			throw new ValidationException("Plotësoni datën e lënies së pozicionit të mëparshëm!");
 		}
 		
 		if(form.getStartDate() == null)
 		{
-			throw new ValidationException("Plotesoni daten e fillimit te punes");
+			throw new ValidationException("Plotësoni datën e fillimit të punës!");
 		}
 		
 		Employee emp = crudDAO.findById(Employee.class, form.getNid());		
@@ -231,42 +231,42 @@ public class EmployeeService {
 	{
 		if(form == null)
 		{
-			throw new ValidationException("Forma e pa plotesuar");
+			throw new ValidationException("Forma e pa plotësuar!");
 		}
 		
 		if(!StringUtil.isValid(form.getNid()))
 		{
-			throw new ValidationException("Plotesoni Numrin Personal");
+			throw new ValidationException("Plotësoni Numrin Personal!");
 		}
 		
 		if(!StringUtil.isValid(form.getName()))
 		{
-			throw new ValidationException("Plotesoni Emrin");
+			throw new ValidationException("Plotësoni Emrin!");
 		}
 		
 		if(!StringUtil.isValid(form.getSurname()))
 		{
-			throw new ValidationException("Plotesoni Mbiemrin");
+			throw new ValidationException("Plotësoni Mbiemrin!");
 		}
 		
 		if(form.getDob() == null)
 		{
-			throw new ValidationException("Plotesoni Datelindjen");
+			throw new ValidationException("Plotësoni Datëlindjen!");
 		}
 		
 		if(!StringUtil.isValid(form.getGender()))
 		{
-			throw new ValidationException("Plotesoni Gjinine");
+			throw new ValidationException("Plotësoni Gjininë!");
 		}
 		
 		if(!StringUtil.isValid(form.getEmployeeNo()))
 		{
-			throw new ValidationException("Plotesoni Numrin e Punonjesit");
+			throw new ValidationException("Plotësoni Numrin e Punonjesit!");
 		}
 		
 		if(!StringUtil.isValid(form.getDossierNo()))
 		{
-			throw new ValidationException("Plotesoni Numrin e Dosjes");
+			throw new ValidationException("Plotësoni Numrin e Dosjes!");
 		}
 		
 		
@@ -311,8 +311,6 @@ public class EmployeeService {
 	{
 		return null;
 	}
-	
-	
 	
 	
 	
