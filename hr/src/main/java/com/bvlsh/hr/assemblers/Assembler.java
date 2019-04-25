@@ -638,8 +638,8 @@ public class Assembler {
 
 		List<EmployeeDTO> list = new ArrayList<>();
 
-		for (Employee p : employee) {
-			list.add(toDto(p));
+		for (Employee e : employee) {
+			list.add(toDto(e));
 		}
 
 		return list;

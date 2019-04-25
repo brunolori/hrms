@@ -93,9 +93,7 @@ public class EmployeeAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
-	
-	
-	
+
 	
 	@RequestMapping(value="/getEmployeeByNid", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> getEmployeeByNid(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
@@ -112,5 +110,5 @@ public class EmployeeAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
-
+	
 }
