@@ -25,7 +25,7 @@ import com.bvlsh.hr.ui.utils.Util;
 @RequestMapping("/api/training")
 public class TrainingClient {
 	
-	public TrainingDTO registerEducationn(TrainingForm form)
+	public TrainingDTO registerTraining(TrainingForm form)
 	{
 		final String BASE_URL = IApiClient.SERVER + "/api/training/register";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
@@ -90,7 +90,7 @@ public class TrainingClient {
 	
 	public List<TrainingDTO> searchTrainings(TrainingSx sx) 
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/training/searchEducations";
+		final String BASE_URL = IApiClient.SERVER + "/api/training/searchTrainings";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
