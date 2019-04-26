@@ -139,7 +139,16 @@ public class FormatBean implements Serializable {
 		
 	}
 	
-	
+	public String formatCivilStatus(String code)
+	{
+		if(!StringUtil.isValid(code)) return "-";
+		if(code.equalsIgnoreCase("B")) return "Beqar/e";
+		if(code.equalsIgnoreCase("M")) return "Martuar";
+		if(code.equalsIgnoreCase("D")) return "Divorcuar";
+		if(code.equalsIgnoreCase("V")) return "i/e Ve";
+		
+		return "-";
+	}
 	
 	
 }

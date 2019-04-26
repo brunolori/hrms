@@ -24,6 +24,77 @@
 						<p:autoUpdate />
 					</p:messages>
 				</div>
+				
+				
+				<div class="ui-g-12 ui-fluid">
+				
+					<div class="card card-w-title">
+						<h3>#{opEmployeeViewBean.employee.name} #{opEmployeeViewBean.employee.fatherName} #{opEmployeeViewBean.employee.surname}</h3>
+					
+						<div class="ui-g">
+						
+						    <div class="ui-g-12 ui-md-3">
+						    	<p:graphicImage value="#{photoBean.photo}" width="98%"
+									            cache="false">
+									<f:param name="nid" value="#{opEmployeeViewBean.employee.nid}" />
+								</p:graphicImage>
+						    </div>
+						    <div class="ui-g-12 ui-md-9">
+						    
+						    	<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
+						    		<p:outputLabel value="Nr punonjësit"/> <p:inputText value="#{opEmployeeViewBean.employee.employeeNo}" readonly="true"/>
+						    		<p:outputLabel value="Nr dosjes"/> <p:inputText value="#{opEmployeeViewBean.employee.dossierNo}" readonly="true"/>
+						    		<p:outputLabel value="Data fillimit"/> <p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.startDate)}" readonly="true"/>
+						    		<p:outputLabel value="Data mbarimit"/> <p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.endDate)}" readonly="true"/>
+						    		
+						    		<p:outputLabel value="Departamenti"/> <p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.department.name}" readonly="true"/>
+						    		<p:outputLabel value="Pozicioni"/> <p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.position.tag}" readonly="true"/>
+						    		<p:outputLabel value="Kategoria e pagës"/> <p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.paymentCategory.tag)}" readonly="true"/>
+						    		<p:outputLabel value=""/> <p:outputLabel value=""/>
+						    		
+						    		
+						    		<p:outputLabel value="Emri"/> <p:inputText value="#{opEmployeeViewBean.employee.name}" readonly="true"/>
+						    		<p:outputLabel value="Atësia"/> <p:inputText value="#{opEmployeeViewBean.employee.fatherName}" readonly="true"/>
+						    		<p:outputLabel value="Mbiemri"/> <p:inputText value="#{opEmployeeViewBean.employee.surname}" readonly="true"/>
+						    		<p:outputLabel value="NID"/> <p:inputText value="#{opEmployeeViewBean.employee.nid}" readonly="true"/>
+						    		
+						    		<p:outputLabel value="Datëlindja"/> <p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.dob)}" readonly="true"/>
+						    		<p:outputLabel value="Mëmësia"/> <p:inputText value="#{opEmployeeViewBean.employee.motherName}" readonly="true"/>
+						    		<p:outputLabel value="Mbiemri tjetër"/> <p:inputText value="#{opEmployeeViewBean.employee.maidenName}" readonly="true"/>
+						    		<p:outputLabel value="Statusi civil"/> <p:inputText value="#{formatBean.formatCivilStatus(opEmployeeViewBean.employee.civilStatus)}" readonly="true"/>
+						    		
+						    		<p:outputLabel value="Gjinia"/> <p:inputText value="#{opEmployeeViewBean.employee.gender}" readonly="true"/>
+						    		<p:outputLabel value="Vendlindja"/> <p:inputText value="#{opEmployeeViewBean.employee.pod}" readonly="true"/>
+						    		<p:outputLabel value="Kombësia"/> <p:inputText value="#{opEmployeeViewBean.employee.nationality.name}" readonly="true"/>
+						    		<p:outputLabel value="Shtetësia"/> <p:inputText value="#{opEmployeeViewBean.employee.citizenship.name}" readonly="true"/>
+						    		
+						    		
+						    	</p:panelGrid>
+						    
+						    </div>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+				
+				<div class="ui-g-12 ui-fluid">
+				
+					<p:tabView>
+						<p:tab title="Kontaktet">
+						
+						</p:tab>
+					
+					</p:tabView>
+					
+				</div>
+				
+				
+				
+				
+				
+				
 		</div>
 		
 		

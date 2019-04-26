@@ -45,6 +45,14 @@
 										<f:selectItem itemValue="M" itemLabel="M" />
 										<f:selectItem itemValue="F" itemLabel="F" />
 								</p:selectOneMenu>
+								<p:outputLabel value="Statusi Civil"/>
+								<p:selectOneMenu placeholder="Statusi Civil" value="#{opEmployeeAddBean.form.civilStatus}">
+										<f:selectItem itemValue="#{null}" itemLabel="Statusi Civil" />
+										<f:selectItem itemValue="B" itemLabel="Beqar/e" />
+										<f:selectItem itemValue="M" itemLabel="M" />
+										<f:selectItem itemValue="D" itemLabel="Divorcuar" />
+										<f:selectItem itemValue="V" itemLabel="i/e Ve" />
+								</p:selectOneMenu>
 								<p:outputLabel value="Kombësia"/>
 								<p:autoComplete placeholder="Kombësia" value="#{opEmployeeAddBean.form.nationalityCode}" 
 								        	completeMethod="#{cacheBean.filterState}" var="ns"
