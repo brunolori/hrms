@@ -5,21 +5,30 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<h:form id="home_form">
+	<h:form id="employee_view_form">
+		<f:event type="preRenderComponent" listener="#{personViewBean.init()}" />
 
-		<div class="ui-g ui-fluid">
+		<h:panelGroup layout="block" id="person_data">
+
+
+		<div class="ui-g ">
 			<div class="ui-g-12">
-				<div class="card card-w-title">
-					<h1>Home</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-							
-						</div>
-					</div>
+					<p:commandButton action="#{navBean.back()}" value="Mbrapa"
+						process="@this" update=":main" styleClass="green-btn"
+						icon="fa fa-arrow-left" />
 				</div>
-			</div>
-		</div>
 
+
+				<div class="ui-g-12 ui-fluid">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+		</div>
+		
+		
+		
+         </h:panelGroup>
 	</h:form>
 
 </ui:composition>
