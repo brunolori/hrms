@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.dao.CrudDAO;
@@ -28,7 +29,7 @@ public class EmployeeService {
 	@Autowired EmployeeDAO employeeDAO;
 	
 	
-	
+	@Transactional
 	public Employee registerEmployee(EmployeeForm form, String uname)
 	{
 		
@@ -160,6 +161,7 @@ public class EmployeeService {
 		
 	}
 	
+	@Transactional
 	public Employee changeEmployeePosition(EmployeeForm form, String uname)
 	{
 		
@@ -227,6 +229,7 @@ public class EmployeeService {
 		
 	}
 	
+	@Transactional
 	public Employee updateEmployeeGeneralities(EmployeeForm form, String uname)
 	{
 		if(form == null)

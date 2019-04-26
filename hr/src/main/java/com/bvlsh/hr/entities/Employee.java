@@ -86,7 +86,6 @@ public class Employee implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @Size(max = 45)
     @JoinColumn(name = "CITIZENSHIP_CODE", referencedColumnName = "CODE")
     @ManyToOne
     private State citizenship;
