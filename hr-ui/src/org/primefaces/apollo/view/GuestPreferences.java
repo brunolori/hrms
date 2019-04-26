@@ -25,7 +25,7 @@ public class GuestPreferences implements Serializable {
     
     private String color = "blue";
     
-    private boolean dark = false;
+    private boolean dark = true;
         
     private String layoutMode = "static";// slim, static, horizontal, overlay
 
