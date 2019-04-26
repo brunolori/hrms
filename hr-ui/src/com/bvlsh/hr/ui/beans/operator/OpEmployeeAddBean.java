@@ -1,6 +1,7 @@
 package com.bvlsh.hr.ui.beans.operator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
 import com.bvlsh.hr.ui.dto.StateDTO;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
+import com.bvlsh.hr.ui.models.Param;
 import com.bvlsh.hr.ui.services.DepartmentService;
 import com.bvlsh.hr.ui.services.EmployeeService;
 import com.bvlsh.hr.ui.utils.Messages;
@@ -47,7 +49,7 @@ public class OpEmployeeAddBean implements Serializable {
 	@PostConstruct
 	public void load()
 	{
-		
+		init();
 	}
 	
 	
@@ -56,6 +58,7 @@ public class OpEmployeeAddBean implements Serializable {
 		this.form = new EmployeeForm();
 		this.departmentId = null;
 		this.departmentPositions = null;
+		this.states = null;
 		this.employeeExists = false;
 	}
 	
@@ -100,5 +103,49 @@ public class OpEmployeeAddBean implements Serializable {
 	{
 		this.states = cache.filterState(query);
 	}
+	
+	
+	public void register()
+	{
+		
+		try {
+			
+			new EmployeeService().registerEmployee(form);
+			init();
+			Messages.throwFacesMessage("Punonjësi u regjistrua me sukses", 1);
+			
+		}catch(Exception e)
+		{
+			Messages.throwFacesMessage(e);
+		}
+		
+		
+	}
+	
+	
+	public void registerAndView()
+	{
+		try {
+			
+			EmployeeDTO e = new EmployeeService().registerEmployee(form);
+			init();
+			List<Param> params = new ArrayList<>();
+			params.add(new Param("nid", e.getNid()));
+			nav.navigate("employee_view",params);
+			Messages.throwFacesMessage("Punonjësi u regjistrua me sukses", 1);
+			
+		}catch(Exception e)
+		{
+			Messages.throwFacesMessage(e);
+		}
+	}
+	
+	public void clear()
+	{
+		init();
+	}
+	
+	
+	
 	
 }

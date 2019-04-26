@@ -75,6 +75,10 @@
 									<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
 									<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
 								</p:selectOneMenu>
+								<p:outputLabel value="Data e fillimit"/>
+								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Datëlindja" value="#{opEmployeeAddBean.form.startDate}"/>
+								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" rendered="#{opEmployeeAddBean.employeeExists}"/>
+								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" navigator="true" placeholder="Datëlindja" value="#{opEmployeeAddBean.form.endDate}"/>
 																
 							</p:panelGrid>
 						</div>
@@ -82,9 +86,15 @@
 						<div class="ui-g-12 ui-md-6">
 							<p:panelGrid layout="grid" columns="3"
 								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Regjistro" styleClass="blue-btn" icon="ui-icon-save" />
-								<p:commandButton value="Regjistro dhe Shiko" styleClass="purple-btn" icon="ui-icon-edit" />
-								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
+								<p:commandButton value="Regjistro" action="#{opEmployeeAddBean.register()}" update="@form" styleClass="blue-btn" icon="ui-icon-save" >
+								   <p:confirm header="Regjisto punonjësin" message="Jeni të sigurt?"/>
+								</p:commandButton>
+								<p:commandButton value="Regjistro dhe plotëso" action="#{opEmployeeAddBean.registerAndView()}" update=":main" styleClass="purple-btn" icon="ui-icon-edit" >
+								   <p:confirm header="Regjisto punonjësin" message="Jeni të sigurt?"/>
+								</p:commandButton>
+								<p:commandButton value="Pastro" action="#{opEmployeeAddBean.clear()}" update="@form" icon="ui-icon-trash" styleClass="green-btn" >
+								   <p:confirm header="Pastro" message="Jeni të sigurt?"/>
+								</p:commandButton>
 							</p:panelGrid>
 						</div>
 				
