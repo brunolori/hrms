@@ -69,6 +69,7 @@ public class CacheBean implements Serializable {
 		this.trainingTypes = new HelperService().loadTrainingTypes();
 		this.validationTypes = new HelperService().loadValidationTypes();
 		this.departmentCategories = new HelperService().loadDepartmentCategories();
+		this.states = new HelperService().loadStates();
 		
 	}
 	
@@ -79,7 +80,10 @@ public class CacheBean implements Serializable {
 	
 	public List<StateDTO> filterState(String query)
 	{
-		Stream<StateDTO> s = states.stream().filter(st -> st.getName().toUpperCase().startsWith(query.trim().toUpperCase()));
+		Stream<StateDTO> s = states.stream()
+				.filter(
+						st -> st.getName().toUpperCase()
+						.startsWith(query.trim().toUpperCase()));
 		return s.collect(Collectors.toList());
 	}
 	

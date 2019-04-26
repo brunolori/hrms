@@ -53,9 +53,9 @@
 											list="#{opEmployeeAddBean.states}" />
 								 </p:autoComplete>
 								<p:outputLabel value="Shtetësia" />
-								<p:autoComplete placeholder="Shtetësia" value="#{opEmployeeAddBean.form.citizenshipCode}"
+								<p:autoComplete placeholder="Shtetësia" 
 								        	completeMethod="#{opEmployeeAddBean.filterState}" var="nc"
-											itemLabel="#{nc.name}" itemValue="#{nc.code}" >
+											itemLabel="#{nc.name}" itemValue="#{nc}" >
 								 	<o:converter converterId="omnifaces.ListIndexConverter"
 											list="#{opEmployeeAddBean.states}" />
 								 </p:autoComplete>
@@ -76,9 +76,9 @@
 									<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Data e fillimit"/>
-								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Datëlindja" value="#{opEmployeeAddBean.form.startDate}"/>
+								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Data e fillimit" value="#{opEmployeeAddBean.form.startDate}"/>
 								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" rendered="#{opEmployeeAddBean.employeeExists}"/>
-								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" navigator="true" placeholder="Datëlindja" value="#{opEmployeeAddBean.form.endDate}"/>
+								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" navigator="true" placeholder="Data e lënies së pozicionit të mëparshëm" value="#{opEmployeeAddBean.form.endDate}"/>
 																
 							</p:panelGrid>
 						</div>

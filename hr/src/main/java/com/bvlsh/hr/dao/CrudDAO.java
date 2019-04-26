@@ -125,7 +125,7 @@ public class CrudDAO {
    
    public List<State> loadStates(){
 	   
-	   return em.createQuery("FROM State s WHERE s.status=:status").setParameter("status", IStatus.ACTIVE)
+	   return em.createQuery("FROM State s ORDER BY s.name")
 			   .getResultList();
    }
    

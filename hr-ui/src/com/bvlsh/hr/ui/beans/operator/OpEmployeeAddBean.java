@@ -102,6 +102,7 @@ public class OpEmployeeAddBean implements Serializable {
 	public void filterState(String query)
 	{
 		this.states = cache.filterState(query);
+		System.out.println(states);
 	}
 	
 	
