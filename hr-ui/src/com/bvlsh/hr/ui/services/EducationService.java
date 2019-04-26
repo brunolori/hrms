@@ -8,8 +8,8 @@ import com.bvlsh.hr.ui.forms.EducationSx;
 
 public class EducationService {
 
-	public EducationDTO registerJobValidation(EducationForm form) {
-		return new EducationClient().registerEducationn(form);
+	public EducationDTO registerEducation(EducationForm form) {
+		return new EducationClient().registerEducation(form);
 	}
 
 	public EducationDTO modifyEducation(EducationForm form) {

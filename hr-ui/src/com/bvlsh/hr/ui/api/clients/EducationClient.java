@@ -27,7 +27,7 @@ import com.bvlsh.hr.ui.utils.Util;
 public class EducationClient {
 	
 	
-	public EducationDTO registerEducationn(EducationForm form)
+	public EducationDTO registerEducation(EducationForm form)
 	{
 		final String BASE_URL = IApiClient.SERVER + "/api/education/register";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
