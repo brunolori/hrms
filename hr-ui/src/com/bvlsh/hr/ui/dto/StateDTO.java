@@ -22,6 +22,12 @@ public class StateDTO implements Serializable {
 	private String code;
 	private String codeAlpha3;
 	private String name;
+	
+	
+	
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +50,12 @@ public class StateDTO implements Serializable {
 		} else if (!code.equals(other.code))
 			return false;
 		return true;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 
 	

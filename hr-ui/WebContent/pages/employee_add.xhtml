@@ -47,17 +47,13 @@
 								</p:selectOneMenu>
 								<p:outputLabel value="Kombësia"/>
 								<p:autoComplete placeholder="Kombësia" value="#{opEmployeeAddBean.form.nationalityCode}" 
-								        	completeMethod="#{opEmployeeAddBean.filterState}" var="ns"
-											itemLabel="#{ns.name}" itemValue="#{ns.code}" >
-								 	<o:converter converterId="omnifaces.ListIndexConverter"
-											list="#{opEmployeeAddBean.states}" />
+								        	completeMethod="#{cacheBean.filterState}" var="ns"
+											itemLabel="#{ns}" itemValue="#{ns.code}" >
 								 </p:autoComplete>
 								<p:outputLabel value="Shtetësia" />
-								<p:autoComplete placeholder="Shtetësia" 
-								        	completeMethod="#{opEmployeeAddBean.filterState}" var="nc"
+								<p:autoComplete placeholder="Shtetësia" value="#{opEmployeeAddBean.form.citizenshipCode}" 
+								        	completeMethod="#{cacheBean.filterState}" var="nc"
 											itemLabel="#{nc.name}" itemValue="#{nc}" >
-								 	<o:converter converterId="omnifaces.ListIndexConverter"
-											list="#{opEmployeeAddBean.states}" />
 								 </p:autoComplete>
 								<p:outputLabel value="Departamenti"/>
 								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeAddBean.departmentId}" >
@@ -68,7 +64,7 @@
 								<p:outputLabel value="Pozicioni"/>
 								<p:selectOneMenu id="position" placeholder="Pozicioni" value="#{opEmployeeAddBean.form.departmentPositionId}" disabled="#{opEmployeeAddBean.departmentId == null}" >
 									<f:selectItem itemValue="#{null}" itemLabel="Pozicioni"/>
-									<f:selectItems value="#{opEmployeeAddBean.departmentPositions}" var="dp" itemValue="#{dp.id}" itemLabel="#{dp.name}" itemDisabled="#{dp.currentEmployee != null}"/>
+									<f:selectItems value="#{opEmployeeAddBean.departmentPositions}" var="dp" itemValue="#{dp.id}" itemLabel="#{dp.position.tag}" itemDisabled="#{dp.currentEmployee != null}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Kategoria e pagës"/>
 								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeAddBean.form.paymentCategoryId}" >
