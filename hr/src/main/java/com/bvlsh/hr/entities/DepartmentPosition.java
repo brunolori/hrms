@@ -47,6 +47,8 @@ public class DepartmentPosition implements Serializable {
     @Column(name = "CREATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
+    @Column(name = "NAME")
+    private String name;
     @Size(max = 45)
     @Column(name = "UPDATE_USER")
     private String updateUser;

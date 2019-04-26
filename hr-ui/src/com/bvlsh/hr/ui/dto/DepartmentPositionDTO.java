@@ -20,6 +20,7 @@ public class DepartmentPositionDTO implements Serializable {
  
     private Integer id;
     private boolean status;
+    private String name;
     private String createUser;
     private Date createTime;
     private String updateUser;

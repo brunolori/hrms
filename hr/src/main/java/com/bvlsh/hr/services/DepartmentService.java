@@ -120,6 +120,10 @@ public class DepartmentService {
 		return crudDAO.create(dp);
 		
 	}
+
+	public List<Department> listDepartments(String uname) {
+		return departmentDAO.listDepartments();
+	}
 	
 	
 	

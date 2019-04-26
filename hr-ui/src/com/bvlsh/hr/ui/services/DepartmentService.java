@@ -41,6 +41,10 @@ public class DepartmentService {
 		return null;
 	}
 
+	public List<DepartmentDTO> getDepartments() {
+		return new DepartmentClient().getDepartments();
+	}
+
 	
 
 }

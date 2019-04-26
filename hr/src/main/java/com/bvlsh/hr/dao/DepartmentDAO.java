@@ -49,6 +49,12 @@ public class DepartmentDAO {
 				.setParameter("st", IStatus.ACTIVE).setParameter("did", deptId)
 				.getResultList();
 	}
+
+	public List<Department> listDepartments() {
+		return em.createQuery("FROM Department d WHERE d.status=:st ORDER BY d.name")
+				.setParameter("st", IStatus.ACTIVE)
+				.getResultList();
+	}
 	
 	
 	

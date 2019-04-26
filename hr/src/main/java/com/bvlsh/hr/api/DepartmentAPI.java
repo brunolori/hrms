@@ -41,6 +41,21 @@ public class DepartmentAPI {
 		
 	}
 	
+	@RequestMapping(value="/list", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> listDepartments(@RequestHeader(value="Authorization") String token)
+	{
+		String uname = tokenService.getUsername(token);
+		
+		List<DepartmentDTO> list = new Assembler().departmentListToDto(departmentService.listDepartments(uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
 	
 	@RequestMapping(value="/getChildDepartments/{deptId}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> getChildDepartments(@RequestHeader(value="Authorization") String token, @PathVariable Integer deptId)

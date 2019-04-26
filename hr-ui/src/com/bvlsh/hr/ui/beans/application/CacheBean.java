@@ -2,12 +2,15 @@ package com.bvlsh.hr.ui.beans.application;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.faces.bean.ManagedBean;
 
 import com.bvlsh.hr.ui.dto.BankDTO;
 import com.bvlsh.hr.ui.dto.ContactTypeDTO;
 import com.bvlsh.hr.ui.dto.DepartmentCategoryDTO;
+import com.bvlsh.hr.ui.dto.DepartmentDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
@@ -18,6 +21,7 @@ import com.bvlsh.hr.ui.dto.ProvisionTypeDTO;
 import com.bvlsh.hr.ui.dto.StateDTO;
 import com.bvlsh.hr.ui.dto.StudyFieldDTO;
 import com.bvlsh.hr.ui.dto.TrainingTypeDTO;
+import com.bvlsh.hr.ui.services.DepartmentService;
 import com.bvlsh.hr.ui.services.HelperService;
 
 import lombok.Getter;
@@ -68,11 +72,15 @@ public class CacheBean implements Serializable {
 		
 	}
 	
-	
+	public List<DepartmentDTO> listDepartments()
+	{
+		return new DepartmentService().getDepartments();
+	}
 	
 	public List<StateDTO> filterState(String query)
 	{
-		return null;
+		Stream<StateDTO> s = states.stream().filter(st -> st.getName().toUpperCase().startsWith(query.trim().toUpperCase()));
+		return s.collect(Collectors.toList());
 	}
 	
 	

@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.bvlsh.hr.ui.beans.application.CacheBean;
+import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
+import com.bvlsh.hr.ui.dto.StateDTO;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.services.DepartmentService;
 import com.bvlsh.hr.ui.services.EmployeeService;
@@ -24,13 +28,19 @@ import lombok.Setter;
 public class OpEmployeeAddBean implements Serializable {
 	
 	
-	
+	@ManagedProperty(value = "#{navBean}")
+	NavBean nav;
+	@ManagedProperty(value = "#{cacheBean}")
+	CacheBean cache;
 	
 	EmployeeForm form;
 	Integer departmentId;
+	
 	List<DepartmentPositionDTO> departmentPositions;
 	
 	boolean employeeExists;
+	
+	List<StateDTO> states;
 	
 	
 	
@@ -76,8 +86,19 @@ public class OpEmployeeAddBean implements Serializable {
 	
 	public void onDepartmentSelect()
 	{
+		if(this.departmentId == null)
+		{
+			this.departmentPositions = null;
+			return;
+		}
+		
 		this.departmentPositions = new DepartmentService().getDepartmentPositions(this.departmentId);
 	}
 	
 
+	public void filterState(String query)
+	{
+		this.states = cache.filterState(query);
+	}
+	
 }
