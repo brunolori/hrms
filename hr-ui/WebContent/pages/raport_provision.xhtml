@@ -10,23 +10,20 @@
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h1>Raport Masash Disiplinore</h1>
+					<h3>Raport Masash Disiplinore</h3>
 					<div class="ui-g">
 						<div class="ui-g-12">
-						
-						<p:panel header="FILTRA KËRKIMI">
-						<p:panelGrid layout="grid" columns="3" styleClass="ui-panelgrid-blank form-group">
-									
-									<p:selectOneMenu placeholder="Lloji Masës">
-										<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
-										<f:selectItems value="" var="" itemValue="" itemLabel=""/>
-									</p:selectOneMenu>
-									<p:inputMask mask="99.99.9999" placeholder="Nga Data" />
-									<p:inputMask mask="99.99.9999" placeholder="Në Datë" />
-						          
-						</p:panelGrid>
-						
-						
+							<p:panelGrid layout="grid" columns="3" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:selectOneMenu placeholder="Lloji Masës">
+											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
+											<f:selectItems value="" var="" itemValue="" itemLabel=""/>
+										</p:selectOneMenu>
+										<p:inputMask mask="99.99.9999" placeholder="Nga Data" />
+										<p:inputMask mask="99.99.9999" placeholder="Në Datë" />
+							          
+							</p:panelGrid>
+						</div>
 						<div class="ui-g-12 ui-md-4">
 							<p:panelGrid layout="grid" columns="2"
 								styleClass="ui-panelgrid-blank">
@@ -34,26 +31,22 @@
 								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
 							</p:panelGrid>
 						</div>
+					
 						
-						</p:panel>
-						</div>
-						<div class="ui-g-12">
-					<p:dataTable value="" var="" rowIndexVar="r"
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="" var="" rowIndexVar="r" styleClass="no-border"
 						emptyMessage="Asnjë raport i listuar">
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Punonjësi"></p:column>
 						<p:column headerText="Lloji masës"></p:column>
 					</p:dataTable>
 				</div>
-						
-						
-							
-						
-						
-						
-					</div>
-				</div>
-			</div>
+			
+			
 		</div>
 
 	</h:form>
