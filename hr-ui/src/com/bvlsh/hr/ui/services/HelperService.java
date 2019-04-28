@@ -7,6 +7,7 @@ import com.bvlsh.hr.ui.dto.ContactTypeDTO;
 import com.bvlsh.hr.ui.dto.DepartmentCategoryDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
+import com.bvlsh.hr.ui.dto.GradeDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.ui.dto.PositionDTO;
@@ -73,6 +74,11 @@ public class HelperService {
 
 	public List<RoleDTO> loadRoles() {
 		return new HelperClient().loadRoles();
+	}
+
+	public List<GradeDTO> loadGrades() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

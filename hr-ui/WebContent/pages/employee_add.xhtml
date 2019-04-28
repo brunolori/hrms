@@ -10,21 +10,22 @@
 
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
-
-				<div class="ui-g-12">
-					<p:messages showDetail="true" closable="true">
-						<p:autoUpdate />
-					</p:messages>
-				</div>
-
 				<div class="card card-w-title">
 					<h1>Regjistro Punonjës</h1>
-					<p:panel header="GJENERALITETET">
+					<hr></hr>
 					<div class="ui-g">
 						<div class="ui-g-12">
-							<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
-							    <p:outputLabel value="NID"/>
-								<p:inputText placeholder="NID" value="#{opEmployeeAddBean.form.nid}" />
+							<p:messages showDetail="true" closable="true">
+								<p:autoUpdate />
+							</p:messages>
+						</div>
+						<div class="ui-g-12">
+							<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">	
+						    	<p:outputLabel value="NID"/>	
+							    		<h:panelGroup layout="block" styleClass="ui-inputgroup">
+									     	<p:inputText placeholder="NID" value="#{opEmployeeAddBean.form.nid}" />
+									     	<p:commandButton value="NCR" icon="fa fa-search" update="@form" action="#{opEmployeeAddBean.searchWithNid()}"/>
+										</h:panelGroup>		    
 								<p:outputLabel value="Emri"/>
 								<p:inputText placeholder="Emri" value="#{opEmployeeAddBean.form.name}" />
 								<p:outputLabel value="Atësia"/>
@@ -93,20 +94,21 @@
 						<div class="ui-g-12 ui-md-6">
 							<p:panelGrid layout="grid" columns="3"
 								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Regjistro" action="#{opEmployeeAddBean.register()}" update="@form" styleClass="blue-btn" icon="ui-icon-save" >
+								<p:commandButton value="Regjistro" action="#{opEmployeeAddBean.register()}" update="@form" 
+								styleClass="blue-btn" icon="fa fa-save" >
 								   <p:confirm header="Regjisto punonjësin" message="Jeni të sigurt?"/>
 								</p:commandButton>
-								<p:commandButton value="Regjistro dhe plotëso" action="#{opEmployeeAddBean.registerAndView()}" update=":main" styleClass="purple-btn" icon="ui-icon-edit" >
+								<p:commandButton value="Regjistro dhe plotëso" action="#{opEmployeeAddBean.registerAndView()}" 
+								update=":main" styleClass="purple-btn" icon="fa fa-edit" >
 								   <p:confirm header="Regjisto punonjësin" message="Jeni të sigurt?"/>
 								</p:commandButton>
-								<p:commandButton value="Pastro" action="#{opEmployeeAddBean.clear()}" update="@form" icon="ui-icon-trash" styleClass="green-btn" >
+								<p:commandButton value="Pastro" action="#{opEmployeeAddBean.clear()}" update="@form" icon="fa fa-trash" styleClass="green-btn" >
 								   <p:confirm header="Pastro" message="Jeni të sigurt?"/>
 								</p:commandButton>
 							</p:panelGrid>
 						</div>
 				
 					</div>
-					</p:panel>
 				</div>
 			</div>
 		</div>

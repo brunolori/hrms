@@ -117,7 +117,8 @@ public class EmployeeService {
 		emp.setEndDate(null);
 		emp.setFatherName(form.getFatherName());
 		emp.setGender(form.getGender());
-		emp.setMaidenName(form.getMotherName());
+		emp.setMotherName(form.getMotherName());
+		emp.setMaidenName(form.getMaidenName());
 		emp.setName(form.getName());
 		emp.setNationality(crudDAO.findById(State.class, form.getNationalityCode()));
 		emp.setNid(form.getNid());
@@ -282,7 +283,8 @@ public class EmployeeService {
 		emp.setEmployeeNo(form.getEmployeeNo());
 		emp.setFatherName(form.getFatherName());
 		emp.setGender(form.getGender());
-		emp.setMaidenName(form.getMotherName());
+		emp.setMotherName(form.getMotherName());
+		emp.setMaidenName(form.getMaidenName());
 		emp.setName(form.getName());
 		emp.setNationality(crudDAO.findById(State.class, form.getNationalityCode()));
 		emp.setNid(form.getNid());

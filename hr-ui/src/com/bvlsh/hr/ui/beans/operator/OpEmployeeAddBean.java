@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import com.bvlsh.hr.ui.beans.application.CacheBean;
 import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
@@ -32,8 +31,6 @@ public class OpEmployeeAddBean implements Serializable {
 	
 	@ManagedProperty(value = "#{navBean}")
 	NavBean nav;
-	@ManagedProperty(value = "#{cacheBean}")
-	CacheBean cache;
 	
 	EmployeeForm form;
 	Integer departmentId;
@@ -75,10 +72,15 @@ public class OpEmployeeAddBean implements Serializable {
 					Messages.throwFacesMessage("Personi eshte aktualisht punonjes,"
 							+ " nese doni te vazhdoni regjistrimin plotesoni daten e lenies se pozicionit te meparshem", 2);
 				}
-				else
-				{
-					//fill form from employee
-				}
+
+				
+				this.form.setCivilStatus(e.getCivilStatus());
+				this.form.setDepartmentPositionId(e.getDepartmentPosition().getId());
+				this.form.setDob(e.getDob());
+				this.form.setName(e.getName());
+				this.form.setSurname(e.getSurname());
+				//etc etc...
+				
 			}
 			else
 			{
@@ -99,11 +101,7 @@ public class OpEmployeeAddBean implements Serializable {
 	}
 	
 
-	public void filterState(String query)
-	{
-		this.states = cache.filterState(query);
-		System.out.println(states);
-	}
+	
 	
 	
 	public void register()
