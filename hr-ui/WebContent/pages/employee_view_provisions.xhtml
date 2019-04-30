@@ -7,60 +7,64 @@
 
 
 		<div class="ui-g ui-fluid">
-			<div class="ui-g-12">
 			
 			<div class="ui-g-12">
 					<p:messages showDetail="true" closable="true">
 						<p:autoUpdate />
 					</p:messages>
-				</div>
-			
-			
-				<div class="card card-w-title">
-					<h1>Masa Disiplinore</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-						<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
-							    
-								<p:outputLabel value="Lloji masës" />
-								<p:selectOneMenu placeholder="Lloji masës">
-									<f:selectItem itemValue="#{null}" itemLabel="Lloji" />
-									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
-								</p:selectOneMenu>
-								<p:outputLabel value="Data"/>
-								<p:inputText placeholder="Data" />
-								<p:outputLabel value="Shënime"/>
-								<p:inputText placeholder="Shënime" />
-								
-							</p:panelGrid>
-						</div>
-						
-						
-						<div class="ui-g-12 ui-md-4">
-							<p:panelGrid layout="grid" columns="2"
-								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Regjistro" icon="ui-icon-save" styleClass="blue-btn" />
-								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
-							</p:panelGrid>
-						</div>
-						
-					</div>
-				</div>
-				
-				<div class="ui-g-12">
-					<p:dataTable value="" var="" rowIndexVar="r"
-						emptyMessage="Asnjë masë disiplinore e listuar">
-						<p:column headerText="#">
-							#{r+1}
-							</p:column>
-						<p:column headerText="Lloji masës"></p:column>
-						<p:column headerText="Data"></p:column>
-						<p:column headerText="Shënime"></p:column>						
-					</p:dataTable>
-				</div>
-		
-				
 			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Tipi i masës"/>
+					<p:selectOneMenu autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Tipi i masës"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Nr aktit"/>
+					<p:inputText placeholder="Nr aktit"/>
+					<p:outputLabel value="Data aktit"/>
+					<p:calendar pattern="dd.MM.yyyy" value="#{null}" placeholder="Data aktit"/>
+					<p:outputLabel value="Data fillimit"/>
+					<p:calendar pattern="dd.MM.yyyy" value="#{null}" placeholder="Data fillimit"/>
+					<p:outputLabel value="Vlefshmëria (muaj)"/>
+					<p:inputNumber placeholder="Vlefshmëria në muaj"/>
+					<p:outputLabel value="Arsyeja"/>
+					<p:inputTextarea placeholder="Arsyeja"/>
+					<p:commandButton value="Regjistro" icon="fa fa-save" styleClass="green-btn" />
+					<p:commandButton value="Anullo" icon="fa fa-reload" styleClass="red-btn"/>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value=" " var="ap" rowIndexVar="r" reflow="true" styleClass="no-border">
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Tipi masës" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Nr aktit" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Data aktit" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Data fillimit" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Vlefshmëria" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandButton icon="fa fa-edit" />
+							<p:commandButton icon="fa fa-close" styleClass="red-btn"/>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
 

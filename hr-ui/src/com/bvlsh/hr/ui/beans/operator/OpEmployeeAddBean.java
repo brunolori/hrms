@@ -12,7 +12,6 @@ import javax.faces.bean.ViewScoped;
 import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
-import com.bvlsh.hr.ui.dto.StateDTO;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.models.Param;
 import com.bvlsh.hr.ui.services.DepartmentService;
@@ -36,10 +35,8 @@ public class OpEmployeeAddBean implements Serializable {
 	Integer departmentId;
 	
 	List<DepartmentPositionDTO> departmentPositions;
-	
 	boolean employeeExists;
 	
-	List<StateDTO> states;
 	
 	
 	
@@ -55,7 +52,6 @@ public class OpEmployeeAddBean implements Serializable {
 		this.form = new EmployeeForm();
 		this.departmentId = null;
 		this.departmentPositions = null;
-		this.states = null;
 		this.employeeExists = false;
 	}
 	
@@ -76,15 +72,36 @@ public class OpEmployeeAddBean implements Serializable {
 				
 				this.form.setCivilStatus(e.getCivilStatus());
 				this.form.setDepartmentPositionId(e.getDepartmentPosition().getId());
-				this.form.setDob(e.getDob());
+				this.form.setNid(e.getNid());
 				this.form.setName(e.getName());
 				this.form.setSurname(e.getSurname());
+				this.form.setFatherName(e.getFatherName());
+				this.form.setMotherName(e.getMotherName());
+				this.form.setGender(e.getGender());
+				this.form.setPob(e.getPob());
+				this.form.setDob(e.getDob());
 				//etc etc...
 				
 			}
 			else
 			{
-				// search NCR and fill form
+				EmployeeDTO ncr = new EmployeeService().getEmployeeFromNCR(form.getNid());
+				if(ncr == null)
+				{
+					Messages.throwFacesMessage("Nuk u gjend asnjë person në Gjendjen Civile", 2);
+					return;
+				}
+				
+				this.form.setCivilStatus(ncr.getCivilStatus());
+				this.form.setNid(ncr.getNid());
+				this.form.setName(ncr.getName());
+				this.form.setSurname(ncr.getSurname());
+				this.form.setFatherName(ncr.getFatherName());
+				this.form.setMotherName(ncr.getMotherName());
+				this.form.setGender(ncr.getGender());
+				this.form.setPob(ncr.getPob());
+				this.form.setDob(ncr.getDob());
+				
 			}
 		}
 	}

@@ -11,10 +11,17 @@ public class AdministrativeProvisionSx implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+	String nid;
+	String employeeNo;
+	String name;
+	String surname;
+	Integer departmentId;
+	
+	
 	String actNo;
 	Date actDate;
-	Date startDateFrom;
-    Date endDateTo;
+	Date fromDate;
+    Date toDate;
 	Integer provisionTypeId;
 		
 	Integer firstResult;
