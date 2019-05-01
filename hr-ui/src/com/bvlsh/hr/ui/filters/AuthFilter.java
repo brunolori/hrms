@@ -18,7 +18,7 @@ import com.bvlsh.hr.ui.beans.application.LoginBean;
 
 
 
-@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "AuthFilter", urlPatterns = {"/pages/*"})
 public class AuthFilter implements Filter 
 {
 

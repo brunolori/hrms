@@ -24,4 +24,8 @@ public class AdministrativeProvisionService {
 		return new AdministrativeProvisionClient().searchProvisions(sx);
 	}
 
+	public List<AdministrativeProvisionDTO> getEmployeeProvisions(String nid) {
+		return new AdministrativeProvisionClient().getEmployeeProvisions(nid);
+	}
+
 }

@@ -111,6 +111,7 @@ public class DepartmentService {
 		
 		DepartmentPosition dp = new DepartmentPosition();
 		dp.setDepartment(d);
+		dp.setName(form.getName());
 		dp.setPaymentCategory(crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId()));
 		dp.setPosition(crudDAO.findById(Position.class, form.getPositionId()));
 		dp.setStatus(IStatus.ACTIVE);

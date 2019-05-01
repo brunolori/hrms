@@ -7,16 +7,103 @@
 
 
 		<div class="ui-g ui-fluid">
+			
 			<div class="ui-g-12">
-				<div class="card card-w-title">
-					<h1>Home</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-							
-						</div>
-					</div>
-				</div>
+					<p:messages showDetail="true" closable="true" />
 			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Departamenti"/>
+								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeViewBean.departmentId}" autoWidth="false" 
+								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}"
+								>
+									<p:ajax update="position"/>
+									<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
+									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Pozicioni"/>
+								<p:selectOneMenu id="position" placeholder="Pozicioni" value="#{opEmployeeViewBean.employeeForm.departmentPositionId}"
+	disabled="#{opEmployeeViewBean.departmentId == null or (opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null)}" 
+								    autoWidth="false">
+									<f:selectItem itemValue="#{null}" itemLabel="Pozicioni"/>
+									<f:selectItems value="#{cacheBean.listDepartmentPositions(opEmployeeViewBean.departmentId)}" 
+									var="dp" itemValue="#{dp.id}" itemLabel="#{dp.position.tag}" 
+									itemDisabled="#{dp.currentEmployee != null and dp.currentEmployee.id != opEmployeeViewBean.employeeForm.employmentId}"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Kategoria e pagës"/>
+								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeViewBean.employeeForm.paymentCategoryId}" autoWidth="false"
+								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}">
+									<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
+									<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Data e fillimit"/>
+								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Data e fillimit" 
+								value="#{opEmployeeViewBean.employeeForm.startDate}" 
+								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}"/>
+								
+								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" 
+								  rendered="#{opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null}"/>
+								<p:outputLabel value="Data e përfundimit" 
+								  rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}"/>
+								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeViewBean.employeeForm.employmentId != null or 
+								(opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null)}"
+								navigator="true" placeholder="Data e përfundimit" value="#{opEmployeeViewBean.employeeForm.endDate}"/>
+								
+								
+								
+								
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveEmployment()}" 
+						rendered="#{opEmployeeViewBean.employeeForm.employmentId == null}" update="employee_view_form:employee_data"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro emërimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyEmployment()}" 
+						rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}" update="employee_view_form:employee_data"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho emërimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initEmployment()}" 
+						             update="employee_view_form:tab_view:emp_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.employment}" var="e" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{e.id==opEmployeeViewBean.employeeForm.employmentId?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Departamenti" style="text-align: left;">
+						#{e.departmentPosition.department.name}
+					</p:column>
+					<p:column headerText="Pozicioni" style="text-align: left;">
+						#{e.departmentPosition.name}
+					</p:column>
+					<p:column headerText="Data filimit" style="text-align: left;">
+						#{formatBean.formatDate(e.startDate)}
+					</p:column>
+					<p:column headerText="Data përfundimit" style="text-align: left;">
+						#{formatBean.formatDate(e.endDate)}
+					</p:column>
+					<p:column headerText="Kategoria pagës" style="text-align: left;">
+						#{e.paymentCategory.tag}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onEmployeeSelect(e)}" 
+							update="employee_view_form:tab_view:emp_tab" style="color:green; font-weight: bold"/> 
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
 

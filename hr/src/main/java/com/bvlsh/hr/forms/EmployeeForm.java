@@ -11,6 +11,7 @@ public class EmployeeForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private Integer employmentId;
 	private String nid;
     private String name;
     private String surname;

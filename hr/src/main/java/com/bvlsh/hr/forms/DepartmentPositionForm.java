@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter @Setter
 public class DepartmentPositionForm {
 
-	
+	Integer id;
 	Integer departmentId;
 	Integer positionId;
 	String name;

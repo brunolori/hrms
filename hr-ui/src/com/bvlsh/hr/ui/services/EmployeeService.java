@@ -19,6 +19,11 @@ public class EmployeeService {
 		return new EmployeeClient().registerEmployee(form);
 	}
 
+	public EmployeeHistoryDTO updateEmployment(EmployeeForm form)
+	{
+		return new EmployeeClient().updateEmployment(form);
+	}
+	
 	public EmployeeDTO changeEmployeePosition(EmployeeForm form)
 	{
 		return new EmployeeClient().changeEmployeePosition(form);

@@ -40,6 +40,15 @@ public class EmployeeAPI {
 			return new ResponseEntity<>(dto,HttpStatus.OK);		
 	}
 	
+	@RequestMapping(value="/updateEmployment", method=RequestMethod.POST, produces={"application/json"})
+	public ResponseEntity<?> updateEmployment(@RequestHeader(value="Authorization") String token, @RequestBody EmployeeForm form)
+	{
+			String uname = tokenService.getUsername(token);
+			
+			EmployeeHistoryDTO dto = new Assembler().toDto(employeeService.updateEmployment(form, uname));
+			
+			return new ResponseEntity<>(dto,HttpStatus.OK);		
+	}
 	
 	@RequestMapping(value="/changeEmployeePosition", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> changeEmployeePosition(@RequestHeader(value="Authorization") String token, @RequestBody EmployeeForm form)

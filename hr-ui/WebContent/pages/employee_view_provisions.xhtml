@@ -9,56 +9,74 @@
 		<div class="ui-g ui-fluid">
 			
 			<div class="ui-g-12">
-					<p:messages showDetail="true" closable="true">
-						<p:autoUpdate />
-					</p:messages>
+					<p:messages showDetail="true" closable="true" />
 			</div>
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
 					<p:outputLabel value="Tipi i masës"/>
-					<p:selectOneMenu autoWidth="false">
+					<p:selectOneMenu value="#{opEmployeeViewBean.provisionForm.provisionTypeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Tipi i masës"/>
+						<f:selectItems value="#{cacheBean.provisionTypes}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 					</p:selectOneMenu>
 					<p:outputLabel value="Nr aktit"/>
-					<p:inputText placeholder="Nr aktit"/>
+					<p:inputText value="#{opEmployeeViewBean.provisionForm.actNo}" placeholder="Nr aktit"/>
 					<p:outputLabel value="Data aktit"/>
-					<p:calendar pattern="dd.MM.yyyy" value="#{null}" placeholder="Data aktit"/>
+					<p:calendar value="#{opEmployeeViewBean.provisionForm.actDate}" pattern="dd.MM.yyyy" placeholder="Data aktit"/>
 					<p:outputLabel value="Data fillimit"/>
-					<p:calendar pattern="dd.MM.yyyy" value="#{null}" placeholder="Data fillimit"/>
+					<p:calendar value="#{opEmployeeViewBean.provisionForm.startDate}" pattern="dd.MM.yyyy" placeholder="Data fillimit"/>
 					<p:outputLabel value="Vlefshmëria (muaj)"/>
-					<p:inputNumber placeholder="Vlefshmëria në muaj"/>
+					<p:inputNumber decimalPlaces="0" value="#{opEmployeeViewBean.provisionForm.validityInMonths}" placeholder="Vlefshmëria në muaj"/>
 					<p:outputLabel value="Arsyeja"/>
-					<p:inputTextarea placeholder="Arsyeja"/>
-					<p:commandButton value="Regjistro" icon="fa fa-save" styleClass="green-btn" />
-					<p:commandButton value="Anullo" icon="fa fa-reload" styleClass="red-btn"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.provisionForm.reason}" placeholder="Arsyeja"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveProvision()}" 
+						rendered="#{opEmployeeViewBean.provisionForm.id == null}" update="employee_view_form:tab_view:provision_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro Masën administrative" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyProvision()}" 
+						rendered="#{opEmployeeViewBean.provisionForm.id != null}" update="employee_view_form:tab_view:provision_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho Masën administrative" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initProvisions()}" 
+						             update="employee_view_form:tab_view:provision_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
 				</p:panelGrid>
 			
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value=" " var="ap" rowIndexVar="r" reflow="true" styleClass="no-border">
+				<p:dataTable value="#{opEmployeeViewBean.provisions}" var="ap" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{ap.id==opEmployeeViewBean.provisionForm.id?'ui-state-hover':''}"
+				>
 					<p:column headerText="#" style="text-align: left;">
 						#{r+1}
 					</p:column>
 					<p:column headerText="Tipi masës" style="text-align: left;">
-						#{r+1}
+						#{ap.provisionType.tag}
 					</p:column>
 					<p:column headerText="Nr aktit" style="text-align: left;">
-						#{r+1}
+						#{ap.actNo}
 					</p:column>
 					<p:column headerText="Data aktit" style="text-align: left;">
-						#{r+1}
+						#{formatBean.formatDate(ap.actDate)}
 					</p:column>
 					<p:column headerText="Data fillimit" style="text-align: left;">
-						#{r+1}
+						#{formatBean.formatDate(ap.startDate)}
 					</p:column>
 					<p:column headerText="Vlefshmëria" style="text-align: left;">
-						#{r+1}
+						#{ap.validityInMonths} muaj
 					</p:column>
 					<p:column headerText="Veprime" >
-							<p:commandButton icon="fa fa-edit" />
-							<p:commandButton icon="fa fa-close" styleClass="red-btn"/>
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onProvisionSelect(ap)}" 
+							update="employee_view_form:tab_view:provision_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteProvision(ap)}"
+							 update="employee_view_form:tab_view:provision_tab"
+							 style="color:#ff1300; font-weight: bold"/>
 					</p:column>
 				</p:dataTable>
 			

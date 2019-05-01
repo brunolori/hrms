@@ -48,8 +48,8 @@ public class AdministrativeProvisionAPI {
 	}
 	
 	
-	@RequestMapping(value="/deleteProvision/{provisionId}", method=RequestMethod.GET, produces={"application/json"})
-	public ResponseEntity<?> getEmployeeHistory(@RequestHeader(value="Authorization") String token, @PathVariable Integer provisionId)
+	@RequestMapping(value="/delete/{provisionId}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> deleteProvision(@RequestHeader(value="Authorization") String token, @PathVariable Integer provisionId)
 	{
 		String uname = tokenService.getUsername(token);
 				
@@ -75,5 +75,25 @@ public class AdministrativeProvisionAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
+	
+	
+	@RequestMapping(value="/getEmployeeProvisions/{nid}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getEmployeeProvisions(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	{
+		String uname = tokenService.getUsername(token);
+				
+		List<AdministrativeProvisionDTO> list = new Assembler().administrativePositionListToDto(provisionService.getEmployeeProvisions(nid, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	
+	
 
 }

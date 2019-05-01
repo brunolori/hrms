@@ -11,6 +11,7 @@ import com.bvlsh.hr.ui.dto.BankDTO;
 import com.bvlsh.hr.ui.dto.ContactTypeDTO;
 import com.bvlsh.hr.ui.dto.DepartmentCategoryDTO;
 import com.bvlsh.hr.ui.dto.DepartmentDTO;
+import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
@@ -78,6 +79,12 @@ public class CacheBean implements Serializable {
 		return new DepartmentService().getDepartments();
 	}
 	
+	public List<DepartmentPositionDTO> listDepartmentPositions(Integer deptId)
+	{
+		if(deptId == null) return null;
+		return new DepartmentService().getDepartmentPositions(deptId);
+	}
+	
 	public List<StateDTO> filterState(String query)
 	{
 		Stream<StateDTO> s = states.stream()
@@ -87,29 +94,6 @@ public class CacheBean implements Serializable {
 		return s.collect(Collectors.toList());
 	}
 	
-	
-	
-	/*
-	public List<MunicipalityDTO> loadMunicipalities(Integer regionId, boolean fill)
-	{
-		if(regionId == null )
-		{
-			return fill?this.municipalities:null;
-		}
-		
-		List<MunicipalityDTO> list = new ArrayList<>();
-		for(MunicipalityDTO m : municipalities)
-		{
-			if(m.getRegion().getId() == regionId)
-			{
-				list.add(m);
-			}
-		}
-		
-		return list;
-		
-	}
-		*/
 	
 
 }	

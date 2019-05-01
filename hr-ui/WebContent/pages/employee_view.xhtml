@@ -8,7 +8,7 @@
 	<h:form id="employee_view_form">
 		<f:event type="preRenderComponent" listener="#{opEmployeeViewBean.init()}" />
 
-		<h:panelGroup layout="block" id="person_data">
+		<h:panelGroup layout="block" id="employee_data">
 
 
 		<div class="ui-g ">
@@ -19,7 +19,7 @@
 				</div>
 
 
-				<div class="ui-g-12 ui-fluid">
+				<div class="ui-g-12 ui-fluid nopad">
 					<p:messages showDetail="true" closable="true">
 						<p:autoUpdate />
 					</p:messages>
@@ -28,9 +28,7 @@
 				
 				<div class="ui-g-12 ui-fluid">
 				
-					<div class="card card-w-title">
-						<h3>#{opEmployeeViewBean.employee.name} #{opEmployeeViewBean.employee.fatherName} #{opEmployeeViewBean.employee.surname}</h3>
-					
+					<div class="card">					
 						<div class="ui-g">
 						
 						    <div class="ui-g-12 ui-md-2">
@@ -38,22 +36,29 @@
 									            cache="false">
 									<f:param name="nid" value="#{opEmployeeViewBean.employee.nid}" />
 								</p:graphicImage>
+								<h2 style="text-align: center; font-weight: bold;">#{opEmployeeViewBean.employee.name} #{opEmployeeViewBean.employee.fatherName} #{opEmployeeViewBean.employee.surname}</h2>
+								
+								<ul>
+									<li><p:outputLabel value="#{opEmployeeViewBean.employee.departmentPosition.department.name}" style="text-align: center; font-weight: bold;"/></li>
+									<li><p:outputLabel value="#{opEmployeeViewBean.employee.departmentPosition.name}" style="color:#B8b8b8; text-align: center; font-weight: bold;"/></li>
+								</ul>
+								<h3 style="font-weight: bold;color: #{opEmployeeViewBean.employee.endDate==null?'green':'#ff1300'}">#{opEmployeeViewBean.employee.endDate==null?'AKTIV':'JO AKTIV'}</h3>
 						    </div>
 						    <div class="ui-g-12 ui-md-10">
 						    
-						    	<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
-						    		<p:outputLabel value="Nr punonjësit"/>
-						    		<p:outputLabel value="Nr dosjes"/>
-						    		<p:outputLabel value="Data fillimit"/>
-						    		<p:outputLabel value="Data mbarimit"/>
+						    	<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank" >
+						    		<p:outputLabel value="Nr punonjësit" styleClass="bold"/>
+						    		<p:outputLabel value="Nr dosjes" styleClass="bold"/>
+						    		<p:outputLabel value="Data fillimit" styleClass="bold"/>
+						    		<p:outputLabel value="Data mbarimit" styleClass="bold"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.employeeNo}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.dossierNo}" readonly="true"/>
 						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.startDate)}" readonly="true"/>
 						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.endDate)}" readonly="true"/>
 						    		
-						    		<p:outputLabel value="Departamenti"/>
-						    		<p:outputLabel value="Pozicioni"/>
-						    		<p:outputLabel value="Kategoria e pagës"/>
+						    		<p:outputLabel value="Departamenti" styleClass="bold"/>
+						    		<p:outputLabel value="Pozicioni" styleClass="bold"/>
+						    		<p:outputLabel value="Kategoria e pagës" styleClass="bold"/>
 						    		<p:outputLabel value=""/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.department.name}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.position.tag}" readonly="true"/>
@@ -61,28 +66,28 @@
 						    		<p:outputLabel value=""/>
 						    		
 						    		
-						    		<p:outputLabel value="Emri"/> 
-						    		<p:outputLabel value="Atësia"/> 
-						    		<p:outputLabel value="Mbiemri"/> 
-						    		<p:outputLabel value="NID"/> 
+						    		<p:outputLabel value="Emri" styleClass="bold"/> 
+						    		<p:outputLabel value="Atësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Mbiemri" styleClass="bold"/> 
+						    		<p:outputLabel value="NID" styleClass="bold"/> 
 						    		<p:inputText value="#{opEmployeeViewBean.employee.name}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.fatherName}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.surname}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.nid}" readonly="true"/>
 						    		
-						    		<p:outputLabel value="Datëlindja"/> 
-						    		<p:outputLabel value="Mëmësia"/> 
-						    		<p:outputLabel value="Mbiemri tjetër"/>
-						    		<p:outputLabel value="Statusi civil"/> 
+						    		<p:outputLabel value="Datëlindja" styleClass="bold"/> 
+						    		<p:outputLabel value="Mëmësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Mbiemri tjetër" styleClass="bold"/>
+						    		<p:outputLabel value="Statusi civil" styleClass="bold"/> 
 						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.dob)}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.motherName}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.maidenName}" readonly="true"/>
 						    		<p:inputText value="#{formatBean.formatCivilStatus(opEmployeeViewBean.employee.civilStatus)}" readonly="true"/>
 
-						    		<p:outputLabel value="Gjinia"/> 
-						    		<p:outputLabel value="Vendlindja"/>
-						    		<p:outputLabel value="Kombësia"/> 
-						    		<p:outputLabel value="Shtetësia"/> 
+						    		<p:outputLabel value="Gjinia" styleClass="bold"/> 
+						    		<p:outputLabel value="Vendlindja" styleClass="bold"/>
+						    		<p:outputLabel value="Kombësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Shtetësia" styleClass="bold"/> 
 						    		<p:inputText value="#{opEmployeeViewBean.employee.gender}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.pob}" readonly="true"/>
 						    		<p:inputText value="#{opEmployeeViewBean.employee.nationality.name}" readonly="true"/>
@@ -98,49 +103,60 @@
 					</div>
 				
 				</div>
-				
+
 				<div class="ui-g-12 ui-fluid">
-				
-					<p:tabView>
-						<p:tab title="Kontaktet">
-							<ui:include src="employee_view_contacts.xhtml"/>
-						</p:tab>
+
+					<p:tabView id="tab_view">
 						<p:tab title="Punësimi">
-							<ui:include src="employee_view_experiences.xhtml"/>
-						</p:tab>
-						<p:tab title="Edukimi">
-							<ui:include src="employee_view_educations.xhtml"/>
-						</p:tab>
-						<p:tab title="Kualifikimet">
-							<ui:include src="employee_view_qualifications.xhtml"/>
-						</p:tab>
-						<p:tab title="Gjuhët e huaja">
-							<ui:include src="employee_view_foreign_languages.xhtml"/>
-						</p:tab>
-						<p:tab title="Masa disiplinore">
-							<ui:include src="employee_view_provisions.xhtml"/>
-						</p:tab>
-						<p:tab title="Dokumentet">
-							<ui:include src="employee_view_documents.xhtml"/>
+							<h:panelGroup id="emp_tab" layout="block">
+								<ui:include src="employee_view_experiences.xhtml" />
+							</h:panelGroup>
 						</p:tab>
 						<p:tab title="Grada">
-							<ui:include src="employee_view_grades.xhtml"/>
+							<h:panelGroup id="grade_tab" layout="block">
+								<ui:include src="employee_view_grades.xhtml" />
+							</h:panelGroup>
 						</p:tab>
 						<p:tab title="Performanca">
-							<ui:include src="employee_view_job_validations.xhtml"/>
+							<ui:include src="employee_view_job_validations.xhtml" />
 						</p:tab>
-						
-					
+						<p:tab title="Masa disiplinore">
+							<h:panelGroup id="provision_tab" layout="block">
+								<ui:include src="employee_view_provisions.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Edukimi">
+							<h:panelGroup id="edu_tab" layout="block">
+								<ui:include src="employee_view_educations.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Kualifikimet">
+							<h:panelGroup id="training_tab" layout="block">
+								<ui:include src="employee_view_qualifications.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Gjuhët e huaja">
+							<h:panelGroup id="language_tab" layout="block">
+								<ui:include src="employee_view_foreign_languages.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Dokumentet">
+							<h:panelGroup id="docs_tab" layout="block">
+								<ui:include src="employee_view_documents.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Kontaktet">
+							<h:panelGroup id="contact_tab" layout="block">
+								<ui:include src="employee_view_contacts.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+
 					</p:tabView>
-					
+
 				</div>
-				
-				
-				
-				
-				
-				
-		</div>
+
+
+			</div>
 		
 		
 		

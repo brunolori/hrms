@@ -11,10 +11,16 @@ public class JobValidationSx implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	    private Date validationDate;
-	    private Date startDate;
-	    private Date endDate;
-	    private Integer validationTypeId;
+		String nid;
+		String employeeNo;
+		String name;
+		String surname;
+		Integer departmentId;
+	
+	    Date validationDate;
+	    Date startDate;
+	    Date endDate;
+	    Integer validationTypeId;
 	    
 	    Integer firstResult;
 		Integer maxResult;

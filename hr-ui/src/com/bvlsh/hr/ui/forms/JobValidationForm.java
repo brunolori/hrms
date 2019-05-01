@@ -11,6 +11,7 @@ public class JobValidationForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	    private Integer id;
 	    private Date validationDate;
 	    private Date startDate;
 	    private Date endDate;

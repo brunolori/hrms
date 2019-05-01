@@ -62,28 +62,31 @@
 								<p:outputLabel value="Shtetësia" />
 								<p:autoComplete placeholder="Shtetësia" value="#{opEmployeeAddBean.form.citizenshipCode}" 
 								        	completeMethod="#{cacheBean.filterState}" var="nc"
-											itemLabel="#{nc}" itemValue="#{nc}" >
+											itemLabel="#{nc}" itemValue="#{nc.code}" >
 								 </p:autoComplete>
 								<p:outputLabel value="Departamenti"/>
-								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeAddBean.departmentId}" >
+								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeAddBean.departmentId}" autoWidth="false">
 									<p:ajax listener="#{opEmployeeAddBean.onDepartmentSelect()}" update="position"/>
 									<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
 									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Pozicioni"/>
-								<p:selectOneMenu id="position" placeholder="Pozicioni" value="#{opEmployeeAddBean.form.departmentPositionId}" disabled="#{opEmployeeAddBean.departmentId == null}" >
+								<p:selectOneMenu id="position" placeholder="Pozicioni" value="#{opEmployeeAddBean.form.departmentPositionId}" 
+								disabled="#{opEmployeeAddBean.departmentId == null}" autoWidth="false">
 									<f:selectItem itemValue="#{null}" itemLabel="Pozicioni"/>
 									<f:selectItems value="#{opEmployeeAddBean.departmentPositions}" var="dp" itemValue="#{dp.id}" itemLabel="#{dp.position.tag}" itemDisabled="#{dp.currentEmployee != null}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Kategoria e pagës"/>
-								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeAddBean.form.paymentCategoryId}" >
+								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeAddBean.form.paymentCategoryId}" autoWidth="false" >
 									<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
 									<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Data e fillimit"/>
 								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Data e fillimit" value="#{opEmployeeAddBean.form.startDate}"/>
-								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" rendered="#{opEmployeeAddBean.employeeExists}"/>
-								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" navigator="true" placeholder="Data e lënies së pozicionit të mëparshëm" value="#{opEmployeeAddBean.form.endDate}"/>
+								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" 
+								rendered="#{opEmployeeAddBean.employeeExists}"/>
+								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" 
+								navigator="true" placeholder="Data e lënies së pozicionit të mëparshëm" value="#{opEmployeeAddBean.form.endDate}"/>
 								<p:outputLabel value="Nr punonjësit"/>
 								<p:inputText placeholder="Nr punonjësit" value="#{opEmployeeAddBean.form.employeeNo}"/>	
 								<p:outputLabel value="Nr dosjes"/>

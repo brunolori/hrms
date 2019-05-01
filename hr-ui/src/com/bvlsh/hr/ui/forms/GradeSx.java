@@ -11,10 +11,16 @@ public class GradeSx implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Date startDate;
-    private Date endDate;
-    private Integer gradeId;
-    private String personNid;
+	String nid;
+	String employeeNo;
+	String name;
+	String surname;
+	Integer departmentId;
+	
+	Date startDate;
+    Date endDate;
+    Integer gradeId;
+    String personNid;
     
     Integer firstResult;
 	Integer maxResult;

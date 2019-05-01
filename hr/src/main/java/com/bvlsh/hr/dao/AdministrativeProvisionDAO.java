@@ -105,4 +105,11 @@ public class AdministrativeProvisionDAO {
 
 	}
 
+	public List<AdministrativeProvision> getProvisionsByNid(String nid) {
+		return em.createQuery("FROM AdministrativeProvision ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.startDate DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
+	}
+
 }

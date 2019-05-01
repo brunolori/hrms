@@ -44,6 +44,29 @@ public class EmployeeClient {
 		return null;
 	}
 
+	public EmployeeHistoryDTO updateEmployment(EmployeeForm form)
+	{
+		final String BASE_URL = IApiClient.SERVER + "/api/employee/updateEmployment";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+
+		ResponseEntity<EmployeeHistoryDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity,
+				EmployeeHistoryDTO.class);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+	
+	
 	public EmployeeDTO changeEmployeePosition(EmployeeForm form)
 	{
 		final String BASE_URL = IApiClient.SERVER + "/api/employee/changeEmployeePosition";

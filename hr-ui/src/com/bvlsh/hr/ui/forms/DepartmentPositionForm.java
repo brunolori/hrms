@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter @Setter
 public class DepartmentPositionForm implements Serializable {
 
+	Integer id;
 	Integer departmentId;
 	Integer positionId;
 	String name;

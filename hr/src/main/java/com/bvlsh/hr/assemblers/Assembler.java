@@ -302,7 +302,18 @@ public class Assembler {
 		dto.setName(e.getName());
 		dto.setCreateTime(e.getCreateTime());
 		dto.setCreateUser(e.getCreateUser());
-		dto.setCurrentEmployee(toDto(e.getCurrentEmployee()));
+		if(e.getCurrentEmployee() != null)
+		{
+			EmployeeHistoryDTO h = new EmployeeHistoryDTO();
+			EmployeeDTO emp = new EmployeeDTO();
+			emp.setNid(e.getCurrentEmployee().getEmployee().getNid());
+			emp.setName(e.getCurrentEmployee().getEmployee().getName());
+			emp.setSurname(e.getCurrentEmployee().getEmployee().getSurname());
+			emp.setFatherName(e.getCurrentEmployee().getEmployee().getFatherName());
+			h.setId(e.getCurrentEmployee().getId());
+			h.setEmployee(emp);
+		   dto.setCurrentEmployee(h);
+		}
 		dto.setDepartment(toDto(e.getDepartment()));
 		dto.setPosition(toDto(e.getPosition()));
 		dto.setUpdateTime(e.getUpdateTime());
@@ -442,7 +453,14 @@ public class Assembler {
 		dto.setUpdateUser(e.getUpdateUser());
 		dto.setUpdateTime(e.getUpdateTime());
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
-		dto.setDepartmentPosition(toDto(e.getDepartmentPosition()));
+		if(e.getDepartmentPosition() != null)
+		{
+			DepartmentPositionDTO dp = new DepartmentPositionDTO();
+			dp.setDepartment(toDto(e.getDepartmentPosition().getDepartment()));
+			dp.setName(e.getDepartmentPosition().getName());
+			dp.setPosition(toDto(e.getDepartmentPosition().getPosition()));
+			dto.setDepartmentPosition(dp);
+		}
 		dto.setPaymentCategory(toDto(e.getPaymentCategory()));
 		dto.setEmployee(toDto(e.getEmployee()));
 

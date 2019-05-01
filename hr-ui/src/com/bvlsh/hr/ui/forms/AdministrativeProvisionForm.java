@@ -11,6 +11,7 @@ public class AdministrativeProvisionForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	Integer id;
 	String actNo;
 	Date actDate;
 	Date startDate;
