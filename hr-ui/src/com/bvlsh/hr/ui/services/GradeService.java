@@ -24,4 +24,8 @@ public class GradeService
 		return new GradeClient().searchGrades(sx);
 	}
 
+	public List<EmployeeGradeDTO> getEmployeeGrades(String nid) {
+		return new GradeClient().getEmployeeGrades(nid);
+	}
+
 }

@@ -76,7 +76,9 @@
 							update="employee_view_form:tab_view:provision_tab" style="color:green; font-weight: bold"/> | 
 							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteProvision(ap)}"
 							 update="employee_view_form:tab_view:provision_tab"
-							 style="color:#ff1300; font-weight: bold"/>
+							 style="color:#ff1300; font-weight: bold">
+							    <p:confirm header="Fshijë masën" message="Jeni të sigurt?"/>
+							 </p:commandLink>
 					</p:column>
 				</p:dataTable>
 			

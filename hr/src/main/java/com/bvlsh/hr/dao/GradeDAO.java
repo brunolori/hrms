@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.EmployeeGrade;
 import com.bvlsh.hr.forms.GradeSx;
 
@@ -51,6 +52,14 @@ public class GradeDAO {
 
 		return q.getResultList();
 
+	}
+
+
+	public List<EmployeeGrade> getEmployeeGrades(String nid) {
+		return em.createQuery("FROM EmployeeGrade ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.startDate DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
 	}
 
 }

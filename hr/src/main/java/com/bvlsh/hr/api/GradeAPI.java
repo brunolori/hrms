@@ -78,5 +78,23 @@ public class GradeAPI {
 	}
 
 	
+	@RequestMapping(value="/getEmployeeGrades/{nid}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getEmployeeGrades(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	{
+		String uname = tokenService.getUsername(token);
+				
+		List<EmployeeGradeDTO> list = new Assembler().employeeGradeListToDto(gradeService.getEmployeeGrades(nid, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	
+	
 
 }

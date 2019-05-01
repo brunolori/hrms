@@ -47,7 +47,7 @@ public class EmployeeGrade implements Serializable {
     @JoinColumn(name = "GRADE_ID", referencedColumnName = "ID")
     @ManyToOne
     private Grade grade;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne
     private Employee employee;
 

@@ -10,11 +10,14 @@ import javax.faces.bean.ViewScoped;
 import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
+import com.bvlsh.hr.ui.dto.EmployeeGradeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.forms.AdministrativeProvisionForm;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
+import com.bvlsh.hr.ui.forms.GradeForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
 import com.bvlsh.hr.ui.services.EmployeeService;
+import com.bvlsh.hr.ui.services.GradeService;
 import com.bvlsh.hr.ui.utils.Messages;
 
 import lombok.Getter;
@@ -37,7 +40,8 @@ public class OpEmployeeViewBean implements Serializable {
 	EmployeeForm employeeForm;
 	List<AdministrativeProvisionDTO> provisions;
 	AdministrativeProvisionForm provisionForm;
-	
+	List<EmployeeGradeDTO> grades;
+	GradeForm gradeForm;
 	
 	
 	
@@ -47,6 +51,7 @@ public class OpEmployeeViewBean implements Serializable {
 		this.employee = new EmployeeService().getEmployeeByNid(nid);
 		initProvisions();
 		initEmployment();
+		initGrades();
 	}
 	
 	
@@ -142,7 +147,49 @@ public class OpEmployeeViewBean implements Serializable {
 	}
 	
 	
+	public void initGrades()
+	{
+		this.gradeForm = new GradeForm();
+		this.grades = new GradeService().getEmployeeGrades(this.employee.getNid());
+	}
 	
+	public void saveGrade()
+	{
+		try {
+			this.gradeForm.setPersonNid(this.employee.getNid());
+			new GradeService().registerGrade(this.gradeForm);
+			initGrades();
+			Messages.throwFacesMessage("Grada u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void modifyGrade()
+	{
+		try {
+			this.gradeForm.setPersonNid(this.employee.getNid());
+			new GradeService().modifyGrade(this.gradeForm);
+			initGrades();
+			Messages.throwFacesMessage("Grada u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void deleteGrade(EmployeeGradeDTO dto)
+	{
+		try {
+			new GradeService().deleteGrade(dto.getId());
+			initGrades();
+			Messages.throwFacesMessage("Grada u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void onGradeSelect(EmployeeGradeDTO dto)
+	{
+		this.gradeForm.setId(dto.getId());
+		this.gradeForm.setPersonNid(dto.getEmployee().getNid());
+		this.gradeForm.setEndDate(dto.getEndDate());
+		this.gradeForm.setStartDate(dto.getStartDate());
+		this.gradeForm.setGradeId(dto.getGrade().getId());
+	}
 	
 	
 	

@@ -13,6 +13,7 @@ import com.bvlsh.hr.entities.ContactType;
 import com.bvlsh.hr.entities.DepartmentCategory;
 import com.bvlsh.hr.entities.EducationType;
 import com.bvlsh.hr.entities.ForeignLanguage;
+import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Position;
@@ -134,5 +135,10 @@ public class CrudDAO {
 	   return em.createQuery("FROM Role r WHERE r.status=:status").setParameter("status", IStatus.ACTIVE)
 			   .getResultList();
    }
+
+public List<Grade> loadGrades() {
+	return em.createQuery("FROM Grade r WHERE r.status=:status order by r.level").setParameter("status", IStatus.ACTIVE)
+			   .getResultList();
+}
    
 }

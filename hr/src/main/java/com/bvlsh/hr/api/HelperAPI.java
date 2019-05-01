@@ -15,6 +15,7 @@ import com.bvlsh.hr.dto.ContactTypeDTO;
 import com.bvlsh.hr.dto.DepartmentCategoryDTO;
 import com.bvlsh.hr.dto.EducationTypeDTO;
 import com.bvlsh.hr.dto.ForeignLanguageDTO;
+import com.bvlsh.hr.dto.GradeDTO;
 import com.bvlsh.hr.dto.InstitutionDTO;
 import com.bvlsh.hr.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.dto.PositionDTO;
@@ -234,6 +235,21 @@ public class HelperAPI {
 	{
 				
 		List<RoleDTO> list = new Assembler().roleListToDto(helperService.loadRoles());
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/list/grades", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> loadGrades()
+	{
+				
+		List<GradeDTO> list = new Assembler().gradeListToDto(helperService.loadGrades());
 		
 		if(list == null || list.isEmpty())
 		{

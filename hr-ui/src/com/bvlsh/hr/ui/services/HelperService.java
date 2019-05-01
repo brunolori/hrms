@@ -77,8 +77,7 @@ public class HelperService {
 	}
 
 	public List<GradeDTO> loadGrades() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HelperClient().loadGrades();
 	}
 
 }

@@ -5,21 +5,75 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<h:form id="home_form">
 
 		<div class="ui-g ui-fluid">
+			
 			<div class="ui-g-12">
-				<div class="card card-w-title">
-					<h1>Home</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-							
-						</div>
-					</div>
-				</div>
+					<p:messages showDetail="true" closable="true" />
 			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Grada"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.gradeForm.gradeId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Grada"/>
+						<f:selectItems value="#{cacheBean.grades}" var="g" itemValue="#{g.id}" itemLabel="#{g.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Data fillimit"/>
+					<p:calendar value="#{opEmployeeViewBean.gradeForm.startDate}" pattern="dd.MM.yyyy" placeholder="Data fillimit"/>
+					<p:outputLabel value="Data mbarimit"/>
+					<p:calendar value="#{opEmployeeViewBean.gradeForm.endDate}" pattern="dd.MM.yyyy" placeholder="Data mbarimit"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveGrade()}" 
+						rendered="#{opEmployeeViewBean.gradeForm.id == null}" update="employee_view_form:tab_view:grade_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro gradën" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyGrade()}" 
+						rendered="#{opEmployeeViewBean.gradeForm.id != null}" update="employee_view_form:tab_view:grade_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho gradën" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initGrades()}" 
+						             update="employee_view_form:tab_view:grade_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.grades}" var="pg" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{pg.id==opEmployeeViewBean.gradeForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Grada" style="text-align: left;">
+						#{pg.grade.tag}
+					</p:column>
+					<p:column headerText="Data fillimit" style="text-align: left;">
+						#{formatBean.formatDate(pg.startDate)}
+					</p:column>
+					<p:column headerText="Data mbarimit" style="text-align: left;">
+						#{formatBean.formatDate(pg.endDate)}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onGradeSelect(pg)}" 
+							update="employee_view_form:tab_view:grade_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteGrade(pg)}"
+							 update="employee_view_form:tab_view:grade_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë gradën" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
-	</h:form>
 
 </ui:composition>

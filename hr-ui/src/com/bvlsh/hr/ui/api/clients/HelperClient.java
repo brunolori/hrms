@@ -20,6 +20,7 @@ import com.bvlsh.hr.ui.dto.ContactTypeDTO;
 import com.bvlsh.hr.ui.dto.DepartmentCategoryDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
+import com.bvlsh.hr.ui.dto.GradeDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.ui.dto.PositionDTO;
@@ -356,6 +357,28 @@ public class HelperClient {
 		ParameterizedTypeReference<List<RoleDTO>> typeRef = new ParameterizedTypeReference<List<RoleDTO>>() {};
 		
 		ResponseEntity<List<RoleDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}
+				
+		return null;
+	}
+
+	public List<GradeDTO> loadGrades() {
+		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/grades";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		
+		ParameterizedTypeReference<List<GradeDTO>> typeRef = new ParameterizedTypeReference<List<GradeDTO>>() {};
+		
+		ResponseEntity<List<GradeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
 		
 		if(response.getStatusCode() == HttpStatus.OK)
 		{

@@ -10,6 +10,7 @@ import com.bvlsh.hr.entities.ContactType;
 import com.bvlsh.hr.entities.DepartmentCategory;
 import com.bvlsh.hr.entities.EducationType;
 import com.bvlsh.hr.entities.ForeignLanguage;
+import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Position;
@@ -99,6 +100,11 @@ public class HelperService {
 	   
 	   return crudDAO.loadRoles();
    }
+
+
+public List<Grade> loadGrades() {
+	return crudDAO.loadGrades();
+}
    
 	
 	

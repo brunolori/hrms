@@ -72,7 +72,7 @@ public class GradeClient {
 	
 	public EmployeeGradeDTO deleteGrade(Integer gradeId)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/grade/"+gradeId;
+		final String BASE_URL = IApiClient.SERVER+"/api/grade/deleteGrade/"+gradeId;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -104,6 +104,30 @@ public class GradeClient {
 		};
 
 		ResponseEntity<List<EmployeeGradeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST,
+				entity, typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+
+	public List<EmployeeGradeDTO> getEmployeeGrades(String nid) {
+		final String BASE_URL = IApiClient.SERVER + "/api/grade/getEmployeeGrades/"+nid;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<EmployeeGradeDTO>> typeRef = new ParameterizedTypeReference<List<EmployeeGradeDTO>>() {
+		};
+
+		ResponseEntity<List<EmployeeGradeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
 				entity, typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {

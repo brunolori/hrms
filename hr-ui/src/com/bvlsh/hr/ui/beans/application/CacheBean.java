@@ -14,6 +14,7 @@ import com.bvlsh.hr.ui.dto.DepartmentDTO;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
+import com.bvlsh.hr.ui.dto.GradeDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
 import com.bvlsh.hr.ui.dto.ValidationTypeDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
@@ -53,6 +54,7 @@ public class CacheBean implements Serializable {
 	List<ValidationTypeDTO> validationTypes;
 	List<StateDTO> states;
 	List<DepartmentCategoryDTO> departmentCategories;
+	List<GradeDTO> grades;
 	
 	
 	@PostConstruct
@@ -71,6 +73,7 @@ public class CacheBean implements Serializable {
 		this.validationTypes = new HelperService().loadValidationTypes();
 		this.departmentCategories = new HelperService().loadDepartmentCategories();
 		this.states = new HelperService().loadStates();
+		this.grades = new HelperService().loadGrades();
 		
 	}
 	
