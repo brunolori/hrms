@@ -10,39 +10,36 @@
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h3>Raport Masat Disiplinore</h3>
+					<h2>Gradat</h2>
 					<div class="ui-g">
 						<div class="ui-g-12">
 							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
 										
-										<p:inputText placeholder="NID" value="#{opRapProvisionBean.req.nid}"/>
-										<p:inputText placeholder="Nr punonjësi" value="#{opRapProvisionBean.req.employeeNo}"/>
-										<p:inputText placeholder="Emri" value="#{opRapProvisionBean.req.name}"/>
-										<p:inputText placeholder="Mbiemri" value="#{opRapProvisionBean.req.surname}"/>
+										<p:inputText placeholder="NID" value="#{OpRapGradeBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{OpRapGradeBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{OpRapGradeBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{OpRapGradeBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Departamenti" value="#{opRapProvisionBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{OpRapGradeBean.req.departmentId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
-											<f:selectItems value="#{opRapProvisionBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+											<f:selectItems value="#{OpRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Lloji Masës" value="#{opRapProvisionBean.req.provisionTypeId}">
-											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
-											<f:selectItems value="#{cacheBean.provisionTypes}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
+										<p:selectOneMenu placeholder="Grada" value="#{OpRapGradeBean.req.gradeId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Grada" />
+											<f:selectItems value="#{cacheBean.grades}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 										</p:selectOneMenu>
-										<p:inputText placeholder="Nr Aktit" value="#{opRapProvisionBean.req.actNo}"/>
-										<p:calendar value="#{opRapProvisionBean.req.actDate}" pattern="dd.MM.yyyy" placeholder="Data aktit" />
-										
-										<p:calendar value="#{opRapProvisionBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
-										<p:calendar value="#{opRapProvisionBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+										<p:calendar value="#{OpRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
+										<p:calendar value="#{OpRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
 							          
 							</p:panelGrid>
 						</div>
 						<div class="ui-g-12 ui-md-4">
 							<p:panelGrid layout="grid" columns="2"
 								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Kërko" action="#{opRapProvisionBean.search()}"
+								<p:commandButton value="Kërko" action="#{OpRapGradeBean.search()}"
 									update="@form"
 								    styleClass="blue-btn" icon="ui-icon-search" />
-								<p:commandButton value="Pastro" action="#{opRapProvisionBean.clear()}"
+								<p:commandButton value="Pastro" action="#{OpRapGradeBean.clear()}"
 									update="@form"
 								icon="ui-icon-trash" styleClass="green-btn" />
 							</p:panelGrid>
@@ -54,19 +51,17 @@
 			</div>
 			
 			<div class="ui-g-12">
-					<p:dataTable value="#{opRapProvisionBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+					<p:dataTable value="#{OpRapGradeBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
 						emptyMessage="Asnjë raport i listuar">
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Punonjësi">
 							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
-								action="#{opRapProvisionBean.onEmployeeSelect(t)}" update=":main"
+								action="#{OpRapGradeBean.onEmployeeSelect(t)}" update=":main"
 							/>
 						</p:column>
-						<p:column headerText="Departamenti">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
 						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
-						<p:column headerText="Lloji masës">#{t.provisionType.tag}</p:column>
-						<p:column headerText="Nr Akti">#{t.actNo}</p:column>
-						<p:column headerText="Datë akti">#{formatBean.formatDate(t.actDate)}</p:column>
+						<p:column headerText="Grada">#{t.grade.tag}</p:column>
 					</p:dataTable>
 				</div>
 			

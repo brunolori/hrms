@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="home_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h2>Kualifikime/Trajnime</h2>
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:inputText placeholder="NID" value="#{opRapTrainingBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapTrainingBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapTrainingBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapTrainingBean.req.surname}"/>
+										
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapTrainingBean.req.departmentId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+											<f:selectItems value="#{opRapTrainingBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Institucioni" value="#{opRapTrainingBean.req.institutionId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
+											<f:selectItems value="#{cacheBean.institutions}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Tipi Trajnimit" value="#{opRapTrainingBean.req.trainingTypeId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Tipi Trajnimit" />
+											<f:selectItems value="#{cacheBean.trainingTypes}" var="t" itemValue="#{t.id}" itemLabel="#{pt.tag}"/>
+										</p:selectOneMenu>
+										
+															
+										<p:calendar value="#{opRapTrainingBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
+										<p:calendar value="#{opRapTrainingBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+							          
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Kërko" action="#{opRapTrainingBean.search()}"
+									update="@form"
+								    styleClass="blue-btn" icon="ui-icon-search" />
+								<p:commandButton value="Pastro" action="#{opRapTrainingBean.clear()}"
+									update="@form"
+								icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+					
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="#{opRapTrainingBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+						emptyMessage="Asnjë raport i listuar">
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Punonjësi">
+							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
+								action="#{opRapTrainingBean.onEmployeeSelect(t)}" update=":main"
+							/>
+						</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
+						<p:column headerText="Institucioni">#{t.provisionType.tag}</p:column>
+						<p:column headerText="Lloji Trajnimit">#{t.provisionType.tag}</p:column>
+					</p:dataTable>
+				</div>
+			
+			
+		</div>
+
+	</h:form>
+
+</ui:composition>

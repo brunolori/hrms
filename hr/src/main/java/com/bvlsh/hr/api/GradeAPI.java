@@ -62,7 +62,7 @@ public class GradeAPI {
 	
 	
 	@RequestMapping(value="/searchGrades", method=RequestMethod.POST, produces={"application/json"})
-	public ResponseEntity<?> searchTrainings(@RequestHeader(value="Authorization") String token,@RequestBody GradeSx sx)
+	public ResponseEntity<?> searchGrades(@RequestHeader(value="Authorization") String token,@RequestBody GradeSx sx)
 	{
 		String uname = tokenService.getUsername(token);
 				
