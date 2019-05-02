@@ -18,6 +18,8 @@ import com.bvlsh.hr.forms.JobValidationSx;
 @Repository
 @SuppressWarnings("unchecked")
 public class JobValidationDAO {
+	
+	
 	@PersistenceContext
 	EntityManager em;
 

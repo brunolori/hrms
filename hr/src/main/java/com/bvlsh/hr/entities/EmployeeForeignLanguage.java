@@ -60,7 +60,7 @@ public class EmployeeForeignLanguage implements Serializable {
     @JoinColumn(name = "FOREIGN_LANGUAGE_ID", referencedColumnName = "ID")
     @ManyToOne
     private ForeignLanguage foreignLanguage;
-    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne
     private Employee employee;
 

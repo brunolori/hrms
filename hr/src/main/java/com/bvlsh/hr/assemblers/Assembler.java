@@ -359,13 +359,13 @@ public class Assembler {
 
 	}
 
-	public List<DepartmentDTO> documentListToDto(List<Department> document) {
+	public List<DocumentDTO> documentListToDto(List<Document> document) {
 
 		if (document == null || document.isEmpty()) return null;
 
-		List<DepartmentDTO> list = new ArrayList<>();
+		List<DocumentDTO> list = new ArrayList<>();
 
-		for (Department doc : document) {
+		for (Document doc : document) {
 			list.add(toDto(doc));
 		}
 

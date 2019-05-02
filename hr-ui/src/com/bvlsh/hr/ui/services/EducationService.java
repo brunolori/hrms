@@ -24,4 +24,8 @@ public class EducationService {
 		return new EducationClient().searchEducations(sx);
 	}
 
+	public List<EducationDTO> getEmployeeEducations(String nid) {
+		return new EducationClient().getEmployeeEducations(nid);
+	}
+
 }

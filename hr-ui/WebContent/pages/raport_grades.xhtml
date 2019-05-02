@@ -15,31 +15,31 @@
 						<div class="ui-g-12">
 							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
 										
-										<p:inputText placeholder="NID" value="#{OpRapGradeBean.req.nid}"/>
-										<p:inputText placeholder="Nr punonjësi" value="#{OpRapGradeBean.req.employeeNo}"/>
-										<p:inputText placeholder="Emri" value="#{OpRapGradeBean.req.name}"/>
-										<p:inputText placeholder="Mbiemri" value="#{OpRapGradeBean.req.surname}"/>
+										<p:inputText placeholder="NID" value="#{opRapGradeBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapGradeBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapGradeBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapGradeBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{OpRapGradeBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
-											<f:selectItems value="#{OpRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+											<f:selectItems value="#{opRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Grada" value="#{OpRapGradeBean.req.gradeId}">
+										<p:selectOneMenu placeholder="Grada" value="#{opRapGradeBean.req.gradeId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Grada" />
 											<f:selectItems value="#{cacheBean.grades}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 										</p:selectOneMenu>
-										<p:calendar value="#{OpRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
-										<p:calendar value="#{OpRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+										<p:calendar value="#{opRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
+										<p:calendar value="#{opRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
 							          
 							</p:panelGrid>
 						</div>
 						<div class="ui-g-12 ui-md-4">
 							<p:panelGrid layout="grid" columns="2"
 								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Kërko" action="#{OpRapGradeBean.search()}"
+								<p:commandButton value="Kërko" action="#{opRapGradeBean.search()}"
 									update="@form"
 								    styleClass="blue-btn" icon="ui-icon-search" />
-								<p:commandButton value="Pastro" action="#{OpRapGradeBean.clear()}"
+								<p:commandButton value="Pastro" action="#{opRapGradeBean.clear()}"
 									update="@form"
 								icon="ui-icon-trash" styleClass="green-btn" />
 							</p:panelGrid>

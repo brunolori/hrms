@@ -26,11 +26,11 @@
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Institucioni" value="#{opRapTrainingBean.req.institutionId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
-											<f:selectItems value="#{cacheBean.institutions}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
+											<f:selectItems value="#{cacheBean.institutions}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.name}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Tipi Trajnimit" value="#{opRapTrainingBean.req.trainingTypeId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Tipi Trajnimit" />
-											<f:selectItems value="#{cacheBean.trainingTypes}" var="t" itemValue="#{t.id}" itemLabel="#{pt.tag}"/>
+											<f:selectItems value="#{cacheBean.trainingTypes}" var="t" itemValue="#{t.id}" itemLabel="#{t.tag}"/>
 										</p:selectOneMenu>
 										
 															

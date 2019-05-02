@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
+
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.EmployeeForeignLanguage;
 import com.bvlsh.hr.forms.ForeignLanguageSx;
 import com.bvlsh.hr.utils.StringUtil;
@@ -88,6 +90,11 @@ public class ForeignLanguageDAO {
 		
 	}
 	
-	
+	public List<EmployeeForeignLanguage> getEmployeeLanguages(String nid) {
+		return em.createQuery("FROM EmployeeForeignLanguage ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.id DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
+	}
 
 }

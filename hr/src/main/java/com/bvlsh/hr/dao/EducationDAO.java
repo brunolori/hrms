@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.Education;
 import com.bvlsh.hr.forms.EducationSx;
 import com.bvlsh.hr.utils.StringUtil;
@@ -104,6 +106,11 @@ public class EducationDAO {
 
 	}
 	
-	
+	public List<Education> getEmployeeEducations(String nid) {
+		return em.createQuery("FROM Education ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.issueDate DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
+	}
 
 }

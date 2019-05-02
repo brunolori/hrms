@@ -79,5 +79,22 @@ public class EducationAPI {
 			
 		}
 
-	
+		@RequestMapping(value="/getEmployeeEducations/{nid}", method=RequestMethod.GET, produces={"application/json"})
+		public ResponseEntity<?> getEmployeeEducations(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+		{
+			String uname = tokenService.getUsername(token);
+					
+			List<EducationDTO> list = new Assembler().educationListToDto(educationService.getEmployeeEducations(nid, uname));
+			
+			if(list == null || list.isEmpty())
+			{
+				return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<>(list,HttpStatus.OK);
+			
+		}
+		
+		
+		
 }

@@ -9,15 +9,18 @@ import javax.faces.bean.ViewScoped;
 
 import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
+import com.bvlsh.hr.ui.dto.EducationDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeGradeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.dto.JobValidationDTO;
 import com.bvlsh.hr.ui.forms.AdministrativeProvisionForm;
+import com.bvlsh.hr.ui.forms.EducationForm;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.GradeForm;
 import com.bvlsh.hr.ui.forms.JobValidationForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
+import com.bvlsh.hr.ui.services.EducationService;
 import com.bvlsh.hr.ui.services.EmployeeService;
 import com.bvlsh.hr.ui.services.GradeService;
 import com.bvlsh.hr.ui.services.JobValidationService;
@@ -47,6 +50,11 @@ public class OpEmployeeViewBean implements Serializable {
 	GradeForm gradeForm;
 	List<JobValidationDTO> validations;
 	JobValidationForm validationForm;
+	List<EducationDTO> educations;
+	EducationForm educationForm;
+	
+	
+	
 	
 	
 	public void init() {
@@ -57,6 +65,7 @@ public class OpEmployeeViewBean implements Serializable {
 		initEmployment();
 		initGrades();
 		initValidations();
+		initEducations();
 	}
 	
 	
@@ -242,6 +251,66 @@ public class OpEmployeeViewBean implements Serializable {
 		this.validationForm.setValidationDate(dto.getValidationDate());
 		this.validationForm.setValidationTypeId(dto.getValidationType().getId());
 	}
+	
+	
+	public void initEducations()
+	{
+		this.educationForm = new EducationForm();
+		this.educations = new EducationService().getEmployeeEducations(this.employee.getNid());
+	}
+	
+	public void saveEducation()
+	{
+		try {
+			this.educationForm.setPersonNid(this.employee.getNid());
+			new EducationService().registerEducation(this.educationForm);
+			initEducations();
+			Messages.throwFacesMessage("Edukimi u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void modifyEducation()
+	{
+		try {
+			this.educationForm.setPersonNid(this.employee.getNid());
+			new EducationService().modifyEducation(this.educationForm);
+			initEducations();
+			Messages.throwFacesMessage("Edukimi u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void deleteEducation(EducationDTO dto)
+	{
+		try {
+			new EducationService().deleteEducation(dto.getId());
+			initEducations();
+			Messages.throwFacesMessage("Edukimi u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void onEducationSelect(EducationDTO dto)
+	{
+		this.educationForm.setId(dto.getId());
+		this.educationForm.setDescription(dto.getDescription());
+		this.educationForm.setEducationTypeId(dto.getEducationType().getId());
+		this.educationForm.setPersonNid(dto.getEmployee().getNid());
+		this.educationForm.setIssueDate(dto.getIssueDate());
+		
+		if(dto.getInstitution() != null)
+		{
+		   this.educationForm.setInstitutionId(dto.getInstitution().getId());
+		}
+		
+		if(dto.getStudyField() != null)
+		{
+		   this.educationForm.setStudyFieldId(dto.getStudyField().getId());
+		}
+		
+	}
+	
+	
+	
+	
 	
 	
 

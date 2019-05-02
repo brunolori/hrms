@@ -11,6 +11,7 @@ public class DocumentForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Integer id;
     private String documentName;
     private Date documentDate;
     private String description;

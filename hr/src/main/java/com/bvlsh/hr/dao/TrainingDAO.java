@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
+
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.Training;
 import com.bvlsh.hr.forms.TrainingSx;
 
@@ -63,5 +65,12 @@ public class TrainingDAO {
 	}
 	
 
+	public List<Training> getEmployeeTrainings(String nid) {
+		return em.createQuery("FROM Training ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.trainingDate DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
+	}
+	
 
 }

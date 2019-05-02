@@ -26,7 +26,7 @@
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Institucioni" value="#{opRapEducationBean.req.institutionId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Institucioni" />
-											<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.tag}"/>
+											<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Tipi Shkollimit" value="#{opRapEducationBean.req.educationTypeId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Tipi Shkollimit" />
@@ -37,8 +37,8 @@
 											<f:selectItems value="#{cacheBean.studyFields}" var="sf" itemValue="#{sf.id}" itemLabel="#{sf.tag}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Shteti" value="#{opRapEducationBean.req.stateCode}">
-											<f:selectItem itemValue="#{null}" itemLabel="Tipi Shkollimit" />
-											<f:selectItems value="#{cacheBean.educationTypes}" var="et" itemValue="#{et.id}" itemLabel="#{et.tag}"/>
+											<f:selectItem itemValue="#{null}" itemLabel="Shteti" />
+											<f:selectItems value="#{cacheBean.states}" var="s" itemValue="#{s.code}" itemLabel="#{s.name}"/>
 										</p:selectOneMenu>
 										<p:calendar value="#{opRapEducationBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
 										<p:calendar value="#{opRapEducationBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
