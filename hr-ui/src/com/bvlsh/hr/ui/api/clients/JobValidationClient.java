@@ -70,7 +70,7 @@ public class JobValidationClient {
 	
 	public JobValidationDTO deleteJobValidation(Integer jobValidationId)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/jobValidation/"+jobValidationId;
+		final String BASE_URL = IApiClient.SERVER+"/api/jobValidation/deleteJobValidation/"+jobValidationId;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -101,6 +101,32 @@ public class JobValidationClient {
 		};
 
 		ResponseEntity<List<JobValidationDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST,
+				entity, typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+
+
+
+	public List<JobValidationDTO> getEmployeeValidations(String nid) {
+		final String BASE_URL = IApiClient.SERVER + "/api/jobValidation/getEmployeeValidations/"+nid;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<JobValidationDTO>> typeRef = new ParameterizedTypeReference<List<JobValidationDTO>>() {
+		};
+
+		ResponseEntity<List<JobValidationDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
 				entity, typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {

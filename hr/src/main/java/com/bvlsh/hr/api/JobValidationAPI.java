@@ -76,6 +76,26 @@ public class JobValidationAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
+	
+	
+	@RequestMapping(value="/getEmployeeValidations/{nid}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getEmployeeValidations(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	{
+		String uname = tokenService.getUsername(token);
+				
+		List<JobValidationDTO> list = new Assembler().jobValidationListToDto(jobValidationService.getEmployeeValidations(nid, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	
+	
 
 
 }

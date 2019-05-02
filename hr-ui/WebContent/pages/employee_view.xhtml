@@ -116,7 +116,9 @@
 							</h:panelGroup>
 						</p:tab>
 						<p:tab title="Performanca/Vlerësime">
-							<ui:include src="employee_view_job_validations.xhtml" />
+							<h:panelGroup id="validation_tab" layout="block">
+							    <ui:include src="employee_view_job_validations.xhtml" />
+							</h:panelGroup>
 						</p:tab>
 						<p:tab title="Masa disiplinore">
 							<h:panelGroup id="provision_tab" layout="block">

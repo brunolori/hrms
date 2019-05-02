@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.JobValidation;
 import com.bvlsh.hr.forms.JobValidationSx;
 
@@ -55,6 +56,13 @@ public class JobValidationDAO {
 
 		return q.getResultList();
 
+	}
+
+	public List<JobValidation> getEmployeeValidations(String nid) {
+		return em.createQuery("FROM JobValidation ap WHERE ap.status=:st AND ap.employee.nid=:nid ORDER BY ap.validationDate DESC")
+				.setParameter("st", IStatus.ACTIVE)
+				.setParameter("nid", nid.replace(" ", "").toUpperCase())
+				.getResultList();
 	}
 
 }

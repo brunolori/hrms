@@ -25,4 +25,8 @@ public class JobValidationService {
 		return new JobValidationClient().searchJobValidations(sx);
 	}
 
+	public List<JobValidationDTO> getEmployeeValidations(String nid) {
+		return new JobValidationClient().getEmployeeValidations(nid);
+	}
+
 }

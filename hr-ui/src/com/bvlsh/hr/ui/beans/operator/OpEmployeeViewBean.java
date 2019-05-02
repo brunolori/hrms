@@ -12,12 +12,15 @@ import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeGradeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
+import com.bvlsh.hr.ui.dto.JobValidationDTO;
 import com.bvlsh.hr.ui.forms.AdministrativeProvisionForm;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.GradeForm;
+import com.bvlsh.hr.ui.forms.JobValidationForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
 import com.bvlsh.hr.ui.services.EmployeeService;
 import com.bvlsh.hr.ui.services.GradeService;
+import com.bvlsh.hr.ui.services.JobValidationService;
 import com.bvlsh.hr.ui.utils.Messages;
 
 import lombok.Getter;
@@ -42,7 +45,8 @@ public class OpEmployeeViewBean implements Serializable {
 	AdministrativeProvisionForm provisionForm;
 	List<EmployeeGradeDTO> grades;
 	GradeForm gradeForm;
-	
+	List<JobValidationDTO> validations;
+	JobValidationForm validationForm;
 	
 	
 	public void init() {
@@ -52,6 +56,7 @@ public class OpEmployeeViewBean implements Serializable {
 		initProvisions();
 		initEmployment();
 		initGrades();
+		initValidations();
 	}
 	
 	
@@ -192,7 +197,51 @@ public class OpEmployeeViewBean implements Serializable {
 	}
 	
 	
+	public void initValidations()
+	{
+		this.validationForm = new JobValidationForm();
+		this.validations = new JobValidationService().getEmployeeValidations(this.employee.getNid());
+	}
 	
+	public void saveValidation()
+	{
+		try {
+			this.validationForm.setPersonNid(this.employee.getNid());
+			new JobValidationService().registerJobValidation(this.validationForm);
+			initValidations();
+			Messages.throwFacesMessage("Vlerësimi u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void modifyValidation()
+	{
+		try {
+			this.validationForm.setPersonNid(this.employee.getNid());
+			new JobValidationService().modifyJobValidation(this.validationForm);
+			initValidations();
+			Messages.throwFacesMessage("Vlerësimi u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void deleteValidation(JobValidationDTO dto)
+	{
+		try {
+			new JobValidationService().deleteJobValidation(dto.getId());
+			initValidations();
+			Messages.throwFacesMessage("Vlerësimi u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void onValidationSelect(JobValidationDTO dto)
+	{
+		this.validationForm.setId(dto.getId());
+		this.validationForm.setPersonNid(dto.getEmployee().getNid());
+		this.validationForm.setStartDate(dto.getStartDate());
+		this.validationForm.setEndDate(dto.getEndDate());
+		this.validationForm.setSignedBy(dto.getSignedBy());
+		this.validationForm.setValidationDate(dto.getValidationDate());
+		this.validationForm.setValidationTypeId(dto.getValidationType().getId());
+	}
 	
 	
 
