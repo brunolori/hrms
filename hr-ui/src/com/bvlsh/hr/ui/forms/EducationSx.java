@@ -18,10 +18,12 @@ public class EducationSx implements Serializable {
 	Integer departmentId;
 	
 	
-	Date issueDate;
+	Date fromDate;
+	Date toDate;
 	Integer educationTypeId;
 	Integer institutionId;
 	Integer studyFieldId;
+	String stateCode;
 	    
 	Integer firstResult;
 	Integer maxResult;

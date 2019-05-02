@@ -19,5 +19,7 @@ public class PersonRest {
     String citizenship;
     String address;
     String phone;
+	String maidenName;
+	
     
 }

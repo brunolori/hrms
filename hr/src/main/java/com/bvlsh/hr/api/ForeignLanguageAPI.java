@@ -61,7 +61,7 @@ public class ForeignLanguageAPI {
 	}
 	
 	
-	@RequestMapping(value="/searchForeignLanguages", method=RequestMethod.POST, produces={"application/json"})
+	@RequestMapping(value="/search", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> searchForeignLanguages(@RequestHeader(value="Authorization") String token,@RequestBody ForeignLanguageSx sx)
 	{
 		String uname = tokenService.getUsername(token);

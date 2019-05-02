@@ -110,6 +110,11 @@ public class OpEmployeeAddBean implements Serializable {
 				this.form.setGender(ncr.getGender());
 				this.form.setPob(ncr.getPob());
 				this.form.setDob(ncr.getDob());
+				this.form.setMaidenName(ncr.getMaidenName());
+				if(ncr.getCitizenship() != null)
+				{
+					form.setCitizenshipCode(ncr.getCitizenship().getCode());
+				}
 				
 			}
 		}

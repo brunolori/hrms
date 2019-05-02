@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import com.bvlsh.hr.entities.Education;
 import com.bvlsh.hr.forms.EducationSx;
+import com.bvlsh.hr.utils.StringUtil;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -25,27 +26,63 @@ public class EducationDAO {
 	public List<Education> searchEducations(EducationSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM Education e WHERE 1=1 ";
+		String sql = "FROM Education ed WHERE 1=1 ";
 
-		if (sx.getIssueDate() != null) {
-			sql += "AND e.issueDate=:issue_dt ";
-			params.put("issue_dt", sx.getIssueDate());
+		
+		if(StringUtil.isValid(sx.getEmployeeNo()))
+		{
+			sql += "AND ed.employee.employeeNo like :emp_no ";
+			params.put("emp_no", sx.getEmployeeNo().toUpperCase().replace(" ", ""));
 		}
-
+		
+		if(StringUtil.isValid(sx.getNid()))
+		{
+			sql += "AND ed.employee.nid like :nid ";
+			params.put("nid", sx.getNid().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getName()))
+		{
+			sql += "AND UPPER(e.employee.name) like :name ";
+			params.put("name", sx.getName().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getSurname()))
+		{
+			sql += "AND UPPER(e.employee.surname) like :surname ";
+			params.put("surname", sx.getSurname().toUpperCase().replace(" ", ""));
+		}
+		
+		if(sx.getDepartmentId() != null)
+		{
+			sql += "AND ed.employee.departmentPosition.department.id=:dept_id ";
+			params.put("dept_id", sx.getDepartmentId());
+		}
+		
 		if (sx.getEducationTypeId() != null) {
-			sql += "AND e.provisionType.id=:pt_id ";
+			sql += "AND ed.provisionType.id=:pt_id ";
 			params.put("pt_id", sx.getEducationTypeId());
 		}
 		
 		if (sx.getInstitutionId() != null) {
-			sql += "AND e.institution.id=:inst_id ";
+			sql += "AND ed.institution.id=:inst_id ";
 			params.put("inst_id", sx.getEducationTypeId());
 		}
 		
 		if (sx.getStudyFieldId() != null) {
-			sql += "AND e.studyField.id=:stf_id ";
+			sql += "AND ed.studyField.id=:stf_id ";
 			params.put("stf_id", sx.getStudyFieldId());
 		}
+		
+		if (sx.getFromDate() != null) {
+			sql += "AND ed.issueDate >=:start_fr ";
+			params.put("start_fr", sx.getFromDate());
+		}
+			
+		if (sx.getToDate() != null) {
+				sql += "AND ed.issueDate <=:end_to ";
+				params.put("end_to", sx.getToDate());
+			}
 
 		Query q = em.createQuery(sql);
 		Iterator it = params.entrySet().iterator();

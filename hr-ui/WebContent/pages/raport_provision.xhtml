@@ -10,7 +10,7 @@
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h2>Raport Masat Disiplinore</h2>
+					<h2>Masat Disiplinore</h2>
 					<div class="ui-g">
 						<div class="ui-g-12">
 							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
@@ -20,7 +20,7 @@
 										<p:inputText placeholder="Emri" value="#{opRapProvisionBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapProvisionBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Departamenti" value="#{opRapProvisionBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapProvisionBean.req.departmentId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
 											<f:selectItems value="#{opRapProvisionBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
@@ -62,7 +62,7 @@
 								action="#{opRapProvisionBean.onEmployeeSelect(t)}" update=":main"
 							/>
 						</p:column>
-						<p:column headerText="Departamenti">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
 						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
 						<p:column headerText="Lloji masës">#{t.provisionType.tag}</p:column>
 						<p:column headerText="Nr Akti">#{t.actNo}</p:column>

@@ -25,7 +25,12 @@ public class StateDTO implements Serializable {
 	
 	
 	
+	public StateDTO() {}
 	
+	public StateDTO(String code)
+	{
+		this.code = code;
+	}
 	
 	
 	@Override

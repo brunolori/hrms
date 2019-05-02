@@ -88,7 +88,7 @@ public class ForeignLanguageClient
 	
 	public List<EmployeeForeignLanguageDTO> searchForeignLanguages(ForeignLanguageSx sx) 
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/foreignLanguage/foreignLanguages";
+		final String BASE_URL = IApiClient.SERVER + "/api/foreignLanguage/search";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();

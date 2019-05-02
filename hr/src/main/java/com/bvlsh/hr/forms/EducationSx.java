@@ -11,13 +11,24 @@ public class EducationSx implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	    private Date issueDate;
-	    private Integer educationTypeId;
-	    private Integer institutionId;
-	    private Integer studyFieldId;
+	String nid;
+	String employeeNo;
+	String name;
+	String surname;
+	Integer departmentId;
+	
+	
+	Date fromDate;
+	Date toDate;
+	Integer educationTypeId;
+	Integer institutionId;
+	Integer studyFieldId;
+	String stateCode;
 	    
-	    Integer firstResult;
-		Integer maxResult;
+	Integer firstResult;
+	Integer maxResult;
+	
+	
 	
 	
 

@@ -10,50 +10,60 @@
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h1>Raport i Gjuhëve të Huaja</h1>
+					<h2>Gjuhët e Huaja</h2>
 					<div class="ui-g">
 						<div class="ui-g-12">
-						
-						<p:panel header="FILTRA KËRKIMI">
-						<p:panelGrid layout="grid" columns="3" styleClass="ui-panelgrid-blank form-group">
-									
-									<p:selectOneMenu placeholder="Lloji">
-										<f:selectItem itemValue="#{null}" itemLabel="Lloji" />
-										<f:selectItems value="" var="" itemValue="" itemLabel=""/>
-									</p:selectOneMenu>
-									<p:inputMask mask="99.99.9999" placeholder="Nga Data" />
-									<p:inputMask mask="99.99.9999" placeholder="Në Datë" />
-						          
-						</p:panelGrid>
-						
-						
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:inputText placeholder="NID" value="#{opRapLanguageBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapLanguageBeanreq.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapLanguageBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapLanguageBean.req.surname}"/>
+										
+										<p:selectOneMenu placeholder="Departamenti" value="#{opRapLanguageBean.req.departmentId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+											<f:selectItems value="#{opRapLanguageBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Gjuha" value="#{opRapLanguageBean.req.foreignLanguageId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjuha" />
+											<f:selectItems value="#{cacheBean.foreignLanguages}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
+										</p:selectOneMenu>
+										
+							</p:panelGrid>
+						</div>
 						<div class="ui-g-12 ui-md-4">
 							<p:panelGrid layout="grid" columns="2"
 								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Kërko" styleClass="blue-btn" icon="ui-icon-search" />
-								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
+								<p:commandButton value="Kërko" action="#{opRapLanguageBean.search()}"
+									update="@form"
+								    styleClass="blue-btn" icon="ui-icon-search" />
+								<p:commandButton value="Pastro" action="#{opRapLanguageBean.clear()}"
+									update="@form"
+								icon="ui-icon-trash" styleClass="green-btn" />
 							</p:panelGrid>
 						</div>
-						
-						</p:panel>
-						</div>
-						<div class="ui-g-12">
-					<p:dataTable value="" var="" rowIndexVar="r"
-						emptyMessage="Asnjë raport i listuar">
-						<p:column headerText="#">#{r+1}</p:column>
-						<p:column headerText="Punonjësi"></p:column>
-						<p:column headerText="Lloji"></p:column>
-					</p:dataTable>
-				</div>
-						
-						
-							
-						
-						
+					
 						
 					</div>
 				</div>
 			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="#{opRapLanguageBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+						emptyMessage="Asnjë raport i listuar">
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Punonjësi">
+							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
+								action="#{opRapProvisionBean.onEmployeeSelect(t)}" update=":main"
+							/>
+						</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
+						<p:column headerText="Gjuha">#{t.foreignLanguage.tag}</p:column>
+					</p:dataTable>
+				</div>
+			
+			
 		</div>
 
 	</h:form>
