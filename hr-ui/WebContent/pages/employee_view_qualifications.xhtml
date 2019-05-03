@@ -7,16 +7,90 @@
 
 
 		<div class="ui-g ui-fluid">
+			
 			<div class="ui-g-12">
-				<div class="card card-w-title">
-					<h1>Home</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-							
-						</div>
-					</div>
-				</div>
+					<p:messages showDetail="true" closable="true" />
 			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Tipi trajnimit"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.trainingForm.trainingTypeId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Tipi trajnimit"/>
+						<f:selectItems value="#{cacheBean.trainingTypes}" var="tt" itemValue="#{tt.id}" itemLabel="#{tt.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Institucioni"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.trainingForm.institutionId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Institucioni"/>
+						<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Data"/>
+					<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opEmployeeViewBean.trainingForm.trainingDate}" placeholder="Data trajnimit"/>
+					<p:outputLabel value="Përfunduar?"/>
+					<p:selectBooleanCheckbox value="#{opEmployeeViewBean.trainingForm.completed}"/>
+					<p:outputLabel value="Rezultati"/>
+					<p:inputText value="#{opEmployeeViewBean.trainingForm.result}" placeholder="Rezultati"/>
+					<p:outputLabel value="Shënime"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.trainingForm.description}" placeholder="Shënime"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveTraining()}" 
+						rendered="#{opEmployeeViewBean.trainingForm.id == null}" update="employee_view_form:tab_view:training_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro trajnimin/kualifikimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyTraining()}" 
+						rendered="#{opEmployeeViewBean.trainingForm.id != null}" update="employee_view_form:tab_view:training_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho trajnimin/kualifikimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initTrainings()}" 
+						             update="employee_view_form:tab_view:training_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.trainings}" var="t" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{t.id==opEmployeeViewBean.trainingForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Tipi" style="text-align: left;">
+						#{t.trainingType.tag}
+					</p:column>
+					<p:column headerText="Institucioni" style="text-align: left;">
+						#{t.institution.name}
+					</p:column>
+					<p:column headerText="Data" style="text-align: left;">
+						#{formatBean.formatDate(t.trainingDate)}
+					</p:column>
+					<p:column headerText="Përfunduar" style="text-align: left;">
+						#{t.completed?'PO':'JO'}
+					</p:column>
+					<p:column headerText="Rezultati" style="text-align: left;">
+						#{t.result}
+					</p:column>
+					<p:column headerText="Shënime" style="text-align: left;">
+						#{t.description}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onTrainingSelect(t)}" 
+							update="employee_view_form:tab_view:training_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteTraining(t)}"
+							 update="employee_view_form:tab_view:training_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë trajnimin/kualifikimin" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
 

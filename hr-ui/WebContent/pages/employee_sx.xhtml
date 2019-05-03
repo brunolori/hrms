@@ -58,8 +58,8 @@
 									
 									<p:inputText placeholder="Nr.Punonjësi" value="#{opEmployeeSxBean.req.employeeNo}"/>
 									<p:inputText placeholder="Nr.Dosje" value="#{opEmployeeSxBean.req.dossierNo}" />
-                                    <p:inputText placeholder="Nga Data" value="#{opEmployeeSxBean.req.startDateFrom}"/>
-                                    <p:inputText placeholder="Në Datë" value="#{opEmployeeSxBean.req.startDateTo}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Nga Data" value="#{opEmployeeSxBean.req.startDateFrom}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Në Datë" value="#{opEmployeeSxBean.req.startDateTo}"/>
 								</p:panelGrid>
 
 

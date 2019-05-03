@@ -16,8 +16,8 @@ public class EducationService {
 		return new EducationClient().modifyEducation(form);
 	}
 
-	public EducationDTO deleteEducation(Integer educationId) {
-		return new EducationClient().deleteEducation(educationId);
+	public void deleteEducation(Integer educationId) {
+		new EducationClient().deleteEducation(educationId);
 	}
 
 	public List<EducationDTO> searchEducations(EducationSx sx) {

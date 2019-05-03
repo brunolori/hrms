@@ -50,7 +50,7 @@ public class TrainingClient {
 	
 	public TrainingDTO modifyTraining(TrainingForm form)
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/training/modifyTraining";
+		final String BASE_URL = IApiClient.SERVER + "/api/training/modify";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -73,7 +73,7 @@ public class TrainingClient {
 	
 	public TrainingDTO deleteTraining(Integer trainingId)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/training/"+trainingId;
+		final String BASE_URL = IApiClient.SERVER+"/api/training/delete/"+trainingId;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -90,7 +90,7 @@ public class TrainingClient {
 	
 	public List<TrainingDTO> searchTrainings(TrainingSx sx) 
 	{
-		final String BASE_URL = IApiClient.SERVER + "/api/training/searchTrainings";
+		final String BASE_URL = IApiClient.SERVER + "/api/training/search";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -112,5 +112,34 @@ public class TrainingClient {
 
 		return null;
 	}
+	
+	
+	public List<TrainingDTO> getEmployeeTrainings(String nid) {
+		final String BASE_URL = IApiClient.SERVER + "/api/training/getEmployeeTrainings/"+nid;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<TrainingDTO>> typeRef = new ParameterizedTypeReference<List<TrainingDTO>>() {
+		};
+
+		ResponseEntity<List<TrainingDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
+				entity, typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+	
+	
+	
+	
 	
 }

@@ -38,7 +38,7 @@ public class TrainingAPI {
 	}
 	
 	
-	@RequestMapping(value="/modifyTraining", method=RequestMethod.POST, produces={"application/json"})
+	@RequestMapping(value="/modify", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> modifyTraining(@RequestHeader(value="Authorization") String token, @RequestBody TrainingForm form)
 	{
 			String uname = tokenService.getUsername(token);
@@ -49,7 +49,7 @@ public class TrainingAPI {
 	}
 	
 	
-	@RequestMapping(value="/deleteTraining/{trainingId}", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/delete/{trainingId}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> deleteTraining(@RequestHeader(value="Authorization") String token, @PathVariable Integer trainingId)
 	{
 		String uname = tokenService.getUsername(token);
@@ -61,7 +61,7 @@ public class TrainingAPI {
 	}
 	
 	
-	@RequestMapping(value="/searchTrainings", method=RequestMethod.POST, produces={"application/json"})
+	@RequestMapping(value="/search", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> searchTrainings(@RequestHeader(value="Authorization") String token,@RequestBody TrainingSx sx)
 	{
 		String uname = tokenService.getUsername(token);
@@ -76,5 +76,24 @@ public class TrainingAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
+	
+	
+	@RequestMapping(value="/getEmployeeTrainings/{nid}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getEmployeeTrainings(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	{
+		String uname = tokenService.getUsername(token);
+				
+		List<TrainingDTO> list = new Assembler().trainingListToDto(trainingService.getEmployeeTrainings(nid, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	
 
 }

@@ -99,5 +99,62 @@ public class EmployeeService {
 		
 	}
 	
+	public EmployeeDTO updateEmployeeFromNCR(String nid)
+	{
+		List<PersonRest> list = new NcrClient().searchPerson(nid, null, null, null);
+		if(list == null || list.isEmpty()) return null;
+		
+		PersonRest r = list.get(0);
+		EmployeeDTO e = getEmployeeByNid(nid);
+		if(e == null) return null;
+		
+		EmployeeForm f = new EmployeeForm();
+						
+		f.setFatherName(r.getFathername());
+		f.setName(r.getName());
+		f.setGender(r.getGender());
+		f.setSurname(r.getSurname());
+		f.setMotherName(r.getMotherName());
+		f.setMaidenName(r.getMaidenName());
+		if(StringUtil.isValid(r.getCivilStatus()))
+		{
+			if(r.getCivilStatus().equalsIgnoreCase("beqar/e"))
+			{
+				f.setCivilStatus("B");
+			}
+			else if(r.getCivilStatus().equalsIgnoreCase("martuar"))
+			{
+				f.setCivilStatus("M");
+			}
+			else if(r.getCivilStatus().equalsIgnoreCase("divorcuar"))
+			{
+				f.setCivilStatus("D");
+			}
+			else if(r.getCivilStatus().equalsIgnoreCase("i/e ve"))
+			{
+				f.setCivilStatus("V");
+			}
+		}
+				
+		try {
+			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			f.setDob(df.parse(r.getDob()));
+		}catch(Exception ex) {}
+		f.setPob(r.getPob());
+		f.setNid(r.getNid());
+		f.setCitizenshipCode("AL");
+		//nga emp actual
+		f.setDossierNo(e.getDossierNo());
+		f.setEmployeeNo(e.getDossierNo());
+		if(e.getPaymentCategory() != null)
+		{
+		   f.setPaymentCategoryId(e.getPaymentCategory().getId());
+		}
+		
+		return updateEmployeeGeneralities(f);
+		
+	}
+	
+	
 
 }

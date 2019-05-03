@@ -24,4 +24,8 @@ public class TrainingService {
 		return new TrainingClient().searchTrainings(sx);
 	}
 
+	public List<TrainingDTO> getEmployeeTrainings(String nid) {
+		return new TrainingClient().getEmployeeTrainings(nid);
+	}
+
 }

@@ -1,12 +1,17 @@
 package com.bvlsh.hr.services;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.dao.CrudDAO;
+import com.bvlsh.hr.dao.DocumentDAO;
 import com.bvlsh.hr.entities.Document;
+import com.bvlsh.hr.entities.Employee;
 import com.bvlsh.hr.exceptions.ValidationException;
 import com.bvlsh.hr.forms.DocumentForm;
 import com.bvlsh.hr.utils.StringUtil;
@@ -15,52 +20,82 @@ import com.bvlsh.hr.utils.StringUtil;
 public class DocumentService {
 
 	@Autowired CrudDAO crudDAO;
+	@Autowired DocumentDAO documentDAO;
 
+	
+	@Transactional
 	public Document registerDocument(DocumentForm form, String uname) {
 		
-		if (form == null) {
-			throw new ValidationException("Forma e pa plotësuar");
+		if (!StringUtil.isValid(form.getPersonNid())) {
+			throw new ValidationException("Punonjesi i papercaktuar");
 		}
+		
 		if (!StringUtil.isValid(form.getDocumentName())) {
-			throw new ValidationException("Plotësoni Emrin e Dokumentit !");
+			throw new ValidationException("Plotësoni emrin e dokumentit");
+		}
+		
+		if (!StringUtil.isValid(form.getData())) {
+			throw new ValidationException("Ngarko dokumentin");
 		}
 
-		if (!StringUtil.isValid(form.getDescription())) {
-			throw new ValidationException("Plotësoni Përshkrimin !");
-		}
+		Document d = new Document();
+		d.setCreateTime(Calendar.getInstance().getTime());
+		d.setCreateUser(uname);
+		d.setUpdateTime(Calendar.getInstance().getTime());
+		d.setUpdateUser(uname);
+		d.setStatus(IStatus.ACTIVE);
+		d.setDescription(form.getDescription());
+		d.setDocumentDate(form.getDocumentDate());
+		d.setDocumentName(form.getDocumentName());
+		d.setEmployee(crudDAO.findById(Employee.class, form.getPersonNid()));
 		
+		//save scanned_doc as blod or generate path;
 		
-			return null;
+		return crudDAO.create(d);
 		
 	}
 	
-   public Document modifyDocument(DocumentForm form, String uname) {
+	@Transactional
+    public Document modifyDocument(DocumentForm form, String uname) {
 		
-		if (form == null) {
-			throw new ValidationException("Forma e pa plotësuar");
+	   if (form.getId() == null) {
+			throw new ValidationException("Dokumenti i papercaktuar");
 		}
+		
 		if (!StringUtil.isValid(form.getDocumentName())) {
-			throw new ValidationException("Plotësoni Emrin e Dokumentit !");
-		}
-
-		if (!StringUtil.isValid(form.getDescription())) {
-			throw new ValidationException("Plotësoni Përshkrimin !");
+			throw new ValidationException("Plotësoni emrin e dokumentit");
 		}
 		
+		Document d = crudDAO.findById(Document.class, form.getId());
+		d.setUpdateTime(Calendar.getInstance().getTime());
+		d.setUpdateUser(uname);
+		d.setDescription(form.getDescription());
+		d.setDocumentDate(form.getDocumentDate());
+		d.setDocumentName(form.getDocumentName());
+		d.setEmployee(crudDAO.findById(Employee.class, form.getPersonNid()));
 		
-			return null;
+		if (StringUtil.isValid(form.getData())) {
+			//save scanned_doc as blod or generate path;
+		}
+				
+		return crudDAO.update(d);
 		
 	}
 
-public void deleteDocument(Integer id, String uname) {
-	// TODO Auto-generated method stub
+	@Transactional
+	public void deleteDocument(Integer id, String uname) {
+		
+		Document d = crudDAO.findById(Document.class, id);
+		d.setUpdateTime(Calendar.getInstance().getTime());
+		d.setUpdateUser(uname);
+		d.setStatus(IStatus.NOT_ACTIVE);
+				
+		crudDAO.update(d);
+	}
 	
-}
-
-public List<Document> getEmployeeDocuments(String nid, String uname) {
-	// TODO Auto-generated method stub
-	return null;
-}
+	public List<Document> getEmployeeDocuments(String nid, String uname) {
+		return documentDAO.getEmployeeDocuments(nid);
+	}
 	
 	
 	

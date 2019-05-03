@@ -20,9 +20,9 @@
 						<f:selectItems value="#{cacheBean.foreignLanguages}" var="fl" itemValue="#{fl.id}" itemLabel="#{fl.tag}"/>
 					</p:selectOneMenu>
 					<p:outputLabel value="Niveli"/>
-					<p:inputText value="#{opEmployeeViewBean.languageForm.level}"/>
+					<p:inputText value="#{opEmployeeViewBean.languageForm.level}" placeholder="Niveli"/>
 					<p:outputLabel value="Shënime"/>
-					<p:inputText value="#{opEmployeeViewBean.languageForm.description}"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.languageForm.description}" placeholder="Shënime"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveLanguage()}" 
 						rendered="#{opEmployeeViewBean.languageForm.id == null}" update="employee_view_form:tab_view:language_tab"
@@ -45,7 +45,7 @@
 			<div class="ui-g-12 ui-md-8">
 			
 				<p:dataTable value="#{opEmployeeViewBean.languages}" var="l" rowIndexVar="r" reflow="true" styleClass="no-border"
-					rowStyleClass="#{l.id==opEmployeeViewBean.gradeForm.id?'ui-state-hover':''}"
+					rowStyleClass="#{l.id==opEmployeeViewBean.languageForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">
 						#{r+1}

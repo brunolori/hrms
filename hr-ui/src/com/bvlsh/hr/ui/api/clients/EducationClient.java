@@ -74,7 +74,7 @@ public class EducationClient {
 	}
 
 	
-	public EducationDTO deleteEducation(Integer educationId)
+	public void deleteEducation(Integer educationId)
 	{
 		final String BASE_URL = IApiClient.SERVER+"/api/education/deleteEducation/"+educationId;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
@@ -88,7 +88,6 @@ public class EducationClient {
 				
 	    restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, Void.class);
 		
-		return null;
 	}
 	
 	public List<EducationDTO> searchEducations(EducationSx sx) 
