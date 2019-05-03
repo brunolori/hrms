@@ -7,57 +7,72 @@
 
 
 		<div class="ui-g ui-fluid">
-			<div class="ui-g-12">
 			
 			<div class="ui-g-12">
-					<p:messages showDetail="true" closable="true">
-						<p:autoUpdate />
-					</p:messages>
-				</div>
-			
-				<div class="card card-w-title">
-					<h1>Gjuhë të huaja</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-						<p:panelGrid columns="2" layout="grid"
-								columnClasses="right bold ui-md-2, ui-md-4"
-								styleClass="ui-panelgrid-blank">
-								<p:outputLabel value="Lloji" />
-								<p:selectOneMenu placeholder="Lloji">
-									<f:selectItem itemValue="#{null}" itemLabel="Lloji" />
-									<f:selectItems value="" var="" itemValue="" itemLabel=""/>
-								</p:selectOneMenu>
-								<p:outputLabel value="Niveli" />
-								<p:inputText placeholder="Niveli" />
-								<p:outputLabel value="Shënime" />
-								<p:inputText placeholder="Shënime" />
-							</p:panelGrid>
-						</div>
-
-
-						<div class="ui-g-12 ui-md-4">
-							<p:panelGrid layout="grid" columns="2"
-								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Regjistro" styleClass="blue-btn" icon="ui-icon-save" />
-								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
-							</p:panelGrid>
-						</div>
-					</div>
-				</div>
-				<div class="ui-g-12">
-					<p:dataTable value="" var="" rowIndexVar="r"
-						emptyMessage="Asnjë gjuhë e huaj e listuar">
-						<p:column headerText="#">
-							#{r+1}
-							</p:column>
-						<p:column headerText="Lloji"></p:column>
-						<p:column headerText="Niveli"></p:column>
-						<p:column headerText="Shënime"></p:column>
-					</p:dataTable>
-				</div>
-
-
+					<p:messages showDetail="true" closable="true" />
 			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Gjuha"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.languageForm.foreignLanguageId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Gjuha"/>
+						<f:selectItems value="#{cacheBean.foreignLanguages}" var="fl" itemValue="#{fl.id}" itemLabel="#{fl.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Niveli"/>
+					<p:inputText value="#{opEmployeeViewBean.languageForm.level}"/>
+					<p:outputLabel value="Shënime"/>
+					<p:inputText value="#{opEmployeeViewBean.languageForm.description}"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveLanguage()}" 
+						rendered="#{opEmployeeViewBean.languageForm.id == null}" update="employee_view_form:tab_view:language_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro gjuhën e huaj" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyLanguage()}" 
+						rendered="#{opEmployeeViewBean.languageForm.id != null}" update="employee_view_form:tab_view:language_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho gjuhën e huaj" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initLanguages()}" 
+						             update="employee_view_form:tab_view:language_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.languages}" var="l" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{l.id==opEmployeeViewBean.gradeForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Gjuha" style="text-align: left;">
+						#{l.foreignLanguage.tag}
+					</p:column>
+					<p:column headerText="Niveli" style="text-align: left;">
+					#{l.level}
+					</p:column>
+					<p:column headerText="Shënime" style="text-align: left;">
+					#{l.description}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onLanguageSelect(l)}" 
+							update="employee_view_form:tab_view:language_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteLanguage(l)}"
+							 update="employee_view_form:tab_view:language_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë gjuhën e huaj" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
 

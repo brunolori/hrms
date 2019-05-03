@@ -20,8 +20,8 @@
 										<p:inputText placeholder="Emri" value="#{opRapLanguageBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapLanguageBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Departamenti" value="#{opRapLanguageBean.req.departmentId}">
-											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapLanguageBean.req.departmentId}">
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapLanguageBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Gjuha" value="#{opRapLanguageBean.req.foreignLanguageId}">

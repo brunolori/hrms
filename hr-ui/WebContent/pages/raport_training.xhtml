@@ -21,7 +21,7 @@
 										<p:inputText placeholder="Mbiemri" value="#{opRapTrainingBean.req.surname}"/>
 										
 										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapTrainingBean.req.departmentId}">
-											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapTrainingBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Institucioni" value="#{opRapTrainingBean.req.institutionId}">
@@ -67,8 +67,8 @@
 						</p:column>
 						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
 						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
-						<p:column headerText="Institucioni">#{t.provisionType.tag}</p:column>
-						<p:column headerText="Lloji Trajnimit">#{t.provisionType.tag}</p:column>
+						<p:column headerText="Institucioni">#{t.institution.name}</p:column>
+						<p:column headerText="Lloji Trajnimit">#{t.trainingType.tag}</p:column>
 					</p:dataTable>
 				</div>
 			

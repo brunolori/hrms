@@ -11,12 +11,19 @@ public class TrainingSx implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean completed;
-	private String result;
-	private Date trainingDate;
-	private Integer institutionId;
-	private String personNid;
-	private Integer trainingTypeId;
+	String nid;
+	String employeeNo;
+	String name;
+	String surname;
+	Integer departmentId;
+	
+	boolean completed;
+	String result;
+	Date fromDate;
+	Date toDate;
+	Integer institutionId;
+	String personNid;
+	Integer trainingTypeId;
 	
 	Integer firstResult;
 	Integer maxResult;

@@ -49,7 +49,7 @@ public class ForeignLanguageAPI {
 	}
 	
 	
-	@RequestMapping(value="/deleteForeignLanguage/{foreignLanguageId}", method=RequestMethod.GET, produces={"application/json"})
+	@RequestMapping(value="/delete/{foreignLanguageId}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> deleteForeignLanguage(@RequestHeader(value="Authorization") String token, @PathVariable Integer foreignLanguageId)
 	{
 		String uname = tokenService.getUsername(token);
@@ -76,5 +76,25 @@ public class ForeignLanguageAPI {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 		
 	}
+	
+	
+	@RequestMapping(value="/getEmployeeLanguages/{nid}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getEmployeeLanguages(@RequestHeader(value="Authorization") String token, @PathVariable String nid)
+	{
+		String uname = tokenService.getUsername(token);
+				
+		List<EmployeeForeignLanguageDTO> list = new Assembler().employeeForeignLanguageListToDto(foreignLanguageService.getEmployeeLanguages(nid, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	
+	
 
 }

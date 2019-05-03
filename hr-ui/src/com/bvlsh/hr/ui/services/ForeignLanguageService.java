@@ -24,4 +24,8 @@ public class ForeignLanguageService {
 		return new ForeignLanguageClient().searchForeignLanguages(sx);
 	}
 
+	public List<EmployeeForeignLanguageDTO> getEmployeeLanguages(String nid) {
+		return new ForeignLanguageClient().getEmployeeLanguages(nid);
+	}
+
 }

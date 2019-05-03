@@ -11,17 +11,20 @@ import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
 import com.bvlsh.hr.ui.dto.EducationDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
+import com.bvlsh.hr.ui.dto.EmployeeForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.EmployeeGradeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.dto.JobValidationDTO;
 import com.bvlsh.hr.ui.forms.AdministrativeProvisionForm;
 import com.bvlsh.hr.ui.forms.EducationForm;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
+import com.bvlsh.hr.ui.forms.ForeignLanguageForm;
 import com.bvlsh.hr.ui.forms.GradeForm;
 import com.bvlsh.hr.ui.forms.JobValidationForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
 import com.bvlsh.hr.ui.services.EducationService;
 import com.bvlsh.hr.ui.services.EmployeeService;
+import com.bvlsh.hr.ui.services.ForeignLanguageService;
 import com.bvlsh.hr.ui.services.GradeService;
 import com.bvlsh.hr.ui.services.JobValidationService;
 import com.bvlsh.hr.ui.utils.Messages;
@@ -52,6 +55,9 @@ public class OpEmployeeViewBean implements Serializable {
 	JobValidationForm validationForm;
 	List<EducationDTO> educations;
 	EducationForm educationForm;
+	List<EmployeeForeignLanguageDTO> languages;
+	ForeignLanguageForm languageForm;
+	
 	
 	
 	
@@ -66,6 +72,7 @@ public class OpEmployeeViewBean implements Serializable {
 		initGrades();
 		initValidations();
 		initEducations();
+		initLanguages();
 	}
 	
 	
@@ -308,7 +315,49 @@ public class OpEmployeeViewBean implements Serializable {
 		
 	}
 	
+	public void initLanguages()
+	{
+		this.languageForm = new ForeignLanguageForm();
+		this.languages = new ForeignLanguageService().getEmployeeLanguages(this.employee.getNid());
+	}
 	
+	public void saveLanguage()
+	{
+		try {
+			this.languageForm.setPersonNid(this.employee.getNid());
+			new ForeignLanguageService().registerForeignLanguage(this.languageForm);
+			initLanguages();
+			Messages.throwFacesMessage("Gjuha e huaj u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void modifyLanguage()
+	{
+		try {
+			this.languageForm.setPersonNid(this.employee.getNid());
+			new ForeignLanguageService().modifyForeignLanguage(this.languageForm);
+			initLanguages();
+			Messages.throwFacesMessage("Gjuha e huaj u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void deleteLanguage(EmployeeForeignLanguageDTO dto)
+	{
+		try {
+			new ForeignLanguageService().deleteForeignLanguage(dto.getId());
+			initLanguages();
+			Messages.throwFacesMessage("Gjuha e huaj u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void onLanguageSelect(EmployeeForeignLanguageDTO dto)
+	{
+		this.languageForm.setId(dto.getId());
+		this.languageForm.setDescription(dto.getDescription());
+		this.languageForm.setForeignLanguageId(dto.getForeignLanguage().getId());
+		this.languageForm.setLevel(dto.getLevel());
+		this.languageForm.setPersonNid(dto.getEmployee().getNid());
+	}
 	
 	
 	

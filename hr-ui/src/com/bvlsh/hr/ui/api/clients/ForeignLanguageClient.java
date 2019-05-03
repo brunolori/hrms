@@ -71,7 +71,7 @@ public class ForeignLanguageClient
 	
 	public EmployeeForeignLanguageDTO deleteForeignLanguage(Integer foreignLanguageId)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/foreignLanguage/"+foreignLanguageId;
+		final String BASE_URL = IApiClient.SERVER+"/api/foreignLanguage/delete/"+foreignLanguageId;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -102,6 +102,32 @@ public class ForeignLanguageClient
 		};
 
 		ResponseEntity<List<EmployeeForeignLanguageDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST,
+				entity, typeRef);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}
+
+		return null;
+	}
+
+
+
+	public List<EmployeeForeignLanguageDTO> getEmployeeLanguages(String nid) {
+		final String BASE_URL = IApiClient.SERVER + "/api/foreignLanguage/getEmployeeLanguages/"+nid;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ParameterizedTypeReference<List<EmployeeForeignLanguageDTO>> typeRef = new ParameterizedTypeReference<List<EmployeeForeignLanguageDTO>>() {
+		};
+
+		ResponseEntity<List<EmployeeForeignLanguageDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
 				entity, typeRef);
 
 		if (response.getStatusCode() == HttpStatus.OK) {

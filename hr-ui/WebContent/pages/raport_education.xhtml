@@ -21,7 +21,7 @@
 										<p:inputText placeholder="Mbiemri" value="#{opRapEducationBean.req.surname}"/>
 										
 										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapEducationBean.req.departmentId}">
-											<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapEducationBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Institucioni" value="#{opRapEducationBean.req.institutionId}">

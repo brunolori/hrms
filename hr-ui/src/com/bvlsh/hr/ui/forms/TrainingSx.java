@@ -20,7 +20,8 @@ public class TrainingSx implements Serializable {
 	
 	boolean completed;
 	String result;
-	Date trainingDate;
+	Date fromDate;
+	Date toDate;
 	Integer institutionId;
 	String personNid;
 	Integer trainingTypeId;
@@ -28,3 +29,6 @@ public class TrainingSx implements Serializable {
 	Integer firstResult;
 	Integer maxResult;
 }
+
+
+
