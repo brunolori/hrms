@@ -7,9 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.FileUploadEvent;
+
 import com.bvlsh.hr.ui.beans.application.NavBean;
 import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
+import com.bvlsh.hr.ui.dto.BankAccountDTO;
 import com.bvlsh.hr.ui.dto.ContactDTO;
+import com.bvlsh.hr.ui.dto.DocumentDTO;
 import com.bvlsh.hr.ui.dto.EducationDTO;
 import com.bvlsh.hr.ui.dto.EmployeeDTO;
 import com.bvlsh.hr.ui.dto.EmployeeForeignLanguageDTO;
@@ -18,7 +22,9 @@ import com.bvlsh.hr.ui.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.ui.dto.JobValidationDTO;
 import com.bvlsh.hr.ui.dto.TrainingDTO;
 import com.bvlsh.hr.ui.forms.AdministrativeProvisionForm;
+import com.bvlsh.hr.ui.forms.BankAccountForm;
 import com.bvlsh.hr.ui.forms.ContactForm;
+import com.bvlsh.hr.ui.forms.DocumentForm;
 import com.bvlsh.hr.ui.forms.EducationForm;
 import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.ForeignLanguageForm;
@@ -26,13 +32,16 @@ import com.bvlsh.hr.ui.forms.GradeForm;
 import com.bvlsh.hr.ui.forms.JobValidationForm;
 import com.bvlsh.hr.ui.forms.TrainingForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
+import com.bvlsh.hr.ui.services.BankService;
 import com.bvlsh.hr.ui.services.ContactService;
+import com.bvlsh.hr.ui.services.DocumentService;
 import com.bvlsh.hr.ui.services.EducationService;
 import com.bvlsh.hr.ui.services.EmployeeService;
 import com.bvlsh.hr.ui.services.ForeignLanguageService;
 import com.bvlsh.hr.ui.services.GradeService;
 import com.bvlsh.hr.ui.services.JobValidationService;
 import com.bvlsh.hr.ui.services.TrainingService;
+import com.bvlsh.hr.ui.utils.CalculatorUtil;
 import com.bvlsh.hr.ui.utils.Messages;
 
 import lombok.Getter;
@@ -67,10 +76,10 @@ public class OpEmployeeViewBean implements Serializable {
 	ContactForm contactForm;
 	List<TrainingDTO> trainings;
 	TrainingForm trainingForm;
-	
-	
-	
-	
+	List<DocumentDTO> documents;
+	DocumentForm documentForm;
+	List<BankAccountDTO> bankAccounts;
+	BankAccountForm bankAccountForm;
 	
 	public void init() {
 				
@@ -84,6 +93,8 @@ public class OpEmployeeViewBean implements Serializable {
 		initLanguages();
 		initContacts();
 		initTrainings();
+		initBankAccounts();
+		initDocuments();
 	}
 	
 	
@@ -480,10 +491,97 @@ public class OpEmployeeViewBean implements Serializable {
 		this.trainingForm.setTrainingTypeId(dto.getTrainingType().getId());
 	}
 	
+	public void initBankAccounts()
+	{
+		this.bankAccountForm = new BankAccountForm();
+		this.bankAccounts = new BankService().getEmployeeBankAccounts(this.employee.getNid());
+	}
 	
+	public void saveBankAccount()
+	{
+		try {
+			this.bankAccountForm.setPersonNid(this.employee.getNid());
+			new BankService().registerBankAccount(this.bankAccountForm);
+			initBankAccounts();
+			Messages.throwFacesMessage("Llogaria bankare u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
 	
+	public void modifyBankAccount()
+	{
+		try {
+			this.bankAccountForm.setPersonNid(this.employee.getNid());
+			new BankService().modifyBankAccount(this.bankAccountForm);
+			initBankAccounts();
+			Messages.throwFacesMessage("Llogaria bankare u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
 	
+	public void deleteBankAccount(BankAccountDTO dto)
+	{
+		try {
+			new BankService().deleteBankAccount(dto.getId());
+			initBankAccounts();
+			Messages.throwFacesMessage("Llogaria bankare u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
 	
+	public void onBankAccountSelect(BankAccountDTO dto)
+	{
+		this.bankAccountForm.setId(dto.getId());
+		this.bankAccountForm.setPersonNid(dto.getEmployee().getNid());
+		this.bankAccountForm.setBankId(dto.getBank().getId());
+		this.bankAccountForm.setIban(dto.getIban());
+	}
 	
+	public void initDocuments()
+	{
+		this.documentForm = new DocumentForm();
+		this.documents = new DocumentService().getEmployeeDocuments(this.employee.getNid());
+	}
+	
+	public void saveDocument()
+	{
+		try {
+			this.documentForm.setPersonNid(this.employee.getNid());
+			new DocumentService().registerDocument(this.documentForm);
+			initDocuments();
+			Messages.throwFacesMessage("Documenti u regjistrua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void modifyDocument()
+	{
+		try {
+			this.documentForm.setPersonNid(this.employee.getNid());
+			new DocumentService().modifyDocument(this.documentForm);
+			initDocuments();
+			Messages.throwFacesMessage("Documenti u ndryshua!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void deleteDocument(DocumentDTO dto)
+	{
+		try {
+			new DocumentService().deleteDocument(dto.getId());
+			initDocuments();
+			Messages.throwFacesMessage("Kontakti u fshi!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+	}
+	
+	public void onDocumentSelect(DocumentDTO dto)
+	{
+		this.documentForm.setId(dto.getId());
+		this.documentForm.setPersonNid(dto.getEmployee().getNid());
+		this.documentForm.setDescription(dto.getDescription());
+		this.documentForm.setDocumentDate(dto.getDocumentDate());
+		this.documentForm.setDocumentName(dto.getDocumentName());
+		this.documentForm.setPath(dto.getPath());
+	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+        
+        this.documentForm.setData(CalculatorUtil.encodeBASE64(event.getFile().getContents()));
+    }
 
 }

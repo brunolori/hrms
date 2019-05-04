@@ -14,26 +14,26 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Tipi kontaktit"/>
-					<p:selectOneMenu value="#{opEmployeeViewBean.contactForm.contactTypeId}" autoWidth="false">
-						<f:selectItem itemValue="#{null}" itemLabel="Tipi kontaktit"/>
-						<f:selectItems value="#{cacheBean.contactTypes}" var="ct" itemValue="#{ct.id}" itemLabel="#{ct.tag}"/>
+					<p:outputLabel value="Banka"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.bankAccountForm.bankId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Banka"/>
+						<f:selectItems value="#{cacheBean.banks}" var="b" itemValue="#{b.id}" itemLabel="#{b.name}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Kontakti"/>
-					<p:inputText value="#{opEmployeeViewBean.contactForm.value}" placeholder="Kontakti"/>
+					<p:outputLabel value="Nr llogarisë (IBAN)"/>
+					<p:inputText value="#{opEmployeeViewBean.bankAccountForm.iban}" placeholder="IBAN"/>
 					
-					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveContact()}" 
-						rendered="#{opEmployeeViewBean.contactForm.id == null}" update="employee_view_form:tab_view:contact_tab"
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveBankAccount()}" 
+						rendered="#{opEmployeeViewBean.bankAccountForm.id == null}" update="employee_view_form:tab_view:bank_tab"
 						icon="fa fa-save" styleClass="green-btn" >
-						<p:confirm header="Regjistro kontaktin" message="Jeni të sigurt?"/>
+						<p:confirm header="Regjistro llogarinë bankare" message="Jeni të sigurt?"/>
 					</p:commandButton>
-					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyContact()}" 
-						rendered="#{opEmployeeViewBean.contactForm.id != null}" update="employee_view_form:tab_view:contact_tab"
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyBankAccount()}" 
+						rendered="#{opEmployeeViewBean.bankAccountForm.id != null}" update="employee_view_form:tab_view:bank_tab"
 						icon="fa fa-edit" styleClass="green-btn" >
-						<p:confirm header="Ndrysho kontaktin" message="Jeni të sigurt?"/>
+						<p:confirm header="Ndrysho llogarinë bankare" message="Jeni të sigurt?"/>
 					</p:commandButton>
-					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initContacts()}" 
-						             update="employee_view_form:tab_view:contact_tab"
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initBankAccounts()}" 
+						             update="employee_view_form:tab_view:bank_tab"
 					                 icon="fa fa-refresh" styleClass="red-btn" >
 						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
 					</p:commandButton>
@@ -42,23 +42,23 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.contacts}" var="c" rowIndexVar="r" reflow="true" styleClass="no-border"
-					rowStyleClass="#{c.id==opEmployeeViewBean.contactForm.id?'ui-state-hover':''}"
+				<p:dataTable value="#{opEmployeeViewBean.bankAccounts}" var="ba" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{ba.id==opEmployeeViewBean.bankAccountForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">
 						#{r+1}
 					</p:column>
-					<p:column headerText="Tipi Kontaktit" style="text-align: left;">
-						#{c.contactType.tag}
+					<p:column headerText="Banka" style="text-align: left;">
+						#{ba.bank.name}
 					</p:column>
-					<p:column headerText="Kontakti" style="text-align: left;">
-					    #{c.value}
+					<p:column headerText="Nr llogarisë (IBAN)" style="text-align: left;">
+					    #{ba.iban}
 					</p:column>
 					<p:column headerText="Veprime" >
-							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onContactSelect(c)}" 
-							update="employee_view_form:tab_view:contact_tab" style="color:green; font-weight: bold"/> | 
-							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteContact(c)}"
-							 update="employee_view_form:tab_view:contact_tab"
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onBankAccountSelect(ba)}" 
+							update="employee_view_form:tab_view:bank_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteBankAccount(ba)}"
+							 update="employee_view_form:tab_view:bank_tab"
 							 style="color:#ff1300; font-weight: bold" >
 							    <p:confirm header="Fshijë kontaktin" message="Jeni të sigurt?"/>
 							 </p:commandLink>

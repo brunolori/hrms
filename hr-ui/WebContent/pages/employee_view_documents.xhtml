@@ -7,57 +7,85 @@
 
 
 		<div class="ui-g ui-fluid">
+			
 			<div class="ui-g-12">
-
-				<div class="ui-g-12">
-					<p:messages showDetail="true" closable="true">
-						<p:autoUpdate />
-					</p:messages>
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			<div class="ui-g nopad">
+			<div class="ui-g-12 nopad">
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Emri dokumentit"/>
+					<p:inputText value="#{opEmployeeViewBean.documentForm.documentName}" placeholder="Emri dokumentit"/>
+					<p:outputLabel value="Data dokumentit"/>
+					<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opEmployeeViewBean.documentForm.documentDate}" placeholder="Data dokumentit"/>
+					<p:outputLabel value="Përshkrimi"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.documentForm.description}" placeholder="Përshkrimi"/>
+				</p:panelGrid>
 				</div>
-
-
-				<div class="card card-w-title">
-					<h1>Dokumentat</h1>
-					<div class="ui-g">
-						<div class="ui-g-12">
-						<p:panelGrid columns="2" layout="grid" columnClasses="right bold ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
-							    <p:outputLabel value="Emri dokumentit"/>
-								<p:inputText placeholder="Emri dokumentit" />
-								<p:outputLabel value="Përshkrimi"/>
-								<p:inputText placeholder="Përshkrimi" />
-								<p:outputLabel value="Path"/>
-								<p:inputText placeholder="Path" />
-							</p:panelGrid>
-						</div>
-						
-						
-						<div class="ui-g-12 ui-md-4">
-							<p:panelGrid layout="grid" columns="2"
-								styleClass="ui-panelgrid-blank">
-								<p:commandButton value="Regjistro" styleClass="blue-btn" icon="ui-icon-save" />
-								<p:commandButton value="Pastro" icon="ui-icon-trash" styleClass="green-btn" />
-							</p:panelGrid>
-						</div>
-						
-					</div>
+				<div class="ui-g-12 nopad">
+					<p:fileUpload fileUploadListener="#{opEmployeeViewBean.handleFileUpload}" mode="advanced" 
+					 cancelLabel="anullo" label="zgjidh" uploadLabel="ngarko" 
+                     auto="true" sizeLimit="20000000" fileLimitMessage="Limiti 20 MB" update="upload_msg"/>
+					<p:outputLabel id="upload_msg" value="dokumenti u ngarkua" 
+					   style="color: green" rendered="#{opEmployeeViewBean.documentForm.data != null}"/>
 				</div>
-				
-				<div class="ui-g-12">
-					<p:dataTable value="" var="" rowIndexVar="r"
-						emptyMessage="Asnjë dokument i listuar">
-						<p:column headerText="#">
-							#{r+1}
-							</p:column>
-						<p:column headerText="Emri dokumentit"></p:column>
-						<p:column headerText="Përshkrimi"></p:column>
-						<p:column headerText="Path"></p:column>						
-					</p:dataTable>
+				<div class="ui-g-12 nopad">
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+				<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveDocument()}" 
+						rendered="#{opEmployeeViewBean.documentForm.id == null}" update="employee_view_form:tab_view:document_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro dokumentin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyDocument()}" 
+						rendered="#{opEmployeeViewBean.documentForm.id != null}" update="employee_view_form:tab_view:document_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho documentin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initDocuments()}" 
+						             update="employee_view_form:tab_view:document_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
 				</div>
-				
-				
-				
 				
 			</div>
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.documents}" var="d" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{d.id==opEmployeeViewBean.documentForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Emri dokumentit" style="text-align: left;">
+						#{d.documentName}
+					</p:column>
+					<p:column headerText="Data dokumentit" style="text-align: left;">
+					    #{formatBean.formatDate(d.documentDate)}
+					</p:column>
+					<p:column headerText="Përshkrimi" style="text-align: left;">
+						#{d.description}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onDocumentSelect(d)}" 
+							update="employee_view_form:tab_view:document_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteDocument(d)}"
+							 update="employee_view_form:tab_view:document_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë dokumentin" message="Jeni të sigurt?"/>
+							 </p:commandLink> |
+							 <p:commandLink value="shiko" style="color:orangered; font-weight: bold">
+							  	<f:param name="doc_id" value="#{d.id}"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
 		</div>
 
 
