@@ -13,6 +13,7 @@ import com.bvlsh.hr.dao.EmployeeDAO;
 import com.bvlsh.hr.entities.DepartmentPosition;
 import com.bvlsh.hr.entities.Employee;
 import com.bvlsh.hr.entities.EmployeeHistory;
+import com.bvlsh.hr.entities.JobEndingReason;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.State;
 import com.bvlsh.hr.exceptions.EntityExistsException;
@@ -108,10 +109,10 @@ public class EmployeeService {
 		{
 			if(currentEmployee.getEndDate() == null)//punonjesi eshte aktiv
 			{
-				if(form.getEndDate() == null)
+				if(form.getEndDate() == null || form.getEndJobReasonId() == null)
 				{
 				   throw new EntityExistsException("Punonjesi "+currentEmployee.getName()+" "+currentEmployee.getSurname()
-				   +" ndodhet aktualisht i punesuar ne "+currentEmployee.getDepartmentPosition().getName()+", potesoni daten e lenies se pozicionit te meparshem");
+				   +" ndodhet aktualisht i punesuar ne "+currentEmployee.getDepartmentPosition().getName()+", potesoni daten dhe arsyen e lenies se pozicionit te meparshem");
 				}
 			}
 			
@@ -131,6 +132,7 @@ public class EmployeeService {
 		emp.setDossierNo(form.getDossierNo());
 		emp.setEmployeeNo(form.getEmployeeNo());
 		emp.setEndDate(null);
+		emp.setEndJobReason(null);
 		emp.setFatherName(form.getFatherName());
 		emp.setGender(form.getGender());
 		emp.setMotherName(form.getMotherName());
@@ -143,8 +145,7 @@ public class EmployeeService {
 		emp.setStartDate(form.getStartDate());
 		emp.setSurname(form.getSurname());
 		emp.setUpdateTime(Calendar.getInstance().getTime());
-		emp.setUpdateUser(uname);
-		
+		emp.setUpdateUser(uname);		
 		
 		if(newEmp) 
 		{
@@ -152,7 +153,7 @@ public class EmployeeService {
 			emp.setCreateUser(uname);
 			emp = crudDAO.create(emp);
 		}
-		else
+		else// punonjes egzistues
 		{
 			emp = crudDAO.update(emp);
 			EmployeeHistory h = employeeDAO.getEmployeeLastEmployment(emp.getNid());
@@ -160,6 +161,7 @@ public class EmployeeService {
 			if(h.getEndDate() == null)
 			{
 				h.setEndDate(form.getEndDate());
+				h.setEndJobReason(crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId()));
 				h.setUpdateTime(Calendar.getInstance().getTime());
 				h.setUpdateUser(uname);
 				crudDAO.update(h);
@@ -169,7 +171,7 @@ public class EmployeeService {
 			}
 			
 		}
-		
+		//krijo punesimin e ri
 		EmployeeHistory history = new EmployeeHistory();
 		history.setCreateTime(Calendar.getInstance().getTime());
 		history.setCreateUser(uname);
@@ -178,6 +180,7 @@ public class EmployeeService {
 		history.setEmployee(emp);
 		history.setEmployeeNo(emp.getEmployeeNo());
 		history.setEndDate(null);
+		history.setEndJobReason(null);
 		history.setPaymentCategory(emp.getPaymentCategory());
 		history.setStartDate(emp.getStartDate());
 		history.setStatus(IStatus.ACTIVE);
@@ -217,10 +220,7 @@ public class EmployeeService {
 			throw new ValidationException("Plotësoni Kategorinë e Pagës!");
 		}
 		
-		if(form.getEndDate() == null)
-		{
-			throw new ValidationException("Plotësoni datën e lënies së pozicionit të mëparshëm!");
-		}
+		
 		
 		if(form.getStartDate() == null)
 		{
@@ -229,26 +229,37 @@ public class EmployeeService {
 		
 		
 		DepartmentPosition pos = crudDAO.findById(DepartmentPosition.class, form.getDepartmentPositionId());
-		Employee emp = crudDAO.findById(Employee.class, form.getNid());		
-		//liro pozicionin e fundit
-		DepartmentPosition lastPosition = emp.getDepartmentPosition();
-		lastPosition.setCurrentEmployee(null);
-		crudDAO.update(lastPosition);
+		Employee emp = crudDAO.findById(Employee.class, form.getNid());	
+		
+		if(emp.getEndDate() == null)//eshte aktiv
+		{
+			if(form.getEndDate() == null || form.getEndJobReasonId() == null)
+			{
+				throw new ValidationException("Plotësoni arsyen dhe daten e lënies së pozicionit të mëparshëm!");
+			}
+			//liro pozicionin e fundit
+			DepartmentPosition lastPosition = emp.getDepartmentPosition();
+			lastPosition.setCurrentEmployee(null);
+			crudDAO.update(lastPosition);
+			//mbyll punesimin e fundit
+			EmployeeHistory lastEmployment = employeeDAO.getEmployeeLastEmployment(emp.getNid());
+			lastEmployment.setUpdateTime(Calendar.getInstance().getTime());
+			lastEmployment.setUpdateUser(uname);
+			lastEmployment.setEndDate(form.getEndDate());
+			lastEmployment.setEndJobReason(crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId()));
+			crudDAO.update(lastEmployment);
+		}
+		
 		//updeto employee me vlerat e reja
 		emp.setDepartmentPosition(pos);
 		emp.setEndDate(null);
+		emp.setEndJobReason(null);
 		emp.setPaymentCategory(crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId()));
 		emp.setStartDate(form.getStartDate());
 		emp.setUpdateTime(Calendar.getInstance().getTime());
 		emp.setUpdateUser(uname);
 		emp = crudDAO.update(emp);
 		
-		//mbyll punesimin e fundit
-		EmployeeHistory lastEmployment = employeeDAO.getEmployeeLastEmployment(emp.getNid());
-		lastEmployment.setUpdateTime(Calendar.getInstance().getTime());
-		lastEmployment.setUpdateUser(uname);
-		lastEmployment.setEndDate(form.getEndDate());
-		crudDAO.update(lastEmployment);
 		//krijo historik te ri
 		EmployeeHistory history = new EmployeeHistory();
 		history.setCreateTime(Calendar.getInstance().getTime());
@@ -258,6 +269,7 @@ public class EmployeeService {
 		history.setEmployee(emp);
 		history.setEmployeeNo(emp.getEmployeeNo());
 		history.setEndDate(null);
+		history.setEndJobReason(null);
 		history.setPaymentCategory(emp.getPaymentCategory());
 		history.setStartDate(emp.getStartDate());
 		history.setStatus(IStatus.ACTIVE);
@@ -326,9 +338,16 @@ public class EmployeeService {
 				throw new ValidationException("Punësimi i mëparshëm nuk mund të ndryshohet!");
 			}
 		}
-		//po modifikon punesimin e fundit
+		
+		
+		// #### po modifikon punesimin e fundit ######
+		
 		if(form.getEndDate() != null)// dmth po i jep fund punesimit dhe updeto employee dhe organigram position
 		{
+			if(form.getEndJobReasonId() == null) // nuk ka plotesuar arsyen e lirimit
+			{
+				throw new ValidationException("Ploteso arsyen e lirimit ose hiq daten e lirimit");
+			}
 				DepartmentPosition dp = emp.getDepartmentPosition();
 				dp.setCurrentEmployee(null);
 				crudDAO.update(dp);
@@ -348,7 +367,18 @@ public class EmployeeService {
 		
 		PaymentCategory pc = crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId());
 		
+		JobEndingReason jer = null;
+		if(form.getEndJobReasonId() != null)
+		{
+			if(form.getEndDate() == null)
+			{
+				throw new ValidationException("Ploteso daten e lirimit ose hiq arsyen e lirimit");
+			}
+			jer = crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId());
+		}
+		
 		emp.setEndDate(form.getEndDate());
+		emp.setEndJobReason(jer);
 		emp.setDepartmentPosition(pos);
 		emp.setPaymentCategory(pc);
 		emp.setStartDate(form.getStartDate());
@@ -358,6 +388,7 @@ public class EmployeeService {
 		
 		history.setDepartmentPosition(pos);
 		history.setEndDate(form.getEndDate());
+		history.setEndJobReason(jer);
 		history.setPaymentCategory(pc);
 		history.setStartDate(form.getStartDate());
 		history.setUpdateTime(Calendar.getInstance().getTime());
@@ -422,8 +453,8 @@ public class EmployeeService {
 		emp.setCitizenship(crudDAO.findById(State.class, form.getCitizenshipCode()));
 		emp.setCivilStatus(form.getCivilStatus());
 		emp.setDob(form.getDob());
-		emp.setDossierNo(form.getDossierNo());
-		emp.setEmployeeNo(form.getEmployeeNo());
+		//emp.setDossierNo(form.getDossierNo());
+		//emp.setEmployeeNo(form.getEmployeeNo());
 		emp.setFatherName(form.getFatherName());
 		emp.setGender(form.getGender());
 		emp.setMotherName(form.getMotherName());
@@ -433,7 +464,6 @@ public class EmployeeService {
 		emp.setNid(form.getNid());
 		emp.setPaymentCategory(crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId()));
 		emp.setPob(form.getPob());
-	//	emp.setStartDate(form.getStartDate());
 		emp.setSurname(form.getSurname());
 		emp.setUpdateTime(Calendar.getInstance().getTime());
 		emp.setUpdateUser(uname);

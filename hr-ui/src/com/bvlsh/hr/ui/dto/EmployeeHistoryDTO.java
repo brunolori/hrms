@@ -7,6 +7,7 @@ package com.bvlsh.hr.ui.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,5 +32,6 @@ public class EmployeeHistoryDTO implements Serializable {
     private DepartmentPositionDTO departmentPosition;
     private PaymentCategoryDTO paymentCategory;
     private EmployeeDTO employee;
-    
+    private GradeDTO grade;
+    private JobEndingReasonDTO endJobReason;
 }

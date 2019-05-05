@@ -17,6 +17,7 @@ import com.bvlsh.hr.dto.EducationTypeDTO;
 import com.bvlsh.hr.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.dto.GradeDTO;
 import com.bvlsh.hr.dto.InstitutionDTO;
+import com.bvlsh.hr.dto.JobEndingReasonDTO;
 import com.bvlsh.hr.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.dto.PositionDTO;
 import com.bvlsh.hr.dto.ProvisionTypeDTO;
@@ -39,6 +40,21 @@ public class HelperAPI {
 	{
 				
 		List<ProvisionTypeDTO> list = new Assembler().provisionTypeListToDto(helperService.loadProvisionTypes());
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/list/jobEndingReasons", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> jobEndingReasons()
+	{
+				
+		List<JobEndingReasonDTO> list = new Assembler().endJobReasonListToDto(helperService.loadJobEndingReasons());
 		
 		if(list == null || list.isEmpty())
 		{

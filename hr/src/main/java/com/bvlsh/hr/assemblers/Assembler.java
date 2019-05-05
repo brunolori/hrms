@@ -18,6 +18,7 @@ import com.bvlsh.hr.dto.EmployeeHistoryDTO;
 import com.bvlsh.hr.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.dto.GradeDTO;
 import com.bvlsh.hr.dto.InstitutionDTO;
+import com.bvlsh.hr.dto.JobEndingReasonDTO;
 import com.bvlsh.hr.dto.JobValidationDTO;
 import com.bvlsh.hr.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.dto.EmployeeDTO;
@@ -47,6 +48,7 @@ import com.bvlsh.hr.entities.EmployeeHistory;
 import com.bvlsh.hr.entities.ForeignLanguage;
 import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
+import com.bvlsh.hr.entities.JobEndingReason;
 import com.bvlsh.hr.entities.JobValidation;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Employee;
@@ -222,6 +224,33 @@ public class Assembler {
 		List<ContactTypeDTO> list = new ArrayList<>();
 
 		for (ContactType ct : contactType) {
+			list.add(toDto(ct));
+		}
+
+		return list;
+
+	}
+	
+	public JobEndingReasonDTO toDto(JobEndingReason e) {
+
+		if (e == null) return null;
+
+		JobEndingReasonDTO dto = new JobEndingReasonDTO();
+		dto.setId(e.getId());
+		dto.setTag(e.getTag());
+		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
+
+		return dto;
+
+	}
+
+	public List<JobEndingReasonDTO> endJobReasonListToDto(List<JobEndingReason> l) {
+
+		if (l == null || l.isEmpty()) return null;
+
+		List<JobEndingReasonDTO> list = new ArrayList<>();
+
+		for (JobEndingReason ct : l) {
 			list.add(toDto(ct));
 		}
 
@@ -463,6 +492,8 @@ public class Assembler {
 		}
 		dto.setPaymentCategory(toDto(e.getPaymentCategory()));
 		dto.setEmployee(toDto(e.getEmployee()));
+		dto.setGrade(toDto(e.getGrade()));
+		dto.setEndJobReason(toDto(e.getEndJobReason()));
 
 		return dto;
 
@@ -654,6 +685,8 @@ public class Assembler {
 		dto.setDepartmentPosition(toDto(e.getDepartmentPosition()));
 		dto.setNationality(toDto(e.getNationality()));
 		dto.setPaymentCategory(toDto(e.getPaymentCategory()));
+		dto.setGrade(toDto(e.getGrade()));
+		dto.setEndJobReason(toDto(e.getEndJobReason()));
 		
 		return dto;
 		

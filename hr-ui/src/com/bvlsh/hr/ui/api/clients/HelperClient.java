@@ -22,6 +22,7 @@ import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.GradeDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
+import com.bvlsh.hr.ui.dto.JobEndingReasonDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.ui.dto.PositionDTO;
 import com.bvlsh.hr.ui.dto.ProvisionTypeDTO;
@@ -47,6 +48,29 @@ public class HelperClient {
 		ParameterizedTypeReference<List<ProvisionTypeDTO>> typeRef = new ParameterizedTypeReference<List<ProvisionTypeDTO>>() {};
 		
 		ResponseEntity<List<ProvisionTypeDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}
+				
+		return null;
+	}
+	
+	public List<JobEndingReasonDTO> loadJobEndingReasons()
+	{
+		final String BASE_URL = IApiClient.SERVER+"/api/helper/list/jobEndingReasons";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		
+		ParameterizedTypeReference<List<JobEndingReasonDTO>> typeRef = new ParameterizedTypeReference<List<JobEndingReasonDTO>>() {};
+		
+		ResponseEntity<List<JobEndingReasonDTO>> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, typeRef);
 		
 		if(response.getStatusCode() == HttpStatus.OK)
 		{

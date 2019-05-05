@@ -98,6 +98,12 @@ public class Employee implements Serializable {
     @JoinColumn(name = "PAYMENT_CATEGORY_ID", referencedColumnName = "ID")
     @ManyToOne
     private PaymentCategory paymentCategory;
+    @JoinColumn(name = "END_JOB_REASON_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private JobEndingReason endJobReason;
+    @JoinColumn(name = "GRADE_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private Grade grade;
 
    
     

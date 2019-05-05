@@ -84,9 +84,16 @@
 								<p:outputLabel value="Data e fillimit"/>
 								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Data e fillimit" value="#{opEmployeeAddBean.form.startDate}"/>
 								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" 
-								rendered="#{opEmployeeAddBean.employeeExists}"/>
+								rendered="#{opEmployeeAddBean.employeeExists}" style="color: #c67a74"/>
 								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeAddBean.employeeExists}" 
 								navigator="true" placeholder="Data e lënies së pozicionit të mëparshëm" value="#{opEmployeeAddBean.form.endDate}"/>
+								<p:outputLabel value="Arsyeja e lirimit nga pozicioni i mëparshëm" 
+								rendered="#{opEmployeeAddBean.employeeExists}" style="color: #c67a74"/>
+								<p:selectOneMenu rendered="#{opEmployeeAddBean.employeeExists}" placeholder="Arsyeja e lirimit" 
+								   value="#{opEmployeeAddBean.form.endJobReasonId}">
+									<f:selectItem itemValue="#{null}" itemLabel="Arsyeja e lirimit"/>
+									<f:selectItems value="#{cacheBean.jobEndingReasons}" var="jer" itemValue="#{jer.id}" itemLabel="#{jer.tag}"/>
+								</p:selectOneMenu>
 								<p:outputLabel value="Nr punonjësit"/>
 								<p:inputText placeholder="Nr punonjësit" value="#{opEmployeeAddBean.form.employeeNo}"/>	
 								<p:outputLabel value="Nr dosjes"/>

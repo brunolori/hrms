@@ -58,8 +58,15 @@
 									
 									<p:inputText placeholder="Nr.Punonjësi" value="#{opEmployeeSxBean.req.employeeNo}"/>
 									<p:inputText placeholder="Nr.Dosje" value="#{opEmployeeSxBean.req.dossierNo}" />
-                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Nga Data" value="#{opEmployeeSxBean.req.startDateFrom}"/>
-                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Në Datë" value="#{opEmployeeSxBean.req.startDateTo}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Filluar Nga Data" value="#{opEmployeeSxBean.req.startDateFrom}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Filluar Në Datë" value="#{opEmployeeSxBean.req.startDateTo}"/>
+                                    
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Nga Data" value="#{opEmployeeSxBean.req.endDateFrom}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Në Datë" value="#{opEmployeeSxBean.req.endDateTo}"/>
+                                    <p:selectOneMenu placeholder="Arsyeja lirimit" value="#{opEmployeeSxBean.req.endJobReasonId}">
+										<f:selectItem itemValue="#{null}" itemLabel="Arsyeja lirimit" />
+										<f:selectItems value="#{cacheBean.jobEndingReasons}" var="je" itemValue="#{je.id}" itemLabel="#{je.tag}" />	
+									</p:selectOneMenu>
 								</p:panelGrid>
 
 

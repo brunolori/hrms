@@ -30,5 +30,6 @@ public class EmployeeForm implements Serializable {
     private Integer departmentPositionId;
     private String nationalityCode;
     private Integer paymentCategoryId;
+    private Integer endJobReasonId;
 
 }

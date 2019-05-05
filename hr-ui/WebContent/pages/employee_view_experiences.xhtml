@@ -44,12 +44,22 @@
 								
 								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" 
 								  rendered="#{opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null}"/>
-								<p:outputLabel value="Data e përfundimit" 
+								<p:outputLabel value="Data e lirimit" 
 								  rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}"/>
 								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeViewBean.employeeForm.employmentId != null or 
 								(opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null)}"
-								navigator="true" placeholder="Data e përfundimit" value="#{opEmployeeViewBean.employeeForm.endDate}"/>
-								
+								navigator="true" placeholder="Data e lirimit" value="#{opEmployeeViewBean.employeeForm.endDate}"/>
+								<p:outputLabel value="Arsyeja e lënies së pozicionit të mëparshëm" 
+								  rendered="#{opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null}"/>
+								<p:outputLabel value="Arsyeja e lirimit" 
+								  rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}"/>
+								<p:selectOneMenu placeholder="Arsyeja e lirimit" 
+								   value="#{opEmployeeViewBean.employeeForm.endJobReasonId}" 
+								   rendered="#{opEmployeeViewBean.employeeForm.employmentId != null or 
+								(opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null)}">
+									<f:selectItem itemValue="#{null}" itemLabel="Arsyeja e lirimit"/>
+									<f:selectItems value="#{cacheBean.jobEndingReasons}" var="jer" itemValue="#{jer.id}" itemLabel="#{jer.tag}"/>
+								</p:selectOneMenu>
 								
 								
 								
@@ -86,11 +96,14 @@
 					<p:column headerText="Pozicioni" style="text-align: left;">
 						#{e.departmentPosition.name}
 					</p:column>
-					<p:column headerText="Data filimit" style="text-align: left;">
+					<p:column headerText="Data fillimit" style="text-align: left;">
 						#{formatBean.formatDate(e.startDate)}
 					</p:column>
-					<p:column headerText="Data përfundimit" style="text-align: left;">
+					<p:column headerText="Data lirimit" style="text-align: left;">
 						#{formatBean.formatDate(e.endDate)}
+					</p:column>
+					<p:column headerText="Arsyeja lirimit" style="text-align: left;">
+						#{e.endJobReason.tag}
 					</p:column>
 					<p:column headerText="Kategoria pagës" style="text-align: left;">
 						#{e.paymentCategory.tag}

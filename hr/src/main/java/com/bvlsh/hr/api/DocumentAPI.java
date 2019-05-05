@@ -78,6 +78,16 @@ public class DocumentAPI {
 		
 	}
 	
+	@RequestMapping(value="/media/{id}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> getDocumentMedia(@PathVariable Integer id)
+	{
+		//String uname = tokenService.getUsername(token);
+				
+	    String media = documentService.getDocumentMedia(id);
+		
+		return new ResponseEntity<>(media, HttpStatus.OK);
+		
+	}
 	
 	
 	

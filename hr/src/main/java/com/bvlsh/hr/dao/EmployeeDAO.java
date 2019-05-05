@@ -144,6 +144,12 @@ public class EmployeeDAO {
 			params.put("payc_id", sx.getPaymentCategoryId());
 		}
 		
+		if(sx.getEndJobReasonId() != null)
+		{
+			sql += "AND e.endJobReason.id=:ejr_id ";
+			params.put("ejr_id", sx.getEndJobReasonId());
+		}
+		
 		if(sx.getStartDateFrom() != null)
 		{
 			sql += "AND e.startDate >=:start_fr ";

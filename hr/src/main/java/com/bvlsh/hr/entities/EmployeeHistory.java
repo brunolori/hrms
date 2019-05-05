@@ -72,5 +72,11 @@ public class EmployeeHistory implements Serializable {
     @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
     @ManyToOne
     private Employee employee;
+    @JoinColumn(name = "END_JOB_REASON_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private JobEndingReason endJobReason;
+    @JoinColumn(name = "GRADE_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private Grade grade;
     
 }

@@ -9,6 +9,7 @@ import com.bvlsh.hr.ui.dto.EducationTypeDTO;
 import com.bvlsh.hr.ui.dto.ForeignLanguageDTO;
 import com.bvlsh.hr.ui.dto.GradeDTO;
 import com.bvlsh.hr.ui.dto.InstitutionDTO;
+import com.bvlsh.hr.ui.dto.JobEndingReasonDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.ui.dto.PositionDTO;
 import com.bvlsh.hr.ui.dto.ProvisionTypeDTO;
@@ -24,6 +25,11 @@ public class HelperService {
 		return new HelperClient().loadProvisionTypes();
 	}
 
+	public List<JobEndingReasonDTO> loadJobEndingReasons()
+	{
+		return new HelperClient().loadJobEndingReasons();
+	}
+	
 	public List<TrainingTypeDTO> loadTrainingTypes() {
 		return new HelperClient().loadTrainingTypes();
 	}

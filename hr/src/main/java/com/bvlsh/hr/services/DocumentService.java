@@ -11,9 +11,11 @@ import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.dao.CrudDAO;
 import com.bvlsh.hr.dao.DocumentDAO;
 import com.bvlsh.hr.entities.Document;
+import com.bvlsh.hr.entities.DocumentMedia;
 import com.bvlsh.hr.entities.Employee;
 import com.bvlsh.hr.exceptions.ValidationException;
 import com.bvlsh.hr.forms.DocumentForm;
+import com.bvlsh.hr.utils.CalculatorUtil;
 import com.bvlsh.hr.utils.StringUtil;
 
 @Service
@@ -49,9 +51,15 @@ public class DocumentService {
 		d.setDocumentName(form.getDocumentName());
 		d.setEmployee(crudDAO.findById(Employee.class, form.getPersonNid()));
 		
-		//save scanned_doc as blod or generate path;
+		d = crudDAO.create(d);
 		
-		return crudDAO.create(d);
+		DocumentMedia m = new DocumentMedia();
+		m.setContent(CalculatorUtil.decodeBASE64(form.getData()));
+		m.setDocument(d);
+		
+		crudDAO.create(m);
+		
+		return d;
 		
 	}
 	
@@ -73,12 +81,17 @@ public class DocumentService {
 		d.setDocumentDate(form.getDocumentDate());
 		d.setDocumentName(form.getDocumentName());
 		d.setEmployee(crudDAO.findById(Employee.class, form.getPersonNid()));
+		d = crudDAO.update(d);
 		
 		if (StringUtil.isValid(form.getData())) {
-			//save scanned_doc as blod or generate path;
+			DocumentMedia m = new DocumentMedia();
+			m.setContent(CalculatorUtil.decodeBASE64(form.getData()));
+			m.setDocument(d);
+			
+			crudDAO.create(m);
 		}
 				
-		return crudDAO.update(d);
+		return d;
 		
 	}
 
@@ -97,7 +110,10 @@ public class DocumentService {
 		return documentDAO.getEmployeeDocuments(nid);
 	}
 	
-	
+	public String getDocumentMedia(Integer docId)
+	{
+		return documentDAO.getDocumentMedia(docId);
+	}
 	
 	
 	

@@ -31,6 +31,7 @@ public class EmployeeSx implements Serializable{
     private Integer departmentId;
     private Integer positionId;
     private Integer gradeId;
+    private Integer endJobReasonId;
     
     private Boolean onlyActive;
     private Boolean childDepartments;

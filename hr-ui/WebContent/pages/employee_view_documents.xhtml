@@ -24,11 +24,13 @@
 				</p:panelGrid>
 				</div>
 				<div class="ui-g-12 nopad">
+				<p:panelGrid id="upload_msg" layout="grid" columns="1" styleClass="ui-panelgrid-blank">
 					<p:fileUpload fileUploadListener="#{opEmployeeViewBean.handleFileUpload}" mode="advanced" 
 					 cancelLabel="anullo" label="zgjidh" uploadLabel="ngarko" 
                      auto="true" sizeLimit="20000000" fileLimitMessage="Limiti 20 MB" update="upload_msg"/>
-					<p:outputLabel id="upload_msg" value="dokumenti u ngarkua" 
+					<p:outputLabel value="dokumenti u ngarkua" 
 					   style="color: green" rendered="#{opEmployeeViewBean.documentForm.data != null}"/>
+				</p:panelGrid>
 				</div>
 				<div class="ui-g-12 nopad">
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">

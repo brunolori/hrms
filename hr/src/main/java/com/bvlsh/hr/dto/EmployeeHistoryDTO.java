@@ -31,5 +31,7 @@ public class EmployeeHistoryDTO implements Serializable {
     private DepartmentPositionDTO departmentPosition;
     private PaymentCategoryDTO paymentCategory;
     private EmployeeDTO employee;
+    private GradeDTO grade;
+    private JobEndingReasonDTO endJobReason;
     
 }

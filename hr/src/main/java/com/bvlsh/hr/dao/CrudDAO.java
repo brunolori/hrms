@@ -15,6 +15,7 @@ import com.bvlsh.hr.entities.EducationType;
 import com.bvlsh.hr.entities.ForeignLanguage;
 import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
+import com.bvlsh.hr.entities.JobEndingReason;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Position;
 import com.bvlsh.hr.entities.ProvisionType;
@@ -54,6 +55,11 @@ public class CrudDAO {
 				.getResultList();
 	}
 
+	public List<JobEndingReason> loadJobEndingReasons() {
+
+		return em.createQuery("FROM JobEndingReason je WHERE je.status=:status").setParameter("status", IStatus.ACTIVE)
+				.getResultList();
+	}
 	
 	public List<TrainingType> loadTrainingTypes(){
 		

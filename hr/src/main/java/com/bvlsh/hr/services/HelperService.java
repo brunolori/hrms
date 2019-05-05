@@ -12,6 +12,7 @@ import com.bvlsh.hr.entities.EducationType;
 import com.bvlsh.hr.entities.ForeignLanguage;
 import com.bvlsh.hr.entities.Grade;
 import com.bvlsh.hr.entities.Institution;
+import com.bvlsh.hr.entities.JobEndingReason;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Position;
 import com.bvlsh.hr.entities.ProvisionType;
@@ -32,6 +33,10 @@ public class HelperService {
 		return crudDAO.loadProvisionTypes();
 	}
 
+	public List<JobEndingReason> loadJobEndingReasons() {
+
+		return crudDAO.loadJobEndingReasons();
+	}
 	
 	public List<TrainingType> loadTrainingTypes(){
 		

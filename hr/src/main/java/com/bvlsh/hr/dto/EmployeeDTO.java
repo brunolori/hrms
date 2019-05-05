@@ -41,7 +41,8 @@ public class EmployeeDTO implements Serializable {
     private DepartmentPositionDTO departmentPosition;
     private StateDTO nationality;
     private PaymentCategoryDTO paymentCategory;
-
+    private GradeDTO grade;
+    private JobEndingReasonDTO endJobReason;
    
     
 }

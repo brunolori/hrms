@@ -203,7 +203,7 @@ public class OpEmployeeViewBean implements Serializable {
 		this.employeeForm.setEndDate(dto.getEndDate());
 		this.employeeForm.setStartDate(dto.getStartDate());
 		this.employeeForm.setPaymentCategoryId(dto.getPaymentCategory().getId());
-
+		this.employeeForm.setEndJobReasonId(dto.getEndJobReason() != null ? dto.getEndJobReason().getId() : null);
 	}
 	
 	
