@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.Document;
-import com.bvlsh.hr.utils.CalculatorUtil;
+import com.bvlsh.hr.entities.DocumentMedia;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -34,14 +34,14 @@ public class DocumentDAO {
 
 
 
-	public String getDocumentMedia(Integer docId) {
-		List<byte[]> list = em.createQuery("SELECT ap.content FROM DocumentMedia ap WHERE ap.document.id = :id ORDER BY ap.id DESC ")
+	public DocumentMedia getDocumentMedia(Integer docId) {
+		List<DocumentMedia> list = em.createQuery("FROM DocumentMedia ap WHERE ap.document.id = :id ORDER BY ap.id DESC ")
 				.setParameter("id", docId)
 				.getResultList();
 		
 		if(list != null && !list.isEmpty())
 		{
-			return CalculatorUtil.encodeBASE64(list.get(0));
+			return list.get(0);
 		}
 		
 		return null;

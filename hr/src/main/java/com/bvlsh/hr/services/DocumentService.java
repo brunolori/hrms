@@ -36,7 +36,7 @@ public class DocumentService {
 			throw new ValidationException("Plotësoni emrin e dokumentit");
 		}
 		
-		if (!StringUtil.isValid(form.getData())) {
+		if (!StringUtil.isValid(form.getData()) || !StringUtil.isValid(form.getMediaSuffix()) || !StringUtil.isValid(form.getMediaType())) {
 			throw new ValidationException("Ngarko dokumentin");
 		}
 
@@ -55,6 +55,8 @@ public class DocumentService {
 		
 		DocumentMedia m = new DocumentMedia();
 		m.setContent(CalculatorUtil.decodeBASE64(form.getData()));
+		m.setSuffix(form.getMediaSuffix());
+		m.setType(form.getMediaType());
 		m.setDocument(d);
 		
 		crudDAO.create(m);
@@ -84,8 +86,16 @@ public class DocumentService {
 		d = crudDAO.update(d);
 		
 		if (StringUtil.isValid(form.getData())) {
+			
+			if(!StringUtil.isValid(form.getMediaSuffix()) || !StringUtil.isValid(form.getMediaType()))
+			{
+				throw new ValidationException("Tipi i dokumentit i panjohur");
+			}
+			
 			DocumentMedia m = new DocumentMedia();
 			m.setContent(CalculatorUtil.decodeBASE64(form.getData()));
+			m.setSuffix(form.getMediaSuffix());
+			m.setType(form.getMediaType());
 			m.setDocument(d);
 			
 			crudDAO.create(m);
@@ -110,7 +120,7 @@ public class DocumentService {
 		return documentDAO.getEmployeeDocuments(nid);
 	}
 	
-	public String getDocumentMedia(Integer docId)
+	public DocumentMedia getDocumentMedia(Integer docId)
 	{
 		return documentDAO.getDocumentMedia(docId);
 	}

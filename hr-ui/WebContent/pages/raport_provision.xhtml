@@ -20,11 +20,11 @@
 										<p:inputText placeholder="Emri" value="#{opRapProvisionBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapProvisionBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapProvisionBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapProvisionBean.req.departmentId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapProvisionBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Lloji Masës" value="#{opRapProvisionBean.req.provisionTypeId}">
+										<p:selectOneMenu placeholder="Lloji Masës" value="#{opRapProvisionBean.req.provisionTypeId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
 											<f:selectItems value="#{cacheBean.provisionTypes}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 										</p:selectOneMenu>

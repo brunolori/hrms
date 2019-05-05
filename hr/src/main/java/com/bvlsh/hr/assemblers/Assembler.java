@@ -20,6 +20,7 @@ import com.bvlsh.hr.dto.GradeDTO;
 import com.bvlsh.hr.dto.InstitutionDTO;
 import com.bvlsh.hr.dto.JobEndingReasonDTO;
 import com.bvlsh.hr.dto.JobValidationDTO;
+import com.bvlsh.hr.dto.MediaDTO;
 import com.bvlsh.hr.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.dto.EmployeeDTO;
 import com.bvlsh.hr.dto.EmployeeForeignLanguageDTO;
@@ -42,6 +43,7 @@ import com.bvlsh.hr.entities.Department;
 import com.bvlsh.hr.entities.DepartmentCategory;
 import com.bvlsh.hr.entities.DepartmentPosition;
 import com.bvlsh.hr.entities.Document;
+import com.bvlsh.hr.entities.DocumentMedia;
 import com.bvlsh.hr.entities.Education;
 import com.bvlsh.hr.entities.EducationType;
 import com.bvlsh.hr.entities.EmployeeHistory;
@@ -63,6 +65,7 @@ import com.bvlsh.hr.entities.Training;
 import com.bvlsh.hr.entities.TrainingType;
 import com.bvlsh.hr.entities.User;
 import com.bvlsh.hr.entities.ValidationType;
+import com.bvlsh.hr.utils.CalculatorUtil;
 
 public class Assembler {
 
@@ -1022,6 +1025,19 @@ public class Assembler {
 
 		return list;
 
+	}
+
+	public MediaDTO toDto(DocumentMedia e) {
+		
+		if (e == null) return null;
+		
+		MediaDTO dto = new MediaDTO();
+		dto.setContent(CalculatorUtil.encodeBASE64(e.getContent()));
+		dto.setSuffix(e.getSuffix());
+		dto.setType(e.getType());
+		
+		return dto;
+		
 	}
 	
 	

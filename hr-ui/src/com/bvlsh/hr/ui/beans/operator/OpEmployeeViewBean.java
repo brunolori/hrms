@@ -1,12 +1,16 @@
 package com.bvlsh.hr.ui.beans.operator;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
+import org.omnifaces.util.Faces;
 import org.primefaces.event.FileUploadEvent;
 
 import com.bvlsh.hr.ui.beans.application.NavBean;
@@ -30,6 +34,7 @@ import com.bvlsh.hr.ui.forms.EmployeeForm;
 import com.bvlsh.hr.ui.forms.ForeignLanguageForm;
 import com.bvlsh.hr.ui.forms.GradeForm;
 import com.bvlsh.hr.ui.forms.JobValidationForm;
+import com.bvlsh.hr.ui.forms.MediaDTO;
 import com.bvlsh.hr.ui.forms.TrainingForm;
 import com.bvlsh.hr.ui.services.AdministrativeProvisionService;
 import com.bvlsh.hr.ui.services.BankService;
@@ -582,6 +587,45 @@ public class OpEmployeeViewBean implements Serializable {
 	public void handleFileUpload(FileUploadEvent event) {
         
         this.documentForm.setData(CalculatorUtil.encodeBASE64(event.getFile().getContents()));
+        this.documentForm.setMediaType(event.getFile().getContentType());
+        String fileName = event.getFile().getFileName();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        this.documentForm.setMediaSuffix(suffix);
     }
+	
+	public void downloadDocument(DocumentDTO dto)
+	{
+		MediaDTO m = new DocumentService().getDocumentMedia(dto.getId());
+		if(m == null)
+		{
+			return;
+		}
+		
+		try 
+		{
+			String filename = dto.getDocumentName()+m.getSuffix();
+			String contentType = m.getType();
+			byte[] bytes = CalculatorUtil.decodeBASE64(m.getContent());
+			
+			Faces.sendFile(bytes, filename, true);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+		    HttpServletResponse response = 
+		            (HttpServletResponse) facesContext.getExternalContext().getResponse();
+		    response.reset();
+		    response.setHeader("Content-Type", contentType);
+		    response.setHeader("Content-Disposition", "attachment;filename="+filename);
+		    OutputStream responseOutputStream = response.getOutputStream();
+		    responseOutputStream.write(bytes);
+		    responseOutputStream.flush();
+		    responseOutputStream.close();
+	
+		    facesContext.responseComplete();
+		    
+		}catch(Exception e) {
+			Messages.throwFacesMessage(e);
+		}
+	}
+	
+	
 
 }

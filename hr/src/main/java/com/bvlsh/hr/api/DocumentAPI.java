@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bvlsh.hr.assemblers.Assembler;
 import com.bvlsh.hr.dto.DocumentDTO;
+import com.bvlsh.hr.dto.MediaDTO;
 import com.bvlsh.hr.forms.DocumentForm;
 import com.bvlsh.hr.services.DocumentService;
 import com.bvlsh.hr.services.TokenService;
@@ -83,7 +84,7 @@ public class DocumentAPI {
 	{
 		//String uname = tokenService.getUsername(token);
 				
-	    String media = documentService.getDocumentMedia(id);
+	    MediaDTO media = new Assembler().toDto(documentService.getDocumentMedia(id));
 		
 		return new ResponseEntity<>(media, HttpStatus.OK);
 		

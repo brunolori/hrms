@@ -18,5 +18,7 @@ public class DocumentForm implements Serializable {
     private String path;
     private String personNid;
     private String data;
+    private String mediaType;
+    private String mediaSuffix;
 
 }

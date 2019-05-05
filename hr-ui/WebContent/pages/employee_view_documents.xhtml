@@ -79,9 +79,7 @@
 							 style="color:#ff1300; font-weight: bold" >
 							    <p:confirm header="Fshijë dokumentin" message="Jeni të sigurt?"/>
 							 </p:commandLink> |
-							 <p:commandLink value="shiko" style="color:orangered; font-weight: bold">
-							  	<f:param name="doc_id" value="#{d.id}"/>
-							 </p:commandLink>
+							 <p:commandLink value="shiko" action="#{opEmployeeViewBean.downloadDocument(d)}" ajax="false" style="color:orangered; font-weight: bold"/>
 					</p:column>
 				</p:dataTable>
 			

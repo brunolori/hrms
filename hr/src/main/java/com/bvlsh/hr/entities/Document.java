@@ -63,7 +63,7 @@ public class Document implements Serializable {
     @Column(name = "UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-    @JoinColumn(name = "EMPLOYEE_NID", referencedColumnName = "NID")
+    @JoinColumn(name = "PERSON_NID", referencedColumnName = "NID")
     @ManyToOne
     private Employee employee;
 

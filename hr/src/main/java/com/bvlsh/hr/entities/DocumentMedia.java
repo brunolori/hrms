@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,10 +26,15 @@ public class DocumentMedia implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Lob
     @Column(name = "CONTENT")
     private byte[] content;
     @JoinColumn(name = "DOCUMENT_ID", referencedColumnName = "ID")
     @ManyToOne
     private Document document;
+    @Column(name = "TYPE")
+    private String type;
+    @Column(name = "SUFFIX")
+    private String suffix;
 
 }
