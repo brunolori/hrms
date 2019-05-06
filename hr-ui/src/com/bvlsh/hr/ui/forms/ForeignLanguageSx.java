@@ -14,6 +14,7 @@ public class ForeignLanguageSx implements Serializable{
 	String employeeNo;
 	String name;
 	String surname;
+	String gender;
 	Integer departmentId;
 	
 	
