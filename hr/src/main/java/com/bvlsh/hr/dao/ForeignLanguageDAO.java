@@ -43,14 +43,20 @@ public class ForeignLanguageDAO {
 		
 		if(StringUtil.isValid(sx.getName()))
 		{
-			sql += "AND UPPER(e.employee.name) like :name ";
+			sql += "AND UPPER(efl.employee.name) like :name ";
 			params.put("name", sx.getName().toUpperCase().replace(" ", ""));
 		}
 		
 		if(StringUtil.isValid(sx.getSurname()))
 		{
-			sql += "AND UPPER(e.employee.surname) like :surname ";
+			sql += "AND UPPER(efl.employee.surname) like :surname ";
 			params.put("surname", sx.getSurname().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getGender()))
+		{
+			sql += "AND efl.employee.gender=:gender ";
+			params.put("gender", sx.getGender().toUpperCase().replace(" ", ""));
 		}
 		
 		if(sx.getDepartmentId() != null)

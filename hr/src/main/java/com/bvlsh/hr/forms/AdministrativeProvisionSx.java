@@ -15,6 +15,7 @@ public class AdministrativeProvisionSx implements Serializable{
 	String employeeNo;
 	String name;
 	String surname;
+	String gender;
 	Integer departmentId;
 	
 	String actNo;

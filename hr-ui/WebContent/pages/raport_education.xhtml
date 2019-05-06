@@ -19,6 +19,11 @@
 										<p:inputText placeholder="Nr punonjësi" value="#{opRapEducationBean.req.employeeNo}"/>
 										<p:inputText placeholder="Emri" value="#{opRapEducationBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapEducationBean.req.surname}"/>
+										<p:selectOneMenu placeholder="Gjinia" value="#{opRapEducationBean.req.gender}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+											<f:selectItem itemValue="M" itemLabel="Mashkull" />
+											<f:selectItem itemValue="F" itemLabel="Femër" />
+										</p:selectOneMenu>
 										
 										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapEducationBean.req.departmentId}">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />

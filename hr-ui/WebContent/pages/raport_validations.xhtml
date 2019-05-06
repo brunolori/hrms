@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="home_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h2>Vlerësimet</h2>
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:inputText placeholder="NID" value="#{opRapValidationBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapValidationBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapValidationBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapValidationBean.req.surname}"/>
+										<p:selectOneMenu placeholder="Gjinia" value="#{opRapValidationBean.req.gender}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+											<f:selectItem itemValue="M" itemLabel="Mashkull" />
+											<f:selectItem itemValue="F" itemLabel="Femër" />
+										</p:selectOneMenu>
+										
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapValidationBean.req.departmentId}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
+											<f:selectItems value="#{opRapValidationBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Lloji Vlerësimit" value="#{opRapValidationBean.req.validationTypeId}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Lloji Vlerësimit" />
+											<f:selectItems value="#{cacheBean.validationTypes}" var="vt" itemValue="#{vt.id}" itemLabel="#{vt.tag}"/>
+										</p:selectOneMenu>
+																				
+										<p:calendar value="#{opRapValidationBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
+										<p:calendar value="#{opRapValidationBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+							          
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Kërko" action="#{opRapValidationBean.search()}"
+									update="@form"
+								    styleClass="blue-btn" icon="ui-icon-search" />
+								<p:commandButton value="Pastro" action="#{opRapValidationBean.clear()}"
+									update="@form"
+								icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+					
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="#{opRapValidationBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+						emptyMessage="Asnjë raport i listuar">
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Punonjësi">
+							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
+								action="#{opRapValidationBean.onEmployeeSelect(t)}" update=":main"
+							/>
+						</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
+						<p:column headerText="Lloji Vlerësimit">#{t.validationType.tag}</p:column>
+						<p:column headerText="Data Vlerësimit">#{formatBean.formatDate(t.validationDate)}</p:column>
+						<p:column headerText="Nga Data">#{formatBean.formatDate(t.startDate)}</p:column>
+						<p:column headerText="Në Datë">#{formatBean.formatDate(t.endDate)}</p:column>
+						<p:column headerText="Firmosur nga">#{t.signedBy}</p:column>
+						<p:column headerText="Shënime">#{t.description}</p:column>
+					
+					</p:dataTable>
+				</div>
+			
+			
+		</div>
+
+	</h:form>
+
+</ui:composition>

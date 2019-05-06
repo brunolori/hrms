@@ -15,6 +15,7 @@ public class GradeSx implements Serializable {
 	String employeeNo;
 	String name;
 	String surname;
+	String gender;
 	Integer departmentId;
 	
 	Date startDate;

@@ -24,6 +24,11 @@
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapProvisionBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Gjinia" value="#{opRapProvisionBean.req.gender}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+											<f:selectItem itemValue="M" itemLabel="Mashkull" />
+											<f:selectItem itemValue="F" itemLabel="Femër" />
+										</p:selectOneMenu>
 										<p:selectOneMenu placeholder="Lloji Masës" value="#{opRapProvisionBean.req.provisionTypeId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
 											<f:selectItems value="#{cacheBean.provisionTypes}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>

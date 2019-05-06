@@ -25,12 +25,12 @@
 									
 									<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Datëlindja" value="#{opEmployeeSxBean.req.dob}"/>
 									<p:inputText placeholder="Mbiemri tjetër" value="#{opEmployeeSxBean.req.maidenName}"/>
-									<p:selectOneMenu placeholder="Gjinia" value="#{opEmployeeSxBean.req.gender}">
+									<p:selectOneMenu placeholder="Gjinia" value="#{opEmployeeSxBean.req.gender}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
 										<f:selectItem itemValue="M" itemLabel="M" />
 										<f:selectItem itemValue="F" itemLabel="F" />
 									</p:selectOneMenu>
-									<p:selectOneMenu placeholder="Statusi Civil" value="#{opEmployeeSxBean.req.civilStatus}">
+									<p:selectOneMenu placeholder="Statusi Civil" value="#{opEmployeeSxBean.req.civilStatus}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Statusi Civil" />
 										<f:selectItem itemValue="M" itemLabel="Martuar"/>
 										<f:selectItem itemValue="B" itemLabel="Beqar/e"/>
@@ -39,19 +39,19 @@
 									</p:selectOneMenu>
 									
 									
-									<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeSxBean.req.departmentId}">
+									<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeSxBean.req.departmentId}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
 										<f:selectItems value="#{opEmployeeSxBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}" />								
 									</p:selectOneMenu>
-									<p:selectOneMenu placeholder="Pozicioni" value="#{opEmployeeSxBean.req.positionId}">
+									<p:selectOneMenu placeholder="Pozicioni" value="#{opEmployeeSxBean.req.positionId}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Pozicioni" />	
 										<f:selectItems value="#{cacheBean.positions}" var="p" itemValue="#{p.id}" itemLabel="#{p.tag}" />							
 									</p:selectOneMenu>
-									<p:selectOneMenu placeholder="Grada" value="#{opEmployeeSxBean.req.gradeId}">
+									<p:selectOneMenu placeholder="Grada" value="#{opEmployeeSxBean.req.gradeId}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Grada" />
 										<f:selectItems value="#{opEmployeeSxBean.grades}" var="g" itemValue="#{g.id}" itemLabel="#{g.tag}" />	
 									</p:selectOneMenu>
-									<p:selectOneMenu placeholder="Kategoria pagës" value="#{opEmployeeSxBean.req.paymentCategoryId}">
+									<p:selectOneMenu placeholder="Kategoria pagës" value="#{opEmployeeSxBean.req.paymentCategoryId}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Kategoria pagës" />
 										<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}" />	
 									</p:selectOneMenu>
@@ -63,7 +63,7 @@
                                     
                                     <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Nga Data" value="#{opEmployeeSxBean.req.endDateFrom}"/>
                                     <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Në Datë" value="#{opEmployeeSxBean.req.endDateTo}"/>
-                                    <p:selectOneMenu placeholder="Arsyeja lirimit" value="#{opEmployeeSxBean.req.endJobReasonId}">
+                                    <p:selectOneMenu placeholder="Arsyeja lirimit" value="#{opEmployeeSxBean.req.endJobReasonId}" autoWidth="false">
 										<f:selectItem itemValue="#{null}" itemLabel="Arsyeja lirimit" />
 										<f:selectItems value="#{cacheBean.jobEndingReasons}" var="je" itemValue="#{je.id}" itemLabel="#{je.tag}" />	
 									</p:selectOneMenu>

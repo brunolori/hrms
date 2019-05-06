@@ -15,11 +15,12 @@ public class JobValidationSx implements Serializable {
 		String employeeNo;
 		String name;
 		String surname;
+		String gender;
 		Integer departmentId;
 	
 	    Date validationDate;
-	    Date startDate;
-	    Date endDate;
+	    Date fromDate;
+	    Date toDate;
 	    Integer validationTypeId;
 	    
 	    Integer firstResult;

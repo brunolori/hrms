@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.JobValidation;
 import com.bvlsh.hr.forms.JobValidationSx;
+import com.bvlsh.hr.utils.StringUtil;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -29,6 +30,35 @@ public class JobValidationDAO {
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM JobValidation jv WHERE 1=1 ";
 		
+		if(StringUtil.isValid(sx.getEmployeeNo()))
+		{
+			sql += "AND jv.employee.employeeNo like :emp_no ";
+			params.put("emp_no", sx.getEmployeeNo().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getNid()))
+		{
+			sql += "AND jv.employee.nid like :nid ";
+			params.put("nid", sx.getNid().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getName()))
+		{
+			sql += "AND UPPER(jv.employee.name) like :name ";
+			params.put("name", sx.getName().toUpperCase().replace(" ", ""));
+		}
+		
+		if(StringUtil.isValid(sx.getSurname()))
+		{
+			sql += "AND UPPER(jv.employee.surname) like :surname ";
+			params.put("surname", sx.getSurname().toUpperCase().replace(" ", ""));
+		}
+		if(StringUtil.isValid(sx.getGender()))
+		{
+			sql += "AND jv.employee.gender=:gender ";
+			params.put("gender", sx.getGender().toUpperCase().replace(" ", ""));
+		}
+		
 		if (sx.getValidationDate() != null) {
 			sql += "AND jv.validationDate=:val_dt ";
 			params.put("val_dt", sx.getValidationDate());
@@ -38,6 +68,17 @@ public class JobValidationDAO {
 			sql += "AND jv.validationType.id=:vt_id ";
 			params.put("vt_id", sx.getValidationTypeId());
 		}
+		
+	
+		if (sx.getFromDate() != null) {
+			sql += "AND ap.startDate =:start_fr ";
+			params.put("start_fr", sx.getFromDate());
+		}
+			
+		if (sx.getToDate() != null) {
+				sql += "AND ap.endDate =:end_to ";
+				params.put("end_to", sx.getToDate());
+			}
 
 
 		Query q = em.createQuery(sql);
