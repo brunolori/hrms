@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="department_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12 ui-md-4">
+				<div class="card">
+				
+					<p:tree value="#{opDepartmentBean.root}" var="d" selectionMode="single" selection="#{opDepartmentBean.selectedNode}">
+				        <p:ajax event="expand" update="@form" listener="#{opDepartmentBean.onNodeExpand}" />
+				        <p:ajax event="collapse" update="@form" listener="#{opDepartmentBean.onNodeCollapse}" />
+				        <p:ajax event="select" update="@form" listener="#{opDepartmentBean.onNodeSelect}" />
+				        <p:ajax event="unselect" update="@form" listener="#{opDepartmentBean.onNodeUnselect}" />
+				             
+				        <p:treeNode type="root" expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+				            <h:outputText value="#{d.display()}" escape="true"/>
+				        </p:treeNode>
+				        <p:treeNode type="department" icon="fa fa-department">
+				            <h:outputText value="#{d.display()}" escape="true"/>
+				        </p:treeNode>
+				        <p:treeNode type="position" icon="fa fa-person">
+				            <h:outputText value="#{d.display()}" escape="true"/>
+				        </p:treeNode>
+				    </p:tree>
+				
+				
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-8">
+				<div class="card">
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Emri Departamentit" styleClass="bold"/>
+								<p:inputText/>
+								<p:outputLabel value="Struktura prind" styleClass="bold"/>
+								<p:selectOneMenu placeholder="Në varësi">
+									<f:selectItem itemLabel="Në varësi" itemValue="#{null}" />
+								</p:selectOneMenu>
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12">
+							<p:dataTable value=" " var="dp" rowIndexVar="r" styleClass="no-border" emptyMessage="Nuk ka pozicione" reflow="true"
+										 paginator="true" paginatorAlwaysVisible="false" rows="10" rowsPerPageTemplate="10,20,30,50">
+								<p:column headerText="#">
+									#{r+1}
+								</p:column>
+								<p:column headerText="Punonjësi">
+									#{r+1}
+								</p:column>
+								<p:column headerText="Pozicioni">
+									#{r+1}
+								</p:column>
+								<p:column headerText="Funksioni">
+									#{r+1}
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>								
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+</ui:composition>

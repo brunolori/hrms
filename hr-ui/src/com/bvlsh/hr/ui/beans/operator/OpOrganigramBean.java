@@ -1,6 +1,7 @@
 package com.bvlsh.hr.ui.beans.operator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -212,6 +213,21 @@ public class OpOrganigramBean implements Serializable {
 	    	{
 	    		Messages.throwFacesMessage("Nuk ka pozicione", 2);
 	    		return;
+	    	}
+	    	
+	    	List<OrganigramNode> chlds = currentSelection.getChildren();
+	    	List<OrganigramNode> emps = new ArrayList<>();
+	    	if(chlds != null && !chlds.isEmpty())
+	    	{
+	    		for(OrganigramNode c : chlds)
+	    		{
+	    			if(c.getType().equalsIgnoreCase("employee"))
+	    			{
+	    				emps.add(c);
+	    			}
+	    		}
+	    		
+	    		chlds.removeAll(emps);
 	    	}
 	    	
 	    	for(DepartmentPositionDTO p : posList)
