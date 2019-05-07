@@ -17,17 +17,17 @@
 				        <p:ajax event="select" update="@form" listener="#{opDepartmentBean.onNodeSelect}" />
 				        <p:ajax event="unselect" update="@form" listener="#{opDepartmentBean.onNodeUnselect}" />
 				             
-				        <p:treeNode expandedIcon="fa fa-plus" collapsedIcon="fa fa-minus">
+				        <p:treeNode >
                                  <h:outputText value="Rootii default"/>
                         </p:treeNode>
-				        <p:treeNode type="root" expandedIcon="fa fa-plus" collapsedIcon="fa fa-minus">
-				            <h:outputText value="#{d.data.display()}" escape="true"/>
+				        <p:treeNode type="root" >
+				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
-				        <p:treeNode type="department" expandedIcon="fa fa-plus" collapsedIcon="fa fa-minus">
-				            <h:outputText value="#{d.data.display()}" escape="true"/>
+				        <p:treeNode type="department" icon="fa fa-dot-circle-o">
+				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
-				        <p:treeNode type="position" expandedIcon="fa fa-plus" collapsedIcon="fa fa-minus">
-				            <h:outputText value="#{d.data.display()}" escape="true"/>
+				        <p:treeNode type="position" icon="fa fa-user">
+				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
 				    </p:tree>
 				

@@ -15,9 +15,9 @@ import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 import com.bvlsh.hr.ui.dto.DepartmentDTO;
+import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 import com.bvlsh.hr.ui.models.TreeModel;
 import com.bvlsh.hr.ui.services.DepartmentService;
-import com.bvlsh.hr.ui.utils.Messages;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,9 +29,12 @@ public class OpDepartmentBean implements Serializable {
 	
 	
 	
-	private TreeNode root;
+	TreeNode root;
+    TreeNode selectedNode;
     
-    private TreeNode selectedNode;
+    
+    DepartmentDTO selectedDepartment;
+    List<DepartmentPositionDTO> departmentPositions;
      
      
     @PostConstruct
@@ -41,40 +44,40 @@ public class OpDepartmentBean implements Serializable {
     	
         this.root = new DefaultTreeNode("root", new TreeModel(rootDept), null);
         List<DepartmentDTO> childs = new DepartmentService().getChildDepartments(rootDept.getId());
+        
         if(childs != null && !childs.isEmpty())
         {
-        	for(DepartmentDTO dp : childs)
-        	{
-        		TreeNode prnt = new DefaultTreeNode("department", new TreeModel(dp), root);
-        		List<DepartmentDTO> pch = new DepartmentService().getChildDepartments(dp.getId());
-        		if(pch != null && !pch.isEmpty())
-        		{
-        			for(DepartmentDTO pdp : pch)
-                	{
-        				new DefaultTreeNode("department", new TreeModel(pdp), prnt);
-                	}
-        		}
-        	}
-        }
+	        for(DepartmentDTO d : childs)
+	        {
+	        	addChilds(root, d);
+	        }
+        } 
     }
 
+    
+    public void addChilds(TreeNode parent, DepartmentDTO data)
+    {
+    	DepartmentPositionDTO dp = null;
+    	if(data.getPositionsNo() == 1)
+    	{
+        	dp = new DepartmentService().getDepartmentSinglePosition(data.getId());
+    	}
+    	TreeModel o = (dp == null)? new TreeModel(data) : new TreeModel(dp);
+    	
+    	TreeNode divisionNode = new DefaultTreeNode("department", o, parent);
+    	List<DepartmentDTO> childs = new DepartmentService().getChildDepartments(data.getId());
+    	if(childs != null && !childs.isEmpty())
+    	{
+	    	for(DepartmentDTO d : childs)
+	    	{
+	    		addChilds(divisionNode, d);
+	    	}
+    	}
+    }
         
     public void onNodeExpand(NodeExpandEvent event) {
-        TreeModel t = (TreeModel)event.getTreeNode().getData();
-        if(t.getType() == TreeModel.DEPARTMENT)
-        {
-        	List<DepartmentDTO> childsDepartments = new DepartmentService().getChildDepartments(t.getDepartmentId());
-        	if(childsDepartments == null || childsDepartments.isEmpty() )
-        	{
-        		Messages.throwFacesMessage("Nuk ka departamente ne varesi", 2);
-        		return;
-        	}
-        	
-        	for(DepartmentDTO dpt : childsDepartments)
-        	{
-        		new DefaultTreeNode("department", dpt, event.getTreeNode());
-        	}
-        }
+        event.getTreeNode();
+        
     }
  
     public void onNodeCollapse(NodeCollapseEvent event) {
