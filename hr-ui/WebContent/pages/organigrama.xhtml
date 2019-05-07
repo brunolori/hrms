@@ -75,20 +75,21 @@
 							</p:organigram>
 
 							<p:contextMenu for="organigram" nodeType="employee">
-								<p:menuitem value="Hiq punonjësin" update="organigram" action="#{opOrganigramBean.prepareRemoveEmployee()}" />
-								<p:menuitem value="Shto punonjës" update="organigram" action="#{opOrganigramBean.prepareAddEmployee()}" />
-								<p:menuitem value="Hiq pozicionin" update="organigram" action="#{opOrganigramBean.removePosition()}" />
+								<p:menuitem value="Hiq punonjësin" update="organigram" action="#{opOrganigramBean.prepareRemoveEmployee()}" icon="fa fa-user-times" />
+								<p:menuitem value="Shto punonjës" update="organigram" action="#{opOrganigramBean.prepareAddEmployee()}" icon="fa fa-user-plus"/>
+								<p:menuitem value="Hiq pozicionin" update="organigram" action="#{opOrganigramBean.removePosition()}" icon="fa fa-minus"/>
 							</p:contextMenu>
 
 							<p:contextMenu for="organigram" nodeType="division">
-								<p:menuitem value="Shto pozicion" action="#{opOrganigramBean.prepareAddPosition()}"
+								<p:menuitem value="Shto pozicion" action="#{opOrganigramBean.prepareAddPosition()}" icon="fa fa-plus"
 							            	update=":add_position_dlg" oncomplete="PF('addPositionWid').show();" />
-								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPositions()}"
+								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPositions()}" icon="fa fa-eye"
 											update=":list_dept_pos_dlg" oncomplete="PF('listDeptPosWid').show();" />
-								<p:menuitem value="Shto departament" action="#{opOrganigramBean.prepareAddDepartment()}"
+								<p:menuitem value="Shto departament" action="#{opOrganigramBean.prepareAddDepartment()}" icon="fa fa-plus"
 								            update=":add_dept_dlg" oncomplete="PF('addDeptWid').show();"  />
-								<p:menuitem value="Shfaq pozicionet në diagramë" action="#{opOrganigramBean.expandDepartmentPositions()}"
+								<p:menuitem value="Shfaq pozicionet në diagramë" action="#{opOrganigramBean.expandDepartmentPositions()}" icon="fa fa-list-alt"
 											update="@form" />
+								<p:menuitem value="Modifiko departamentin" icon="fa fa-pencil-square-o" />
 							</p:contextMenu>
 						</div>
 					</div>

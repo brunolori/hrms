@@ -37,7 +37,6 @@ public class Document implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 45)
     @Column(name = "DOCUMENT_NAME")
     private String documentName;
     @Column(name = "DOCUMENT_DATE")

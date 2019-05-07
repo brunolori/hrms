@@ -1,5 +1,7 @@
 package com.bvlsh.hr.ui.models;
 
+import java.io.Serializable;
+
 import com.bvlsh.hr.ui.dto.DepartmentDTO;
 import com.bvlsh.hr.ui.dto.DepartmentPositionDTO;
 
@@ -7,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class TreeModel {
+public class TreeModel implements Serializable {
 
 	public static final int DEPARTMENT = 1;
 	public static final int POSITION = 2;
