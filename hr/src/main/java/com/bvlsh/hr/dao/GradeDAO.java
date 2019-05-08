@@ -28,7 +28,7 @@ public class GradeDAO {
 	public List<EmployeeGrade> searchGrades(GradeSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM EmployeeGrade g WHERE 1=1 ";
+		String sql = "FROM EmployeeGrade g WHERE g.status=:st ";
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
@@ -73,16 +73,16 @@ public class GradeDAO {
 		
 		
 		if (sx.getStartDate() != null) {
-			sql += "AND g.startDate >=:start_fr ";
+			sql += "AND g.startDate=:start_fr ";
 			params.put("start_fr", sx.getStartDate());
 		}
 			
 		if (sx.getEndDate() != null) {
-				sql += "AND g.endDate <=:end_to ";
+				sql += "AND g.endDate=:end_to ";
 				params.put("end_to", sx.getEndDate());
-			}
+		}
 
-		Query q = em.createQuery(sql);
+		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 		Iterator it = params.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();

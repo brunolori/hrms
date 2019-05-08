@@ -28,7 +28,7 @@ public class JobValidationDAO {
 	public List<JobValidation> searchJobValidations(JobValidationSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM JobValidation jv WHERE 1=1 ";
+		String sql = "FROM JobValidation jv WHERE jv.staus=:st ";
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
@@ -71,17 +71,17 @@ public class JobValidationDAO {
 		
 	
 		if (sx.getFromDate() != null) {
-			sql += "AND ap.startDate =:start_fr ";
+			sql += "AND ap.validationDate>=:start_fr ";
 			params.put("start_fr", sx.getFromDate());
 		}
 			
 		if (sx.getToDate() != null) {
-				sql += "AND ap.endDate =:end_to ";
+				sql += "AND ap.validationDate<=:end_to ";
 				params.put("end_to", sx.getToDate());
-			}
+		}
 
 
-		Query q = em.createQuery(sql);
+		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 		Iterator it = params.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();

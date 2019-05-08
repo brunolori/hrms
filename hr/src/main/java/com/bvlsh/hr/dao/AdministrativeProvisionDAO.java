@@ -80,7 +80,7 @@ public class AdministrativeProvisionDAO {
 		}
 
 		if (sx.getFromDate() != null) {
-			sql += "AND ap.startDate >=:start_fr ";
+			sql += "AND ap.startDate >=:start_fr "; // ose actDate
 			params.put("start_fr", sx.getFromDate());
 		}
 			

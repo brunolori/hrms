@@ -28,7 +28,7 @@ public class EducationDAO {
 	public List<Education> searchEducations(EducationSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM Education ed WHERE 1=1 ";
+		String sql = "FROM Education ed WHERE ed.status=:st ";
 
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
@@ -67,7 +67,7 @@ public class EducationDAO {
 		}
 		
 		if (sx.getEducationTypeId() != null) {
-			sql += "AND ed.provisionType.id=:pt_id ";
+			sql += "AND ed.educationType.id=:pt_id ";
 			params.put("pt_id", sx.getEducationTypeId());
 		}
 		
@@ -91,7 +91,7 @@ public class EducationDAO {
 				params.put("end_to", sx.getToDate());
 			}
 
-		Query q = em.createQuery(sql);
+		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 		Iterator it = params.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();

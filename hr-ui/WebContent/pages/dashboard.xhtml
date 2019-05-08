@@ -66,12 +66,11 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-1">
 					<h1>Nr.Departamenteve</h1>
-					<div class="overview-value">50</div>
+					<div class="overview-value">#{opDashboardBean.deptCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">50%</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-blue.svg"
 						library="apollo-layout" />
@@ -80,12 +79,11 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-2">
 					<h1>Pozicionet</h1>
-					<div class="overview-value">9521</div>
+					<div class="overview-value">#{opDashboardBean.posCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">36%</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-green.svg"
 						library="apollo-layout" />
@@ -94,12 +92,12 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-3">
 					<h1>Nr.Punonjësve</h1>
-					<div class="overview-value">1252</div>
+					<div class="overview-value">#{opDashboardBean.empCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">80%</div>
+						<div class="overview-ratio-value">#{formatBean.formatPrc(opDashboardBean.empCnt,opDashboardBean.posCnt)}</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-yellow.svg"
 						library="apollo-layout" />
@@ -108,12 +106,12 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-4">
 					<h1>Postet e Lira</h1>
-					<div class="overview-value">300</div>
+					<div class="overview-value">#{opDashboardBean.freePosCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">35%</div>
+						<div class="overview-ratio-value">#{formatBean.formatPrc(opDashboardBean.freePosCnt,opDashboardBean.posCnt)}</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-red.svg"
 						library="apollo-layout" />
@@ -122,12 +120,12 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-1">
 					<h1>Femra</h1>
-					<div class="overview-value">50</div>
+					<div class="overview-value">#{opDashboardBean.femaleEmpCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">50%</div>
+						<div class="overview-ratio-value">#{formatBean.formatPrc(opDashboardBean.femaleEmpCnt,opDashboardBean.empCnt)}</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-blue.svg"
 						library="apollo-layout" />
@@ -136,15 +134,95 @@
 			<div class="ui-g-12 ui-md-2">
 				<div class="overview-box overview-box-3">
 					<h1>Meshkuj</h1>
-					<div class="overview-value">1252</div>
+					<div class="overview-value">#{opDashboardBean.maleEmpCnt}</div>
 					<div class="overview-ratio">
 						<div class="overview-direction">
 							<i class="fa fa-arrow-up" />
 						</div>
-						<div class="overview-ratio-value">80%</div>
+						<div class="overview-ratio-value">#{formatBean.formatPrc(opDashboardBean.maleEmpCnt,opDashboardBean.empCnt)}</div>
 					</div>
 					<p:graphicImage name="images/dashboard/graph-yellow.svg"
 						library="apollo-layout" />
+				</div>
+			</div>
+			
+			
+			<div class="ui-g-12 ui-md-3">
+				<div class="ui-g-12">
+				<div class="card card-w-title">
+			     <h3>Edukimi</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.eduPieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+			  <h3>Gradat</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.gradePieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+			  <h3>Gjuhët e huaja</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.languagePieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+			  <div class="card card-w-title">
+			  <h3>Kategoria pagës</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.eduPieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			</div>
+			
+			<div class="ui-g-12 ui-md-9">
+				<div class="card">
+					<div class="ui-g">
+					  <div class="ui-g-12 ui-fluid">
+						<p:panelGrid layout="grid" columns="6" styleClass="ui-panelgrid-blank" columnClasses="ui-g-12 ui-md-1,ui-g-12 ui-md-3,ui-g-12 ui-md-1,ui-g-12 ui-md-3,ui-g-12 ui-md-1,ui-g-12 ui-md-3">
+							<p:outputLabel value="Nga data" styleClass="bold"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{null}" placeholder="Nga data"/>
+							<p:outputLabel value="Në datën" styleClass="bold"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{null}" placeholder="Në datën"/>
+						</p:panelGrid>
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	emerime
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	largime/transferime
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	masa administrative
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	trajnime
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	vleresime
+					  </div>
+					  
+				 	</div>
 				</div>
 			</div>
 			

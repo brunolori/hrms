@@ -27,7 +27,7 @@ public class TrainingDAO {
 	public List<Training> searchTrainings(TrainingSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM Training t WHERE 1=1 ";
+		String sql = "FROM Training t WHERE t.status=:st ";
 
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
@@ -75,7 +75,6 @@ public class TrainingDAO {
 			params.put("tt_id", sx.getTrainingTypeId());
 		}
 		
-		
 		if (sx.getFromDate() != null) {
 			sql += "AND t.trainingDate >=:start_fr ";
 			params.put("start_fr", sx.getFromDate());
@@ -88,7 +87,7 @@ public class TrainingDAO {
 		
 		
 
-		Query q = em.createQuery(sql);
+		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 		Iterator it = params.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();

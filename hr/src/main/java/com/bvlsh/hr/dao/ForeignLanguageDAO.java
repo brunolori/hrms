@@ -25,7 +25,7 @@ public class ForeignLanguageDAO {
 	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx) {
 
 		HashMap<String,Object> params = new HashMap<>();
-		String sql = "FROM EmployeeForeignLanguage efl WHERE 1=1 ";
+		String sql = "FROM EmployeeForeignLanguage efl WHERE efl.status=:st ";
 		
 		
 
@@ -71,7 +71,7 @@ public class ForeignLanguageDAO {
 			params.put("fl_id", sx.getForeignLanguageId());
 		}
 	
-		Query q = em.createQuery(sql);
+		Query q = em.createQuery(sql).setParameter("st", IStatus.ACTIVE);
 		Iterator it = params.entrySet().iterator();
 		while(it.hasNext())
 		{
