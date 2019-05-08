@@ -25,16 +25,16 @@
 											<f:selectItem itemValue="F" itemLabel="Femër" />
 										</p:selectOneMenu>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Grada" value="#{opRapGradeBean.req.gradeId}">
+										<p:selectOneMenu placeholder="Grada" value="#{opRapGradeBean.req.gradeId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Grada" />
 											<f:selectItems value="#{cacheBean.grades}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 										</p:selectOneMenu>
-										<p:calendar value="#{opRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
-										<p:calendar value="#{opRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+										<p:calendar value="#{opRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data marrjes" />
+										<p:calendar value="#{opRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë e marrjes" />
 							          
 							</p:panelGrid>
 						</div>

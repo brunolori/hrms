@@ -12,10 +12,8 @@
 				<div class="card">
 				
 					<p:tree value="#{opDepartmentBean.root}" var="d" selectionMode="single" selection="#{opDepartmentBean.selectedNode}">
-				        <p:ajax event="expand" update="@form" listener="#{opDepartmentBean.onNodeExpand}" />
-				        <p:ajax event="collapse" update="@form" listener="#{opDepartmentBean.onNodeCollapse}" />
-				        <p:ajax event="select" update="@form" listener="#{opDepartmentBean.onNodeSelect}" />
-				        <p:ajax event="unselect" update="@form" listener="#{opDepartmentBean.onNodeUnselect}" />
+				        
+				        <p:ajax event="select" listener="#{opDepartmentBean.onNodeSelect}" />
 				             
 				        <p:treeNode >
                                  <h:outputText value="Rootii default"/>
@@ -23,10 +21,10 @@
 				        <p:treeNode type="root" >
 				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
-				        <p:treeNode type="department" icon="fa fa-dot-circle-o">
+				        <p:treeNode type="department">
 				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
-				        <p:treeNode type="position" icon="fa fa-user">
+				        <p:treeNode type="position">
 				            <h:outputText value="#{d.display()}" escape="true"/>
 				        </p:treeNode>
 				    </p:tree>
@@ -38,10 +36,10 @@
 				<div class="card">
 					<div class="ui-g">
 						<div class="ui-g-12">
-							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank">
+							<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
 								<p:outputLabel value="Emri Departamentit" styleClass="bold"/>
-								<p:inputText/>
 								<p:outputLabel value="Struktura prind" styleClass="bold"/>
+								<p:inputText/>
 								<p:selectOneMenu placeholder="Në varësi">
 									<f:selectItem itemLabel="Në varësi" itemValue="#{null}" />
 								</p:selectOneMenu>

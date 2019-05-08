@@ -25,11 +25,11 @@
 											<f:selectItem itemValue="F" itemLabel="Femër" />
 										</p:selectOneMenu>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapLanguageBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapLanguageBean.req.departmentId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapLanguageBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Gjuha" value="#{opRapLanguageBean.req.foreignLanguageId}">
+										<p:selectOneMenu placeholder="Gjuha" value="#{opRapLanguageBean.req.foreignLanguageId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Gjuha" />
 											<f:selectItems value="#{cacheBean.foreignLanguages}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 										</p:selectOneMenu>

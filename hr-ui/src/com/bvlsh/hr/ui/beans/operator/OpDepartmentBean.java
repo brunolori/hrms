@@ -43,13 +43,14 @@ public class OpDepartmentBean implements Serializable {
     	DepartmentDTO rootDept = new DepartmentService().getRootDepartment();
     	
         this.root = new DefaultTreeNode("root", new TreeModel(rootDept), null);
+        TreeNode strRoot = new DefaultTreeNode("root", new TreeModel(rootDept), root);
         List<DepartmentDTO> childs = new DepartmentService().getChildDepartments(rootDept.getId());
         
         if(childs != null && !childs.isEmpty())
         {
 	        for(DepartmentDTO d : childs)
 	        {
-	        	addChilds(root, d);
+	        	addChilds(strRoot, d);
 	        }
         } 
     }

@@ -20,7 +20,7 @@
 										<p:inputText placeholder="Emri" value="#{opRapTrainingBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapTrainingBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapTrainingBean.req.departmentId}">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapTrainingBean.req.departmentId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapTrainingBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>
@@ -29,7 +29,7 @@
 											<f:selectItem itemValue="M" itemLabel="Mashkull" />
 											<f:selectItem itemValue="F" itemLabel="Femër" />
 										</p:selectOneMenu>
-										<p:selectOneMenu placeholder="Institucioni" value="#{opRapTrainingBean.req.institutionId}">
+										<p:selectOneMenu placeholder="Institucioni" value="#{opRapTrainingBean.req.institutionId}" autoWidth="false">
 											<f:selectItem itemValue="#{null}" itemLabel="Lloji Masës" />
 											<f:selectItems value="#{cacheBean.institutions}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.name}"/>
 										</p:selectOneMenu>
@@ -39,8 +39,8 @@
 										</p:selectOneMenu>
 										
 															
-										<p:calendar value="#{opRapTrainingBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data" />
-										<p:calendar value="#{opRapTrainingBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datë" />
+										<p:calendar value="#{opRapTrainingBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data trajnimit" />
+										<p:calendar value="#{opRapTrainingBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datën e trajnimit" />
 							          
 							</p:panelGrid>
 						</div>
