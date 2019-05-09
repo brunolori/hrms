@@ -183,7 +183,7 @@
 			  <h3>Kategoria pagës</h3>
 				<div class="ui-g">
 				  <div class="ui-g-12">
-					<p:pieChart model="#{opDashboardBean.eduPieModel}" style="width: 100%; height: 200px;"/>
+					<p:pieChart model="#{opDashboardBean.payCategoryPieModel}" style="width: 100%; height: 200px;"/>
 				  </div>
 				</div>
 			   </div>
@@ -196,31 +196,43 @@
 					  <div class="ui-g-12 ui-fluid">
 						<p:panelGrid layout="grid" columns="6" styleClass="ui-panelgrid-blank" columnClasses="ui-g-12 ui-md-1,ui-g-12 ui-md-3,ui-g-12 ui-md-1,ui-g-12 ui-md-3,ui-g-12 ui-md-1,ui-g-12 ui-md-3">
 							<p:outputLabel value="Nga data" styleClass="bold"/>
-							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{null}" placeholder="Nga data"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opDashboardBean.from}" placeholder="Nga data">
+								<p:ajax event="dateSelect" listener="#{opDashboardBean.onDateChange()}" update="@form"/>
+							</p:calendar>
 							<p:outputLabel value="Në datën" styleClass="bold"/>
-							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{null}" placeholder="Në datën"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opDashboardBean.to}" placeholder="Në datën">
+								<p:ajax event="dateSelect" listener="#{opDashboardBean.onDateChange()}" update="@form"/>
+							</p:calendar>
 						</p:panelGrid>
 					  </div>
 					  
 					  <div class="ui-g-12">
-					  	emerime
+					  	<p:lineChart model="#{opDashboardBean.empLineModel}" style="width: 100%; height: 200px;"/>
 					  </div>
 					  
 					  <div class="ui-g-12">
-					  	largime/transferime
+					  	<p:barChart model="#{opDashboardBean.endJobReasonsBarModel}" style="width: 100%; height: 250px;"/>
+					  </div>
+					  
+					   <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.jobLeavingLineModel}" style="width: 100%; height: 200px;"/>
+					   </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.provisionLineModel}" style="width: 100%; height: 200px;"/>
 					  </div>
 					  
 					  <div class="ui-g-12">
-					  	masa administrative
+					  	<p:lineChart model="#{opDashboardBean.validationLineModel}" style="width: 100%; height: 200px;"/>
 					  </div>
 					  
 					  <div class="ui-g-12">
-					  	trajnime
+					  	<p:lineChart model="#{opDashboardBean.trainingLineModel}" style="width: 100%; height: 200px;"/>
 					  </div>
 					  
-					  <div class="ui-g-12">
-					  	vleresime
-					  </div>
+					  
+					  
+					 
 					  
 				 	</div>
 				</div>

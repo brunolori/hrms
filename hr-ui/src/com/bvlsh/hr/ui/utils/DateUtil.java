@@ -24,6 +24,16 @@ public class DateUtil {
 		return df.format(date);
 	}
 	
+	public static String formatDateToStringReverse(Date date)
+	{
+		if(date == null) return null;
+		
+		DateFormat df = new SimpleDateFormat(IDate.REVERSE_DATE_FORMAT);
+		
+		return df.format(date);
+	}
+	
+	
 	public static Date toDate(String date)
 	{
 		try {
@@ -156,7 +166,14 @@ public class DateUtil {
 	}
 	
 	
-	
+	public static Date firstDateOfMonth(Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		
+		return cal.getTime();
+	}
 	
 	
 	
