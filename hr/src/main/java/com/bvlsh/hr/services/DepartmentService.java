@@ -1,5 +1,6 @@
 package com.bvlsh.hr.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class DepartmentService {
 	
 	
 	
-	public Department getRootDepartment()
+	public Department getRootDepartment() // duhet vene useri
 	{
 		return departmentDAO.getRootDepartment();
 	}
@@ -39,6 +40,27 @@ public class DepartmentService {
 	{
 		return departmentDAO.getChildDepartments(deptId);
 	}
+	
+	public List<Integer> getAllChildDepartmentIds(Integer deptId)
+	{
+		List<Integer> all = new ArrayList<>();
+		all.add(deptId);
+		
+		List<Department> list = departmentDAO.getChildDepartments(deptId);
+		if(list != null && !list.isEmpty())
+		{
+			for(Department d : list)
+			{
+				all.addAll(getAllChildDepartmentIds(d.getId()));
+			}
+			
+		}
+		
+		return all;
+
+	}
+	
+	
 	
 	public List<DepartmentPosition> getDepartmentPositions(Integer deptId)
 	{

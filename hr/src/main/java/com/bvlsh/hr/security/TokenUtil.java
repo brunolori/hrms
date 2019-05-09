@@ -1,7 +1,10 @@
 package com.bvlsh.hr.security;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.User;
 import com.bvlsh.hr.exceptions.InvalidTokenException;
 
@@ -26,16 +29,53 @@ public class TokenUtil {
 		}
 	}
 	
-	
-	
-	public static String generateToken(User user)
+	@SuppressWarnings("unchecked")
+	public static List<Integer> getDeptIds(String token)
 	{
+		try {
+			String jwt = token.substring(7);
+			Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.decode(SecurityConstants.SECRET))
+				       .parseClaimsJws(jwt).getBody();
+			Object o = claims.get("deptIds");
+			if(o == null) return null;
+			return (List<Integer>)o;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new InvalidTokenException("TOKEN i pa vlefshem");
+		}
+	}
+	
+	public static boolean isLimited(String token)
+	{
+		try {
+			String jwt = token.substring(7);
+			Claims claims = Jwts.parser().setSigningKey(TextCodec.BASE64.decode(SecurityConstants.SECRET))
+				       .parseClaimsJws(jwt).getBody();
+			Object o = claims.get("limited");
+			if(o == null) return false;
+			return (boolean)o;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new InvalidTokenException("TOKEN i pa vlefshem");
+		}
+	}
+	
+	
+	public static String generateToken(User user, List<Integer> deptIds)
+	{
+		Calendar cal = Calendar.getInstance();
+		Date issued = cal.getTime();
+		cal.add(Calendar.HOUR, 4);
+		Date expired = cal.getTime();
+		
 		String jws = Jwts.builder()
-				  .setIssuer("Sistemi-Core")
+				  .setIssuer("HRMS")
 				  .setSubject(user.getUsername())
 				  .claim("role", user.getRole().getCode())
-				  .setIssuedAt(Calendar.getInstance().getTime())
-			      //.setExpiration(Date.from(Instant.ofEpochSecond(4622470422L)))
+				  .claim("deptIds", deptIds)
+				  .claim("limited",(user.getLimitedUser() != null && user.getLimitedUser()==IStatus.ACTIVE))
+				  .setIssuedAt(issued)
+			      .setExpiration(expired)
 				  .signWith(
 				    SignatureAlgorithm.HS256,
 				    TextCodec.BASE64.decode(SecurityConstants.SECRET)

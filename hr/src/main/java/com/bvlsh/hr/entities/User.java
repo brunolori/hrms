@@ -37,9 +37,14 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "SECRET")
     private String secret;
+    @Column(name = "LIMITED_USER")
+    private Integer limitedUser;
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
     @ManyToOne
     private EmployeeHistory employee;
+    @JoinColumn(name = "ROOT_DEPARTMENT_ID", referencedColumnName = "ID")
+    @ManyToOne
+    private Department rootDepartment;
     @JoinColumn(name = "ROLE_CODE", referencedColumnName = "CODE")
     @ManyToOne
     private Role role;
