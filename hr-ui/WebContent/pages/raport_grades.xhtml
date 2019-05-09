@@ -56,12 +56,12 @@
 			</div>
 			
 			<div class="ui-g-12">
-					<p:dataTable value="#{OpRapGradeBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+					<p:dataTable value="#{opRapGradeBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
 						emptyMessage="Asnjë raport i listuar">
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Punonjësi">
 							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
-								action="#{OpRapGradeBean.onEmployeeSelect(t)}" update=":main"
+								action="#{opRapGradeBean.onEmployeeSelect(t)}" update=":main"
 							/>
 						</p:column>
 						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>

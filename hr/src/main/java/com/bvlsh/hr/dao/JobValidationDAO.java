@@ -28,7 +28,7 @@ public class JobValidationDAO {
 	public List<JobValidation> searchJobValidations(JobValidationSx sx) {
 
 		HashMap<String, Object> params = new HashMap<>();
-		String sql = "FROM JobValidation jv WHERE jv.staus=:st ";
+		String sql = "FROM JobValidation jv WHERE jv.status=:st ";
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{

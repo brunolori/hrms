@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import com.bvlsh.hr.ui.beans.application.NavBean;
-import com.bvlsh.hr.ui.dto.AdministrativeProvisionDTO;
 import com.bvlsh.hr.ui.dto.BankAccountDTO;
 import com.bvlsh.hr.ui.dto.DepartmentDTO;
 import com.bvlsh.hr.ui.forms.BankAccountSx;
@@ -57,7 +56,7 @@ public class OpRapBankAccountBean implements Serializable {
 		this.list = null;
 	}
 	
-	public void onEmployeeSelect(AdministrativeProvisionDTO t)
+	public void onEmployeeSelect(BankAccountDTO t)
 	{	
 		List<Param> params = new ArrayList<>();
 		params.add(new Param("nid",t.getEmployee().getNid()));

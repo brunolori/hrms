@@ -13,11 +13,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.bvlsh.hr.utils.StringUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -105,6 +108,12 @@ public class Employee implements Serializable {
     @ManyToOne
     private Grade grade;
 
-   
+   @PrePersist
+   public void prePersist()
+   {
+	   this.nid = StringUtil.toUpper(this.nid);
+	   this.name = StringUtil.firstUpper(this.name);
+	   this.surname = StringUtil.firstUpper(this.surname);
+   }
     
 }

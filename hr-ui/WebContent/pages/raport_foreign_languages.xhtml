@@ -59,7 +59,7 @@
 						<p:column headerText="#">#{r+1}</p:column>
 						<p:column headerText="Punonjësi">
 							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
-								action="#{opRapProvisionBean.onEmployeeSelect(t)}" update=":main"
+								action="#{opRapLanguageBean.onEmployeeSelect(t)}" update=":main"
 							/>
 						</p:column>
 						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
