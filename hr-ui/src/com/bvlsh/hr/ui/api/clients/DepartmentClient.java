@@ -170,6 +170,77 @@ public class DepartmentClient {
 		return null;
 	}
 
+
+
+	public DepartmentDTO getDepartmentById(Integer departmentId) {
+		final String BASE_URL = IApiClient.SERVER+"/api/department/"+departmentId;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer "+Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+				
+		ResponseEntity<DepartmentDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, DepartmentDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}
+				
+		return null;
+	}
+
+
+
+	public DepartmentDTO modifyDepartment(DepartmentForm form) {
+		final String BASE_URL = IApiClient.SERVER+"/api/department/modifyDepartment";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer "+Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+		
+		
+		ResponseEntity<DepartmentDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, DepartmentDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}
+				
+		return null;
+	}
+
+
+
+	public DepartmentPositionDTO modifyDepartmentPosition(DepartmentPositionForm form) {
+		final String BASE_URL = IApiClient.SERVER+"/api/department/modifyDepartmentPosition";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer "+Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+		
+		
+		ResponseEntity<DepartmentPositionDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, DepartmentPositionDTO.class);
+		
+		if(response.getStatusCode() == HttpStatus.OK)
+		{
+			return response.getBody();
+		}
+				
+		return null;
+	}
+
 	
 	
 }

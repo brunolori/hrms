@@ -30,6 +30,13 @@ public class DepartmentService {
 	@Autowired DepartmentDAO departmentDAO;
 	
 	
+	public Department getDepartmentById(Integer id, String uname) {
+		return crudDAO.findById(Department.class, id);
+	}
+	
+	public List<Department> listDepartments(String uname) {
+		return departmentDAO.listDepartments();
+	}
 	
 	public Department getRootDepartment() // duhet vene useri
 	{
@@ -59,13 +66,12 @@ public class DepartmentService {
 		return all;
 
 	}
-	
-	
-	
+
 	public List<DepartmentPosition> getDepartmentPositions(Integer deptId)
 	{
 		return departmentDAO.getDepartmentPositions(deptId);
 	}
+	
 	
 	@Transactional
 	public Department registerDepartment(DepartmentForm form, String uname)
@@ -99,11 +105,51 @@ public class DepartmentService {
 		d.setStatus(IStatus.ACTIVE);
 		d.setCreateTime(Calendar.getInstance().getTime());
 		d.setCreateUser(uname);
+		d.setUpdateTime(Calendar.getInstance().getTime());
+		d.setUpdateUser(uname);
 		Department parent = crudDAO.findById(Department.class, form.getParentId());
 		d.setParent(parent);
 		
+		
 		return crudDAO.create(d);
 		
+	}
+	
+	@Transactional
+	public Department modifyDepartment(DepartmentForm form, String uname) {
+		if(!StringUtil.isValid(form.getName()))
+		{
+			throw new ValidationException("Ploteso emrin e departamentit");
+		}
+		
+		if(form.getParentId() == null)
+		{
+			throw new ValidationException("Stuktura prind e papercaktuar");
+		}
+		
+		if(form.getCategoryId() == null)
+		{
+			throw new ValidationException("Kategoria e papercaktuar");
+		}
+		
+		if(form.getPositionsNo() == null || form.getPositionsNo() <= 0)
+		{
+			form.setPositionsNo(2);
+		}
+		
+		Department d = crudDAO.findById(Department.class, form.getId());
+		d.setName(form.getName());
+		d.setExpanded(form.isExpanded()?IStatus.ACTIVE:IStatus.NOT_ACTIVE);
+		d.setColor((form.getColor()==null)?null:("#"+form.getColor()));
+		d.setCategory(crudDAO.findById(DepartmentCategory.class, form.getCategoryId()));
+		d.setPositionsNo(form.getPositionsNo());
+		Department parent = crudDAO.findById(Department.class, form.getParentId());
+		d.setParent(parent);
+		
+		d.setUpdateTime(Calendar.getInstance().getTime());
+		d.setUpdateUser(uname);
+		
+		return crudDAO.update(d);
 	}
 	
 	@Transactional
@@ -139,13 +185,47 @@ public class DepartmentService {
 		dp.setStatus(IStatus.ACTIVE);
 		dp.setCreateTime(Calendar.getInstance().getTime());
 		dp.setCreateUser(uname);
+		dp.setUpdateTime(Calendar.getInstance().getTime());
+		dp.setUpdateUser(uname);
 		
 		return crudDAO.create(dp);
 		
 	}
 
-	public List<Department> listDepartments(String uname) {
-		return departmentDAO.listDepartments();
+	
+	
+	@Transactional
+	public DepartmentPosition modifyDepartmentPosition(DepartmentPositionForm form, String uname) {
+		if(!StringUtil.isValid(form.getName()))
+		{
+			throw new ValidationException("Plotesoni emrin e pozicionit");
+		}
+		if(form.getDepartmentId() == null)
+		{
+			throw new ValidationException("Zgjidhni departamentin");
+		}
+		if(form.getPositionId() == null)
+		{
+			throw new ValidationException("Zgjidhni pozicionin");
+		}
+		if(form.getPaymentCategoryId() == null)
+		{
+			throw new ValidationException("Zgjidhni kategorine e pages");
+		}
+		
+		
+		Department d = crudDAO.findById(Department.class, form.getDepartmentId());
+		
+		
+		DepartmentPosition dp = crudDAO.findById(DepartmentPosition.class, form.getId());
+		dp.setDepartment(d);
+		dp.setName(form.getName());
+		dp.setPaymentCategory(crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId()));
+		dp.setPosition(crudDAO.findById(Position.class, form.getPositionId()));
+		dp.setUpdateTime(Calendar.getInstance().getTime());
+		dp.setUpdateUser(uname);
+		
+		return crudDAO.update(dp);
 	}
 	
 	

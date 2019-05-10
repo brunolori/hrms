@@ -41,6 +41,17 @@ public class DepartmentAPI {
 		
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> listDepartments(@RequestHeader(value="Authorization") String token, @PathVariable Integer id)
+	{
+		String uname = tokenService.getUsername(token);
+		
+		DepartmentDTO d = new Assembler().toDto(departmentService.getDepartmentById(id,uname));
+		
+		return new ResponseEntity<>(d, HttpStatus.OK);
+		
+	}
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> listDepartments(@RequestHeader(value="Authorization") String token)
 	{
@@ -100,6 +111,16 @@ public class DepartmentAPI {
 			return new ResponseEntity<>(dto, HttpStatus.OK);		
 	}
 	
+	@RequestMapping(value="/modifyDepartment", method=RequestMethod.POST, produces={"application/json"})
+	public ResponseEntity<?> modifyDepartment(@RequestHeader(value="Authorization") String token, @RequestBody DepartmentForm payload)
+	{
+			String uname = tokenService.getUsername(token);
+			
+			DepartmentDTO dto = new Assembler().toDto(departmentService.modifyDepartment(payload, uname));
+			
+			return new ResponseEntity<>(dto, HttpStatus.OK);		
+	}
+	
 	@RequestMapping(value="/registerDepartmentPosition", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> registerDepartmentPosition(@RequestHeader(value="Authorization") String token, @RequestBody DepartmentPositionForm payload)
 	{
@@ -110,6 +131,15 @@ public class DepartmentAPI {
 			return new ResponseEntity<>(dto, HttpStatus.OK);		
 	}
 	
+	@RequestMapping(value="/modifyDepartmentPosition", method=RequestMethod.POST, produces={"application/json"})
+	public ResponseEntity<?> modifyDepartmentPosition(@RequestHeader(value="Authorization") String token, @RequestBody DepartmentPositionForm payload)
+	{
+			String uname = tokenService.getUsername(token);
+			
+			DepartmentPositionDTO dto = new Assembler().toDto(departmentService.modifyDepartmentPosition(payload, uname));
+			
+			return new ResponseEntity<>(dto, HttpStatus.OK);		
+	}
 	
 	
 	

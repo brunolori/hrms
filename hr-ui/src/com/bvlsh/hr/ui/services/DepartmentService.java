@@ -45,6 +45,18 @@ public class DepartmentService {
 		return new DepartmentClient().getDepartments();
 	}
 
+	public DepartmentDTO getDepartmentById(Integer departmentId) {
+		return new DepartmentClient().getDepartmentById(departmentId);
+	}
+
+	public DepartmentDTO modifyDepartment(DepartmentForm departmentForm) {
+		return new DepartmentClient().modifyDepartment(departmentForm);
+	}
+
+	public DepartmentPositionDTO modifyDepartmentPosition(DepartmentPositionForm positionForm) {
+		return new DepartmentClient().modifyDepartmentPosition(positionForm);
+	}
+
 	
 
 }

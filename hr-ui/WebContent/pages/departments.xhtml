@@ -7,66 +7,185 @@
 
 	<h:form id="department_form">
 
-		<div class="ui-g ui-fluid">
-			<div class="ui-g-12 ui-md-4">
+		<div class="ui-g ">
+		<div class="ui-g-12 ui-fluid">
+			<p:messages showDetail="true" closable="true">
+				<p:autoUpdate/>
+			</p:messages>
+		</div>
+			<div class="ui-g-12 ui-md-4 ui-fluid">
 				<div class="card">
-				
-					<p:tree value="#{opDepartmentBean.root}" var="d" selectionMode="single" selection="#{opDepartmentBean.selectedNode}">
-				        
-				        <p:ajax event="select" listener="#{opDepartmentBean.onNodeSelect}" />
-				             
-				        <p:treeNode >
-                                 <h:outputText value="Rootii default"/>
-                        </p:treeNode>
-				        <p:treeNode type="root" >
-				            <h:outputText value="#{d.display()}" escape="true"/>
-				        </p:treeNode>
-				        <p:treeNode type="department">
-				            <h:outputText value="#{d.display()}" escape="true"/>
-				        </p:treeNode>
-				        <p:treeNode type="position">
-				            <h:outputText value="#{d.display()}" escape="true"/>
-				        </p:treeNode>
-				    </p:tree>
-				
-				
+				  <div class="ui-g">				  				  
+				    <div class="ui-g-12">
+						<p:tree value="#{opDepartmentBean.root}" var="d" selectionMode="single" selection="#{opDepartmentBean.selectedNode}">
+					        
+					        <p:ajax event="select" listener="#{opDepartmentBean.onNodeSelect}" update="department_form:details" />
+					             
+					        <p:treeNode >
+	                                 <h:outputText value="Rootii default"/>
+	                        </p:treeNode>
+					        <p:treeNode type="root" >
+					            <h:outputText value="#{d.display()}" escape="true"/>
+					        </p:treeNode>
+					        <p:treeNode type="department">
+					            <h:outputText value="#{d.display()}" escape="true"/>
+					        </p:treeNode>
+					        <p:treeNode type="position">
+					            <h:outputText value="#{d.display()}" escape="true"/>
+					        </p:treeNode>
+					     </p:tree>
+					</div>					
+				  </div>
 				</div>
 			</div>
+			
 			<div class="ui-g-12 ui-md-8">
+			<h:panelGroup layout="block" id="details" style="width: 100%">
 				<div class="card">
 					<div class="ui-g">
-						<div class="ui-g-12">
-							<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+						<div class="ui-g-12 ui-fluid">
+							<p:panelGrid layout="grid" columns="3" styleClass="ui-panelgrid-blank">
 								<p:outputLabel value="Emri Departamentit" styleClass="bold"/>
+								<p:outputLabel value="Kategoria" styleClass="bold"/>
 								<p:outputLabel value="Struktura prind" styleClass="bold"/>
-								<p:inputText/>
-								<p:selectOneMenu placeholder="Në varësi">
+								<p:inputText value="#{opDepartmentBean.departmentForm.name}" placeholder="Emri departamentit"/>
+								<p:selectOneMenu value="#{opDepartmentBean.departmentForm.categoryId}" placeholder="Kategoria" autoWidth="false">
+									<f:selectItem itemLabel="Kategoria" itemValue="#{null}" />
+									<f:selectItems value="#{cacheBean.departmentCategories}" var="dc" itemLabel="#{dc.tag}" itemValue="#{dc.id}" />
+								</p:selectOneMenu>
+								<p:selectOneMenu value="#{opDepartmentBean.departmentForm.parentId}" placeholder="Në varësi" autoWidth="false">
 									<f:selectItem itemLabel="Në varësi" itemValue="#{null}" />
+									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemLabel="#{d.name}" itemValue="#{d.id}" />
 								</p:selectOneMenu>
 							</p:panelGrid>
 						</div>
+						<div class="ui-g-12 ui-md-4 ui-fluid">
+							<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+							    <p:commandButton value="Shto" styleClass="green-btn" icon="fa fa-plus"
+							    action="#{opDepartmentBean.registerDepartment()}" update="@form"
+							    rendered="#{opDepartmentBean.departmentForm.id == null}">
+							        <p:confirm header="Regjistro departamentin" message="Jeni të sigurt?"/>
+							    </p:commandButton>
+							    
+								<p:commandButton value="Modifiko" icon="fa fa-pencil" 
+								action="#{opDepartmentBean.modifyDepartment()}" update="@form"
+								rendered="#{opDepartmentBean.departmentForm.id != null}">
+							     	<p:confirm header="Ndrysho departamentin" message="Jeni të sigurt?"/>
+							    </p:commandButton>
+								
+								<p:commandButton value="Anullo" action="#{opDepartmentBean.initForm()}" update="department_form:details" icon="fa fa-times"
+							    	styleClass="orange-btn"/>
+							    	
+							</p:panelGrid>
+						</div>
 						<div class="ui-g-12">
-							<p:dataTable value=" " var="dp" rowIndexVar="r" styleClass="no-border" emptyMessage="Nuk ka pozicione" reflow="true"
-										 paginator="true" paginatorAlwaysVisible="false" rows="10" rowsPerPageTemplate="10,20,30,50">
-								<p:column headerText="#">
+							<p:commandButton value="Shto pozicion" styleClass="green-btn" icon="fa fa-plus"
+							action="#{opDepartmentBean.prepareAddDepartmentPosition()}" update=":pos_dlg" oncomplete="PF('posWid').show();"
+							rendered="#{opDepartmentBean.departmentForm.id != null}"/><br/>
+							<p:dataTable value="#{opDepartmentBean.departmentPositions}" var="dp" rowIndexVar="r" styleClass="no-border" emptyMessage="Nuk ka pozicione" reflow="true"
+										 paginator="true" paginatorAlwaysVisible="false" rows="10" rowsPerPageTemplate="10,20,30,50"
+										 rendered="#{opDepartmentBean.departmentForm.id != null}">
+								<p:column headerText="#" style="text-align: left;">
 									#{r+1}
 								</p:column>
-								<p:column headerText="Punonjësi">
-									#{r+1}
+								<p:column headerText="Foto" style="text-align: left;">
+								    <p:graphicImage value="#{photoBean.photo}"  width="50px">
+												<f:param name="nid" value="#{dp.currentEmployee.employee.nid}" />
+									</p:graphicImage>
 								</p:column>
-								<p:column headerText="Pozicioni">
-									#{r+1}
+								<p:column headerText="Punonjësi" style="text-align: left;">
+								<p:commandLink rendered="#{dp.currentEmployee != null}"
+								value="#{dp.currentEmployee.employee.name} #{dp.currentEmployee.employee.fatherName} #{dp.currentEmployee.employee.surname}"
+								   action="#{opDepartmentBean.onEmployeeSelect(dp)}" update=":main"/>
+								
+									<h:outputText rendered="#{dp.currentEmployee == null}" style="color: #ff1300" value="Vendi i lirë"/>
 								</p:column>
-								<p:column headerText="Funksioni">
-									#{r+1}
+								<p:column headerText="Pozicioni" style="text-align: left;">
+									#{dp.name}
 								</p:column>
+								<p:column headerText="Funksioni" style="text-align: left;">
+									#{dp.position.tag}
+								</p:column>
+								<p:column headerText="veprime" style="text-align: left;">
+									<p:commandButton icon="fa fa-pencil" title="Ndrysho Pozicionin" action="#{opDepartmentBean.prepareModifyDepartmentPosition(dp)}" styleClass="green-btn"
+									 update=":pos_dlg" oncomplete="PF('posWid').show();"/>
+									<p:commandButton title="Fshijë Pozicionin" icon="fa fa-times" rendered="#{dp.currentEmployee == null}" styleClass="red-btn"/>
+									<p:commandButton title="Largo Punonjësin" icon="fa fa-ban" rendered="#{dp.currentEmployee != null}" styleClass="red-btn"/>
+								</p:column>
+								
 							</p:dataTable>
 						</div>
 					</div>								
 				</div>
+				</h:panelGroup>
 			</div>
+			
 		</div>
 
 	</h:form>
+	
+	
+	<p:dialog id="pos_dlg" widgetVar="posWid" modal="true"
+	 header="Shto Pozicion" width="500" closeOnEscape="true" responsive="true">
+	
+		<h:form id="add_position_frm">
+			
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+				    
+				    	<p:outputLabel value="Emri pozicionit"/>
+						<p:inputText value="#{opDepartmentBean.positionForm.name}"/>
+						<p:outputLabel value="Departamenti" />
+						<p:selectOneMenu value="#{opDepartmentBean.positionForm.departmentId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
+							<f:selectItems value="#{cacheBean.listDepartments()}" var="dd" itemValue="#{dd.id}" itemLabel="#{dd.name}"/>
+						</p:selectOneMenu>	
+						<p:outputLabel value="Funksioni" />
+						<p:selectOneMenu value="#{opDepartmentBean.positionForm.positionId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Funksioni"/>
+							<f:selectItems value="#{cacheBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
+						</p:selectOneMenu>	
+						<p:outputLabel value="Kategoria pagës" />
+						<p:selectOneMenu value="#{opDepartmentBean.positionForm.paymentCategoryId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
+							<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
+						</p:selectOneMenu>						
+						
+							
+							<p:commandButton value="Regjistro" rendered="#{opDepartmentBean.positionForm.id == null}" action="#{opDepartmentBean.addDepartmentPosition()}"
+							                 update=":department_form:details" oncomplete="PF('posWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Regjistro pozicionin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							 <p:commandButton value="Modifiko" rendered="#{opDepartmentBean.positionForm.id != null}" action="#{opDepartmentBean.modifyDepartmentPosition()}"
+							                 update=":department_form:details" oncomplete="PF('posWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Ndrysho pozicionin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('posWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+							</p:commandButton>
+							
+							
+					</p:panelGrid>
+				</div>
+
+			</div>
+						
+		</h:form>
+		
+	</p:dialog>
+	
+	<p:dialog id="remove_emp_dlg">
+	
+		
+	
+	</p:dialog>
+	
+	
+	
+	
+	
 
 </ui:composition>
