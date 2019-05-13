@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../WEB-INF/template.xhtml">
+
+	<ui:define name="title">Menaxhim i Përdoruesve</ui:define>
+
+	<ui:define name="content">
+
+		<h:form>
+			<div class="ui-g ui-fluid">
+
+				<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+				</div>
+
+				<div class="ui-g-12">
+					<p:panel header="#{userManagerBean.user.id eq 0?'REGJISTRO PËRDORUES':'MODIFIKO PËRDORUES'}" styleClass="purple-pnl">
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-8">
+								<p:panelGrid columns="4" layout="grid"
+									styleClass="ui-panelgrid-blank form-group">
+									<p:outputLabel value="Username" style="font-weight: bold" />
+									<p:inputText value="#{adUserBean.form.username}"/>
+									<p:outputLabel value="Password" style="font-weight: bold" />
+									<p:inputText value="#{adUserBean.form.secret}"/>
+									<p:outputLabel value="Drejtoria"/>
+								<p:selectOneMenu placeholder="Drejtoria" value="#{adUserBean.form.rootDepartmentId}" autoWidth="false"
+								filterMatchMode="contains" filter="true">
+									<f:selectItem itemValue="#{null}" itemLabel="Drejtoria"/>
+									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+								</p:selectOneMenu>
+								<p:outputLabel value="Roli"/>
+								<p:selectOneMenu placeholder="Roli" value="#{adUserBean.form.roleCode}" autoWidth="false">
+									<f:selectItem itemValue="#{null}" itemLabel="Roli"/>
+									<f:selectItems value="#{cacheBean.roles}" var="r" itemValue="#{r.id}" itemLabel="#{r.tag}"/>
+								</p:selectOneMenu>
+						
+								</p:panelGrid>
+								<div class="ui-g-12">
+									<div class="ui-g">
+										<div class="ui-g-12 ui-md-5">
+											<p:panelGrid columns="3" layout="grid"
+												styleClass="ui-panelgrid-blank form-group">
+												<p:commandButton value="Regjistro" actionListener="#{adUserBean.register()}" update="@form" icon="fa fa-save" styleClass="blue-btn">
+													<p:confirm header="Regjistro përdorues"	message="Jeni të sigurt?" icon="ui-icon-alert" />
+												</p:commandButton>
+												<p:commandButton value="Pastro" actionListener="#{adUserBean.clear()}" update="@form" styleClass="green-btn" icon="fa fa-trash-o" />
+												<p:commandButton value="Modifiko" actionListener="#{userManagerBean.modify()}" update="@form"
+													styleClass="purple-btn" icon="fa fa-edit" >
+													<p:confirm header="Modifiko Aplikimin?"  message="Jeni të sigurt?" icon="fa fa-exclamation-triangle"/>
+												</p:commandButton>
+												<p:commandButton value="Fshijë" actionListener="#{adUserBean.delete()}" update="@form" styleClass="red-btn" icon="fa fa-times" >
+													<p:confirm header="Fshijë përdorues!"  message="Jeni të sigurt?" icon="fa fa-exclamation-triangle"/>
+													</p:commandButton>
+											</p:panelGrid>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</p:panel>
+				</div>
+
+				<div class="ui-g-12">
+
+					<p:dataTable value="#{adUserBean.users}" var="u" rowKey="#{u.id}" selectionMode="single"
+					    paginator="true" rows="10" paginatorPosition="top"
+						emptyMessage="Asnjë përdorues i listuar">
+						<f:facet name="header">Lista e përdoruesve</f:facet>
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Username"><h:outputLabel value="#{u.username}" style="font-weight: bold; color: blue"/></p:column>
+						<p:column headerText="Drejtoria">#{u.rootDepartment.name}</p:column>
+						<p:column headerText="Status">
+						<p:outputLabel value="#{u.status?'Aktiv':'Jo Aktiv'}" styleClass="#{u.status?'label-success':'label-danger'}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

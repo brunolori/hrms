@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Tipi i edukimit"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.educationTypeId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Tipi i edukimit"/>
+						<f:selectItems value="#{cacheBean.educationTypes}" var="et" itemValue="#{et.id}" itemLabel="#{et.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Institucioni"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.institutionId}" autoWidth="false"
+					filterMatchMode="contains" filter="true">
+						<f:selectItem itemValue="#{null}" itemLabel="Institucioni"/>
+						<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Fusha studimit"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.studyFieldId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Fusha studimit"/>
+						<f:selectItems value="#{cacheBean.studyFields}" var="sf" itemValue="#{sf.id}" itemLabel="#{sf.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Data"/>
+					<p:calendar value="#{opEmployeeViewBean.educationForm.issueDate}" pattern="dd.MM.yyyy" placeholder="Data"/>
+					<p:outputLabel value="Shënime"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.educationForm.description}" placeholder="Shënime"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveEducation()}" 
+						rendered="#{opEmployeeViewBean.educationForm.id == null}" update="employee_view_form:tab_view:edu_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro edukimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyEducation()}" 
+						rendered="#{opEmployeeViewBean.educationForm.id != null}" update="employee_view_form:tab_view:edu_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho edukimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initEducations()}" 
+						             update="employee_view_form:tab_view:edu_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.educations}" var="e" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{e.id==opEmployeeViewBean.educationForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Tipi edukimit" style="text-align: left;">
+						#{e.educationType.tag}
+					</p:column>
+					<p:column headerText="Institucioni" style="text-align: left;">
+						#{e.institution.name}
+					</p:column>
+					<p:column headerText="Fusha studimit" style="text-align: left;">
+						#{e.studyField.tag}
+					</p:column>
+					<p:column headerText="Shteti" style="text-align: left;">
+						#{e.institution.state.name}
+					</p:column>
+					<p:column headerText="Data" style="text-align: left;">
+						#{formatBean.formatDate(e.issueDate)}
+					</p:column>
+					<p:column headerText="Shënime" style="text-align: left;">
+						#{e.description}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onEducationSelect(e)}" 
+							update="employee_view_form:tab_view:edu_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteEducation(e)}"
+							 update="employee_view_form:tab_view:edu_tab"
+							 style="color:#ff1300; font-weight: bold">
+							    <p:confirm header="Fshijë vlerësimin" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
+		</div>
+
+
+</ui:composition>

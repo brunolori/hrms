@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Banka"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.bankAccountForm.bankId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Banka"/>
+						<f:selectItems value="#{cacheBean.banks}" var="b" itemValue="#{b.id}" itemLabel="#{b.name}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Nr llogarisë (IBAN)"/>
+					<p:inputText value="#{opEmployeeViewBean.bankAccountForm.iban}" placeholder="IBAN"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveBankAccount()}" 
+						rendered="#{opEmployeeViewBean.bankAccountForm.id == null}" update="employee_view_form:tab_view:bank_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro llogarinë bankare" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyBankAccount()}" 
+						rendered="#{opEmployeeViewBean.bankAccountForm.id != null}" update="employee_view_form:tab_view:bank_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho llogarinë bankare" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initBankAccounts()}" 
+						             update="employee_view_form:tab_view:bank_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.bankAccounts}" var="ba" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{ba.id==opEmployeeViewBean.bankAccountForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Banka" style="text-align: left;">
+						#{ba.bank.name}
+					</p:column>
+					<p:column headerText="Nr llogarisë (IBAN)" style="text-align: left;">
+					    #{ba.iban}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onBankAccountSelect(ba)}" 
+							update="employee_view_form:tab_view:bank_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteBankAccount(ba)}"
+							 update="employee_view_form:tab_view:bank_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë kontaktin" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
+		</div>
+
+
+</ui:composition>

@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Tipi i vlerësimit"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.validationForm.validationTypeId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Tipi i vlerësimit"/>
+						<f:selectItems value="#{cacheBean.validationTypes}" var="vt" itemValue="#{vt.id}" itemLabel="#{vt.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Data vlerësimit"/>
+					<p:calendar value="#{opEmployeeViewBean.validationForm.validationDate}" pattern="dd.MM.yyyy" placeholder="Data vlerësimit"/>
+					<p:outputLabel value="Data fillimit"/>
+					<p:calendar value="#{opEmployeeViewBean.validationForm.startDate}" pattern="dd.MM.yyyy" placeholder="Data fillimit"/>
+					<p:outputLabel value="Data pëfundimit"/>
+					<p:calendar value="#{opEmployeeViewBean.validationForm.endDate}" pattern="dd.MM.yyyy" placeholder="Data pëfundimit"/>
+					<p:outputLabel value="Firmosur nga"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.validationForm.signedBy}" placeholder="Firmosur nga"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveValidation()}" 
+						rendered="#{opEmployeeViewBean.validationForm.id == null}" update="employee_view_form:tab_view:validation_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro Vlerësimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyValidation()}" 
+						rendered="#{opEmployeeViewBean.validationForm.id != null}" update="employee_view_form:tab_view:validation_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho Vlerësimin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initValidations()}" 
+						             update="employee_view_form:tab_view:validation_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.validations}" var="v" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{v.id==opEmployeeViewBean.validationForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Tipi vlerësimit" style="text-align: left;">
+						#{v.validationType.tag}
+					</p:column>
+					<p:column headerText="Data vlerësimit" style="text-align: left;">
+						#{formatBean.formatDate(v.validationDate)}
+					</p:column>
+					<p:column headerText="Data fillimit" style="text-align: left;">
+						#{formatBean.formatDate(v.startDate)}
+					</p:column>
+					<p:column headerText="Data përfundimit" style="text-align: left;">
+						#{formatBean.formatDate(v.endDate)}
+					</p:column>
+					<p:column headerText="Firmosur nga" style="text-align: left;">
+						#{v.signedBy}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onValidationSelect(v)}" 
+							update="employee_view_form:tab_view:validation_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteValidation(v)}"
+							 update="employee_view_form:tab_view:validation_tab"
+							 style="color:#ff1300; font-weight: bold">
+							    <p:confirm header="Fshijë vlerësimin" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
+		</div>
+
+
+</ui:composition>

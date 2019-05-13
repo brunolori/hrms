@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <h:link styleClass="layout-topbar-logo">
+            <p:graphicImage name="images/#{guestPreferences.darkLogo ? 'logo-black.png' : 'logo-white.png'}" library="babylon-layout" />
+        </h:link>
+
+        <a class="layout-menu-button" href="#">
+            <i class="fa fa-bars" />
+        </a>
+
+        <a id="topbar-menu-button" href="#">
+            <i class="fa fa-ellipsis-v"></i>
+        </a>
+
+        <ul class="topbar-menu fadeInDown">
+            <ui:fragment rendered="#{guestPreferences.profileMode == 'popup' ? true : false}">
+                <li class="user-profile">
+                    <a href="#">
+                        <p:graphicImage name="images/avatar.png" library="babylon-layout" />
+                        <span class="topbar-item-name">#{loginBean.userToken.user.username}</span>
+                    </a>
+                    <ul>
+                        <li>
+							<h:form>
+								 <p:commandLink onclick="PF('pass_ch_wid').show();">
+			                            <i class="fa fa-fw fa-user"></i>
+			                            <span>Ndrysho fjalëkalimin</span>
+			                        </p:commandLink>
+			                 </h:form>
+						</li>
+						<li >
+								<h:form>
+								<p:commandLink action="#{loginBean.logout()}">
+								    <i class="fa fa-fw fa-sign-out"></i> 
+										<span>Dil</span>
+								</p:commandLink>
+								</h:form>
+						</li>
+                    </ul>
+                </li>
+            </ui:fragment>
+            
+           
+        </ul>
+    </div>
+</ui:composition>

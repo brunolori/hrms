@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="home_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h2>Gradat</h2>
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:inputText placeholder="NID" value="#{opRapGradeBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapGradeBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapGradeBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapGradeBean.req.surname}"/>
+										<p:selectOneMenu placeholder="Gjinia" value="#{opRapGradeBean.req.gender}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+											<f:selectItem itemValue="M" itemLabel="Mashkull" />
+											<f:selectItem itemValue="F" itemLabel="Femër" />
+										</p:selectOneMenu>
+										
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}" autoWidth="false" 
+										filterMatchMode="contains" filter="true">
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
+											<f:selectItems value="#{opRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Grada" value="#{opRapGradeBean.req.gradeId}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Grada" />
+											<f:selectItems value="#{cacheBean.grades}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
+										</p:selectOneMenu>
+										<p:calendar value="#{opRapGradeBean.req.startDate}" pattern="dd.MM.yyyy" placeholder="Nga Data marrjes" />
+										<p:calendar value="#{opRapGradeBean.req.endDate}" pattern="dd.MM.yyyy" placeholder="Në Datë e marrjes" />
+							          
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Kërko" action="#{opRapGradeBean.search()}"
+									update="@form"
+								    styleClass="blue-btn" icon="ui-icon-search" />
+								<p:commandButton value="Pastro" action="#{opRapGradeBean.clear()}"
+									update="@form"
+								icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+					
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="#{opRapGradeBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+						emptyMessage="Asnjë raport i listuar">
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Punonjësi">
+							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
+								action="#{opRapGradeBean.onEmployeeSelect(t)}" update=":main"
+							/>
+						</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
+						<p:column headerText="Grada">#{t.grade.tag}</p:column>
+					</p:dataTable>
+				</div>
+			
+			
+		</div>
+
+	</h:form>
+
+</ui:composition>

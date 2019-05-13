@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="home_form">
+
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h2>Edukimi</h2>
+					<div class="ui-g">
+						<div class="ui-g-12">
+							<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank form-group">
+										
+										<p:inputText placeholder="NID" value="#{opRapEducationBean.req.nid}"/>
+										<p:inputText placeholder="Nr punonjësi" value="#{opRapEducationBean.req.employeeNo}"/>
+										<p:inputText placeholder="Emri" value="#{opRapEducationBean.req.name}"/>
+										<p:inputText placeholder="Mbiemri" value="#{opRapEducationBean.req.surname}"/>
+										<p:selectOneMenu placeholder="Gjinia" value="#{opRapEducationBean.req.gender}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+											<f:selectItem itemValue="M" itemLabel="Mashkull" />
+											<f:selectItem itemValue="F" itemLabel="Femër" />
+										</p:selectOneMenu>
+										
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapEducationBean.req.departmentId}" autoWidth="false"
+										filterMatchMode="contains" filter="true">
+											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
+											<f:selectItems value="#{opRapEducationBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Institucioni" value="#{opRapEducationBean.req.institutionId}" autoWidth="false"
+										filterMatchMode="contains" filter="true">
+											<f:selectItem itemValue="#{null}" itemLabel="Institucioni" />
+											<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Tipi Shkollimit" value="#{opRapEducationBean.req.educationTypeId}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Tipi Shkollimit" />
+											<f:selectItems value="#{cacheBean.educationTypes}" var="et" itemValue="#{et.id}" itemLabel="#{et.tag}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Fusha Studimit" value="#{opRapEducationBean.req.studyFieldId}" autoWidth="false">
+											<f:selectItem itemValue="#{null}" itemLabel="Fusha Studimit" />
+											<f:selectItems value="#{cacheBean.studyFields}" var="sf" itemValue="#{sf.id}" itemLabel="#{sf.tag}"/>
+										</p:selectOneMenu>
+										<p:selectOneMenu placeholder="Shteti" value="#{opRapEducationBean.req.stateCode}" autoWidth="false"
+										filterMatchMode="contains" filter="true">
+											<f:selectItem itemValue="#{null}" itemLabel="Shteti" />
+											<f:selectItems value="#{cacheBean.states}" var="s" itemValue="#{s.code}" itemLabel="#{s.name}"/>
+										</p:selectOneMenu>
+										<p:calendar value="#{opRapEducationBean.req.fromDate}" pattern="dd.MM.yyyy" placeholder="Nga Data përfundimit" />
+										<p:calendar value="#{opRapEducationBean.req.toDate}" pattern="dd.MM.yyyy" placeholder="Në Datën e përfundimit" />
+							          
+							</p:panelGrid>
+						</div>
+						<div class="ui-g-12 ui-md-4">
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank">
+								<p:commandButton value="Kërko" action="#{opRapEducationBean.search()}"
+									update="@form"
+								    styleClass="blue-btn" icon="ui-icon-search" />
+								<p:commandButton value="Pastro" action="#{opRapEducationBean.clear()}"
+									update="@form"
+								icon="ui-icon-trash" styleClass="green-btn" />
+							</p:panelGrid>
+						</div>
+					
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+					<p:dataTable value="#{opRapEducationBean.list}" var="t" rowIndexVar="r" styleClass="no-border"
+						emptyMessage="Asnjë raport i listuar">
+						<p:column headerText="#">#{r+1}</p:column>
+						<p:column headerText="Punonjësi">
+							<p:commandLink value="#{t.employee.name} #{t.employee.fatherName} #{t.employee.surname}"
+								action="#{opRapEducationBean.onEmployeeSelect(t)}" update=":main"
+							/>
+						</p:column>
+						<p:column headerText="Drejtoria">#{t.employee.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{t.employee.departmentPosition.position.tag}</p:column>
+						<p:column headerText="Institucioni">#{t.institution.name}</p:column>
+						<p:column headerText="Shteti">#{t.institution.state.name}</p:column>
+						<p:column headerText="Tipi Shkollimit">#{t.educationType.tag}</p:column>
+						<p:column headerText="Fusha e Studimit">#{t.studyField.tag}</p:column>
+						<p:column headerText="Data">#{formatBean.formatDate(t.issueDate)}</p:column>
+						</p:dataTable>
+				</div>
+			
+			
+		</div>
+
+	</h:form>
+
+</ui:composition>

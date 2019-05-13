@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+    <title>HRMS</title>
+</h:head>
+
+<h:body styleClass="login-body">
+
+    <div class="login-panel"></div>
+<h:form id="login_form">
+    <div class="login-content">
+        <p:graphicImage name="images/logo-black.png" library="babylon-layout" />
+
+        <h1><span>SIGN IN</span> TO HRMS</h1>
+        <p>Welcome, please use the form to sign-in.</p>
+
+        <div class="login-input-wrapper">
+            <p:inputText id="username" value="#{loginBean.username}" placeholder="Përdoruesi" autocomplete="off" />
+            <i class="fa fa-user" />
+        </div>
+
+        <div class="login-input-wrapper">
+            <p:password id="password" value="#{loginBean.password}" placeholder="Fjalëkalimi" autocomplete="off" feedback="false"/>
+            <i class="fa fa-lock" />
+        </div>
+
+        <p:commandButton value="Hyr" action="#{loginBean.login()}" />
+    </div>
+</h:form>
+    <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="babylon-layout" />
+
+</h:body>
+
+</html>

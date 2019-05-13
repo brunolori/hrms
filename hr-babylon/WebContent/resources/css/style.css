@@ -1,0 +1,278 @@
+.ui-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto !important; 
+}
+/*
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td, .ui-datatable tfoot th{
+    font-size: 12px;
+}
+*/
+.no-border table tbody tr td, .no-border .ui-widget-content,.no-border table thead th,.no-border table tfoot td, .no-border table tfoot th
+{
+    border: 0 !important;
+}
+/*
+.ui-inputtext:disabled
+{
+    cursor: not-allowed !important;
+    border-bottom:1px #aaaaaa solid !important;
+}
+.ui-inputtextarea:disabled
+{
+    cursor: not-allowed !important;
+    border-bottom:1px #aaaaaa solid !important;
+}
+.ui-inputfield:disabled
+{
+    cursor: not-allowed !important;
+    border-bottom:1px #aaaaaa solid !important;
+}
+*/
+
+/*
+.ui-selectonemenu-list
+{
+    max-width: 600px;
+}
+*/
+
+.right td
+{
+	text-align: right !important;
+}
+.pnl .ui-widget-header {
+    background-color: #f5f5f5;
+    color: #333333;
+    font-weight: bold;
+    border-bottom: 0px !important;
+    
+}
+
+.blue-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #3c8dbc !important;
+}
+
+.deep-blue-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #2f4050 !important;
+}
+
+.teal-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #1ab394 !important;
+}
+
+.grey-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #607D8B !important;
+}
+
+.pink-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #E91E63 !important;
+}
+
+.cyan-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #00BCD4 !important;
+}
+
+.amber-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #FFC107 !important;
+}
+
+.red-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #dd4b39 !important;
+}
+
+.orange-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #FF9800 !important;
+}
+
+.green-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #4CAF50 !important;
+}
+
+.deep-orange-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #FF5722 !important;
+}
+
+.purpule-pnl
+{
+    border-top-width: 5px !important;
+    border-top-color: #673AB7 !important;
+}
+
+/*
+.border
+{
+   border-width: 1px 1px 1px 1px !important;
+}
+.border:focus
+{
+   border-width: 0 0 2px 0 !important;
+}
+.border .ui-inputfield
+{
+    border-width: 1px 1px 1px 1px !important;
+}
+*/
+
+.bold
+{
+    font-weight: bold;
+}
+
+.empty
+{
+
+}
+
+.topAlign{
+    vertical-align: top;
+}
+
+
+
+
+.red-lbl
+{
+    background-color: #dd4b39;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    text-align: center;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 11px;
+}
+
+.amber-lbl
+{
+    background-color: #FFC107;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.teal-lbl
+{
+    background-color: #1ab394;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.grey-lbl
+{
+    background-color: #607D8B;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.pink-lbl
+{
+    background-color: #E91E63;
+    color: white;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    width: 100px;
+    font-size: 11px;
+}
+
+.alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+
+.mavi {
+  background-color: #673AB7 ;
+}
+.cyan {
+  background-color: cyan ;
+}
+.red{
+    background-color: #F44336 ;
+}
+.green {
+  background-color: #1ab394;
+}
+.blue {
+  background-color: #03A9F4;
+}
+.yellow {
+  background-color: yellow;
+}
+.orange{
+    background-color: #FF5722;
+}
+.grey
+{
+    background-color: #607D8B;
+}
+.sphere {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+  
+}

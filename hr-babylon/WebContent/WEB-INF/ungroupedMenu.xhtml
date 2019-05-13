@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pb="http://primefaces.org/babylon">
+
+
+    <pb:menu>
+        <p:submenu id="omx_homepage" label="Main Menu" icon="fa fa-fw fa-home">
+            <p:menuitem id="apl_dashboard" value="Dashboard" icon="fa fa-dashboard" action="#{menuBean.navigate('dashboard','pages')}"/>
+                        <p:submenu  id="apl_emp" label="Punonjësit" icon="fa fa-user">
+	                        <p:menuitem id="apl_mp_sx" value="Lista Punonjësve" icon="fa fa-list-ol" action="#{menuBean.navigate('employee_sx','pages')}"/>
+	                        <p:menuitem id="apl_emp_add" value="Regjistro Punonjës" icon="fa fa-user-plus" action="#{menuBean.navigate('employee_add','pages')}"/>
+                        </p:submenu>
+                        <p:menuitem id="apl_dept" value="Drejtoritë" icon="fa fa-building" action="#{menuBean.navigate('departments','pages')}"/>
+                        <p:menuitem id="apl_org" value="Organigrama" icon="fa fa-sitemap" action="#{menuBean.navigate('organigrama','pages')}"/>
+                       
+                         <p:submenu id="apl_rap" label="Raporte" icon="fa fa-pie-chart" >
+	                        <p:menuitem id="apl_rap_ap" value="Masa Disiplinore" icon="fa fa-pencil-square-o" action="#{menuBean.navigate('raport_provision','pages')}"/>
+	                        <p:menuitem id="apl_rap_fl" value="Gjuhët e Huaja" icon="fa fa-language" action="#{menuBean.navigate('raport_foreign_languages','pages')}"/>
+	                        <p:menuitem id="apl_rap_ed" value="Edukimi" icon="fa fa-graduation-cap" action="#{menuBean.navigate('raport_education','pages')}"/>
+	                        <p:menuitem id="apl_rap_tr" value="Kualifikime/Trajnime" icon="fa fa-briefcase" action="#{menuBean.navigate('raport_training','pages')}"/>
+	                        <p:menuitem id="apl_rap_gr" value="Gradat" icon="fa fa-briefcase" action="#{menuBean.navigate('raport_grades','pages')}"/>
+	                        <p:menuitem id="apl_rap_jv" value="Vlerësimet" icon="fa fa-briefcase" action="#{menuBean.navigate('raport_validations','pages')}"/>
+	                        <p:menuitem id="apl_rap_em" value="Emërimet" icon="fa fa-briefcase" action="#{menuBean.navigate('raport_employments','pages')}"/>
+	                        <p:menuitem id="apl_rap_ba" value="Llogaritë bankare" icon="fa fa-bank" action="#{menuBean.navigate('raport_bank_accounts','pages')}"/>
+                        </p:submenu>
+                         <p:menuitem id="apl_user" value="Përdoruesit" icon="fa fa-users" action="#{menuBean.navigate('users','pages')}"/>
+        </p:submenu>
+    </pb:menu>
+    
+</ui:composition>

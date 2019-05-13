@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			<div class="ui-g nopad">
+			<div class="ui-g-12 nopad">
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Emri dokumentit"/>
+					<p:inputText value="#{opEmployeeViewBean.documentForm.documentName}" placeholder="Emri dokumentit"/>
+					<p:outputLabel value="Data dokumentit"/>
+					<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opEmployeeViewBean.documentForm.documentDate}" placeholder="Data dokumentit"/>
+					<p:outputLabel value="Përshkrimi"/>
+					<p:inputTextarea value="#{opEmployeeViewBean.documentForm.description}" placeholder="Përshkrimi"/>
+				</p:panelGrid>
+				</div>
+				<div class="ui-g-12 nopad">
+				<p:panelGrid id="upload_msg" layout="grid" columns="1" styleClass="ui-panelgrid-blank">
+					<p:fileUpload fileUploadListener="#{opEmployeeViewBean.handleFileUpload}" mode="advanced" 
+					 cancelLabel="anullo" label="zgjidh" uploadLabel="ngarko" 
+                     auto="true" sizeLimit="20000000" fileLimitMessage="Limiti 20 MB" update="upload_msg"/>
+					<p:outputLabel value="dokumenti u ngarkua" 
+					   style="color: green" rendered="#{opEmployeeViewBean.documentForm.data != null}"/>
+				</p:panelGrid>
+				</div>
+				<div class="ui-g-12 nopad">
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+				<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveDocument()}" 
+						rendered="#{opEmployeeViewBean.documentForm.id == null}" update="employee_view_form:tab_view:document_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro dokumentin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyDocument()}" 
+						rendered="#{opEmployeeViewBean.documentForm.id != null}" update="employee_view_form:tab_view:document_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho documentin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initDocuments()}" 
+						             update="employee_view_form:tab_view:document_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+				</div>
+				
+			</div>
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.documents}" var="d" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{d.id==opEmployeeViewBean.documentForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Emri dokumentit" style="text-align: left;">
+						#{d.documentName}
+					</p:column>
+					<p:column headerText="Data dokumentit" style="text-align: left;">
+					    #{formatBean.formatDate(d.documentDate)}
+					</p:column>
+					<p:column headerText="Përshkrimi" style="text-align: left;">
+						#{d.description}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onDocumentSelect(d)}" 
+							update="employee_view_form:tab_view:document_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteDocument(d)}"
+							 update="employee_view_form:tab_view:document_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë dokumentin" message="Jeni të sigurt?"/>
+							 </p:commandLink> |
+							 <p:commandLink value="shiko" action="#{opEmployeeViewBean.downloadDocument(d)}" ajax="false" style="color:orangered; font-weight: bold"/>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
+		</div>
+
+
+</ui:composition>

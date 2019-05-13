@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<h:form id="emp_sx_form">
+
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<div class="card card-w-title">
+						<h1 style="font-style: italic;">Kërko punonjësit</h1>
+						<div class="ui-g">
+							<div class="ui-g-12">
+
+								<p:panelGrid layout="grid" columns="4"
+									styleClass="ui-panelgrid-blank form-group">
+
+									<p:inputText placeholder="Emri" value="#{opEmployeeSxBean.req.name}" />
+									<p:inputText placeholder="Mbiemri" value="#{opEmployeeSxBean.req.surname}"/>
+									<p:inputText placeholder="Atësia" value="#{opEmployeeSxBean.req.fatherName}"/>
+									<p:inputText placeholder="NID" value="#{opEmployeeSxBean.req.nid}"/>
+									
+									<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Datëlindja" value="#{opEmployeeSxBean.req.dob}"/>
+									<p:inputText placeholder="Mbiemri tjetër" value="#{opEmployeeSxBean.req.maidenName}"/>
+									<p:selectOneMenu placeholder="Gjinia" value="#{opEmployeeSxBean.req.gender}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Gjinia" />
+										<f:selectItem itemValue="M" itemLabel="M" />
+										<f:selectItem itemValue="F" itemLabel="F" />
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Statusi Civil" value="#{opEmployeeSxBean.req.civilStatus}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Statusi Civil" />
+										<f:selectItem itemValue="M" itemLabel="Martuar"/>
+										<f:selectItem itemValue="B" itemLabel="Beqar/e"/>
+										<f:selectItem itemValue="D" itemLabel="Divorcuar"/>
+										<f:selectItem itemValue="V" itemLabel="i/e Ve"/>
+									</p:selectOneMenu>
+									
+									
+									<p:selectOneMenu placeholder="Drejtoria" value="#{opEmployeeSxBean.req.departmentId}" autoWidth="false"
+									filterMatchMode="contains" filter="true">
+										<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
+										<f:selectItems value="#{opEmployeeSxBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}" />								
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Pozicioni" value="#{opEmployeeSxBean.req.positionId}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Pozicioni" />	
+										<f:selectItems value="#{cacheBean.positions}" var="p" itemValue="#{p.id}" itemLabel="#{p.tag}" />							
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Grada" value="#{opEmployeeSxBean.req.gradeId}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Grada" />
+										<f:selectItems value="#{opEmployeeSxBean.grades}" var="g" itemValue="#{g.id}" itemLabel="#{g.tag}" />	
+									</p:selectOneMenu>
+									<p:selectOneMenu placeholder="Kategoria pagës" value="#{opEmployeeSxBean.req.paymentCategoryId}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Kategoria pagës" />
+										<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}" />	
+									</p:selectOneMenu>
+									
+									<p:inputText placeholder="Nr.Punonjësi" value="#{opEmployeeSxBean.req.employeeNo}"/>
+									<p:inputText placeholder="Nr.Dosje" value="#{opEmployeeSxBean.req.dossierNo}" />
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Filluar Nga Data" value="#{opEmployeeSxBean.req.startDateFrom}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Filluar Në Datë" value="#{opEmployeeSxBean.req.startDateTo}"/>
+                                    
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Nga Data" value="#{opEmployeeSxBean.req.endDateFrom}"/>
+                                    <p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Liruar Në Datë" value="#{opEmployeeSxBean.req.endDateTo}"/>
+                                    <p:selectOneMenu placeholder="Arsyeja lirimit" value="#{opEmployeeSxBean.req.endJobReasonId}" autoWidth="false">
+										<f:selectItem itemValue="#{null}" itemLabel="Arsyeja lirimit" />
+										<f:selectItems value="#{cacheBean.jobEndingReasons}" var="je" itemValue="#{je.id}" itemLabel="#{je.tag}" />	
+									</p:selectOneMenu>
+								</p:panelGrid>
+
+
+							</div>
+
+							<div class="ui-g-12 ui-md-4">
+								<p:panelGrid layout="grid" columns="2"
+									styleClass="ui-panelgrid-blank">
+									<p:commandButton value="Kërko" update="@form" action="#{opEmployeeSxBean.search()}" styleClass="blue-btn" icon="ui-icon-search" />
+									<p:commandButton value="Pastro" update="@form" action="#{opEmployeeSxBean.clear()}" icon="ui-icon-trash" styleClass="green-btn"/>
+								</p:panelGrid>
+							</div>
+
+							<div class="ui-g-12">
+								<p:messages showDetail="true" closable="true" >
+									<p:autoUpdate />
+								</p:messages>
+							</div>
+
+						</div>
+					</div>
+				</div>
+							
+				<div class="ui-g-12 ui-fluid">
+					<p:dataTable value="#{opEmployeeSxBean.employees}" var="e" rowKey="#{e.nid}" styleClass="no-border"
+					    selection="#{opEmployeeSxBean.employee}" selectionMode="single"
+						paginatorAlwaysVisible="false" paginator="true" rows="20"
+						rowIndexVar="r"	rowsPerPageTemplate="10,20,30,50" reflow="true">
+						<p:ajax event="rowSelect" listener="#{opEmployeeSxBean.onEmployeeSelect()}" update=":main" />
+						<f:facet name="header">Lista punonjësve</f:facet>
+						<p:column headerText="#"> #{r+1}</p:column>
+						<p:column headerText="NID">#{e.nid}</p:column>
+						<p:column headerText="Emri">#{e.name}</p:column>
+						<p:column headerText="Atësia">#{e.fatherName}</p:column>
+						<p:column headerText="Mbiemri">#{e.surname}</p:column>
+						<p:column headerText="Datëlindja">#{formatBean.formatDate(e.dob)}</p:column>
+						<p:column headerText="Departamenti">#{e.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni">#{e.departmentPosition.name}</p:column>
+						<p:column headerText="Grada">#{e.grade.tag}</p:column>
+						<p:column headerText="Nr.Dosje">#{e.dossierNo}</p:column>
+						<p:column headerText="Nr.Punonjësi">#{e.employeeNo}</p:column>
+						<p:column headerText="Gjinia">#{e.gender}</p:column>
+						<p:column headerText="Statusi Civil">#{e.civilStatus}</p:column>
+						<p:column headerText="Dt fillimit">#{formatBean.formatDate(e.startDate)}</p:column>
+					</p:dataTable>
+				</div>
+
+			</div>
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,250 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+			<script type="text/javascript">
+				//<![CDATA[
+				function skinChart() {
+					this.cfg.animate = true;
+					this.cfg.shadow = false;
+					this.cfg.title = '';
+					this.cfg.seriesColors = [ '#4CAF50', '#39a3f4' ];
+					this.cfg.grid = {
+						background : 'transparent',
+						borderColor : 'transparent',
+						gridLineColor : '#dddddd',
+						shadow : false,
+					};
+					this.cfg.axesDefaults = {
+						rendererOptions : {
+							textColor : '#9fadb7'
+						},
+						tickOptions : {
+							textColor : '#9fadb7'
+						}
+					};
+					this.cfg.seriesDefaults = {
+						shadow : false,
+						lineWidth : 1,
+						markerOptions : {
+							shadow : false,
+							size : 7,
+							style : 'circle'
+						}
+					}
+					this.cfg.legend = {
+						show : false
+					}
+				}
+
+			//]]>
+			</script>
+			<style type="text/css">
+.jqplot-xaxis-label {
+	color: #9fadb7;
+	display: none;
+}
+
+.jqplot-yaxis-label {
+	color: #9fadb7;
+}
+</style>
+
+
+	<h:form id="dashboard_form">
+	
+
+<div class="layout-dashboard">
+
+		<div class="ui-g">
+
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box sales">
+				        <i class="overview-icon fa fa-building"></i>
+                        <span class="overview-title">Nr.Departamenteve</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.deptCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            <br/>
+                        </div>	
+				</div>
+			</div>
+			
+			
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box views">				
+				        <i class="overview-icon fa fa-bullseye"></i>
+                        <span class="overview-title">Pozicionet</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.posCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            <br/>
+                        </div>	
+				</div>
+			</div>
+			
+			
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box users">
+				
+				        <i class="overview-icon fa fa-users"></i>
+                        <span class="overview-title">Nr.Punonjësve</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.empCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            #{formatBean.formatPrc(opDashboardBean.empCnt,opDashboardBean.posCnt)} poste të zëna
+                        </div>
+						
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box checkin">
+				
+				        <i class="overview-icon fa fa-ellipsis-h"></i>
+                        <span class="overview-title">Postet e Lira</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.freePosCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            #{formatBean.formatPrc(opDashboardBean.freePosCnt,opDashboardBean.posCnt)} poste të lira
+                        </div>				
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box sales">
+				        <i class="overview-icon fa fa-female"></i>
+                        <span class="overview-title">Femra</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.femaleEmpCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            #{formatBean.formatPrc(opDashboardBean.femaleEmpCnt,opDashboardBean.empCnt)} punonjëse femra
+                        </div>	
+				</div>
+			</div>
+			<div class="ui-g-12 ui-md-3">
+				<div class="overview-box users">
+				
+				        <i class="overview-icon fa fa-male"></i>
+                        <span class="overview-title">Meshkuj</span>
+                        <i class="overview-arrow fa fa-chevron-circle-up"></i>
+                        <div class="overview-numbers">
+                            #{opDashboardBean.maleEmpCnt}
+                        </div>
+                        <div class="overview-subinfo">
+                            #{formatBean.formatPrc(opDashboardBean.maleEmpCnt,opDashboardBean.empCnt)} punonjës meshkuj
+                        </div>	
+				</div>
+			</div>
+			
+			<div class="ui-g-12 nopad" />
+			
+			<div class="ui-g-12 ui-md-3">
+				<div class="ui-g-12">
+				<div class="card card-w-title">
+			     <h3>Edukimi</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.eduPieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+			  <h3>Gradat</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.gradePieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+			  <h3>Gjuhët e huaja</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.languagePieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			<div class="ui-g-12">
+			  <div class="card card-w-title">
+			  <h3>Kategoria pagës</h3>
+				<div class="ui-g">
+				  <div class="ui-g-12">
+					<p:pieChart model="#{opDashboardBean.payCategoryPieModel}" style="width: 100%; height: 200px;"/>
+				  </div>
+				</div>
+			   </div>
+			</div>
+			</div>
+			
+			<div class="ui-g-12 ui-md-9">
+				<div class="card">
+					<div class="ui-g">
+					  <div class="ui-g-12 ui-fluid">
+						<p:panelGrid layout="grid" columns="4" styleClass="ui-panelgrid-blank" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4">
+							<p:outputLabel value="Nga data" styleClass="bold"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opDashboardBean.from}" placeholder="Nga data">
+								<p:ajax event="dateSelect" listener="#{opDashboardBean.onDateChange()}" update="@form"/>
+							</p:calendar>
+							<p:outputLabel value="Në datën" styleClass="bold"/>
+							<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opDashboardBean.to}" placeholder="Në datën">
+								<p:ajax event="dateSelect" listener="#{opDashboardBean.onDateChange()}" update="@form"/>
+							</p:calendar>
+						</p:panelGrid>
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.empLineModel}" style="width: 100%; height: 200px;"/>
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:barChart model="#{opDashboardBean.endJobReasonsBarModel}" style="width: 100%; height: 250px;"/>
+					  </div>
+					  
+					   <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.jobLeavingLineModel}" style="width: 100%; height: 200px;"/>
+					   </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.provisionLineModel}" style="width: 100%; height: 200px;"/>
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.validationLineModel}" style="width: 100%; height: 200px;"/>
+					  </div>
+					  
+					  <div class="ui-g-12">
+					  	<p:lineChart model="#{opDashboardBean.trainingLineModel}" style="width: 100%; height: 200px;"/>
+					  </div>
+					  
+					  
+					  
+					 
+					  
+				 	</div>
+				</div>
+			</div>
+			
+		</div>
+		</div>
+</h:form>
+
+</ui:composition>

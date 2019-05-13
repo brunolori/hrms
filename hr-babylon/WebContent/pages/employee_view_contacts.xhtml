@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+					<p:messages showDetail="true" closable="true" />
+			</div>
+			<div class="ui-g-12 ui-md-4">
+			
+				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
+					<p:outputLabel value="Tipi kontaktit"/>
+					<p:selectOneMenu value="#{opEmployeeViewBean.contactForm.contactTypeId}" autoWidth="false">
+						<f:selectItem itemValue="#{null}" itemLabel="Tipi kontaktit"/>
+						<f:selectItems value="#{cacheBean.contactTypes}" var="ct" itemValue="#{ct.id}" itemLabel="#{ct.tag}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Kontakti"/>
+					<p:inputText value="#{opEmployeeViewBean.contactForm.value}" placeholder="Kontakti"/>
+					
+					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveContact()}" 
+						rendered="#{opEmployeeViewBean.contactForm.id == null}" update="employee_view_form:tab_view:contact_tab"
+						icon="fa fa-save" styleClass="green-btn" >
+						<p:confirm header="Regjistro kontaktin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Modifiko" action="#{opEmployeeViewBean.modifyContact()}" 
+						rendered="#{opEmployeeViewBean.contactForm.id != null}" update="employee_view_form:tab_view:contact_tab"
+						icon="fa fa-edit" styleClass="green-btn" >
+						<p:confirm header="Ndrysho kontaktin" message="Jeni të sigurt?"/>
+					</p:commandButton>
+					<p:commandButton value="Anullo" action="#{opEmployeeViewBean.initContacts()}" 
+						             update="employee_view_form:tab_view:contact_tab"
+					                 icon="fa fa-refresh" styleClass="red-btn" >
+						<p:confirm header="Anullo ndryshimet" message="Jeni të sigurt?"/>
+					</p:commandButton>
+				</p:panelGrid>
+			
+			</div>
+			<div class="ui-g-12 ui-md-8">
+			
+				<p:dataTable value="#{opEmployeeViewBean.contacts}" var="c" rowIndexVar="r" reflow="true" styleClass="no-border"
+					rowStyleClass="#{c.id==opEmployeeViewBean.contactForm.id?'ui-state-hover':''}"
+				>
+					<p:column headerText="#" style="text-align: left;">
+						#{r+1}
+					</p:column>
+					<p:column headerText="Tipi Kontaktit" style="text-align: left;">
+						#{c.contactType.tag}
+					</p:column>
+					<p:column headerText="Kontakti" style="text-align: left;">
+					    #{c.value}
+					</p:column>
+					<p:column headerText="Veprime" >
+							<p:commandLink value="ndrysho" action="#{opEmployeeViewBean.onContactSelect(c)}" 
+							update="employee_view_form:tab_view:contact_tab" style="color:green; font-weight: bold"/> | 
+							<p:commandLink value="fshi" action="#{opEmployeeViewBean.deleteContact(c)}"
+							 update="employee_view_form:tab_view:contact_tab"
+							 style="color:#ff1300; font-weight: bold" >
+							    <p:confirm header="Fshijë kontaktin" message="Jeni të sigurt?"/>
+							 </p:commandLink>
+					</p:column>
+				</p:dataTable>
+			
+			</div>
+				
+				
+		</div>
+
+
+</ui:composition>

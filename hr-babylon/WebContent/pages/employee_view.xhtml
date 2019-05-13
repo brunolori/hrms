@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="employee_view_form">
+		<f:event type="preRenderComponent" listener="#{opEmployeeViewBean.init()}" />
+
+		<h:panelGroup layout="block" id="employee_data">
+
+
+		<div class="ui-g ">
+			<div class="ui-g-12">
+					<p:commandButton action="#{navBean.back()}" value="Mbrapa"
+						process="@this" update=":main" styleClass="green-btn"
+						icon="fa fa-arrow-left" />
+				</div>
+
+
+				<div class="ui-g-12 ui-fluid nopad">
+					<p:messages id="top_msg" showDetail="true" closable="true" />
+				</div>
+				
+				
+				<div class="ui-g-12 ui-fluid">
+				
+					<div class="card">					
+						<div class="ui-g">
+						
+						    <div class="ui-g-12 ui-md-2">
+						        <p:commandButton value="Rifresko nga NCR" styleClass="yellow-btn"
+						        action="#{opEmployeeViewBean.updateGeneralitiesFromNCR()}"
+						        update="employee_view_form:gen_panel employee_view_form:top_msg" icon="fa fa-refresh"
+						        >
+						        <p:confirm header="Rifresko nga NCR" message="Jeni të sigurt?"/>
+						        </p:commandButton>
+						        <br/>
+						    	<p:graphicImage value="#{photoBean.photo}" width="98%" style="margin-top: 10px"
+									            cache="false">
+									<f:param name="nid" value="#{opEmployeeViewBean.employee.nid}" />
+								</p:graphicImage>
+								<h2 style="text-align: center; font-weight: bold;">#{opEmployeeViewBean.employee.name} #{opEmployeeViewBean.employee.fatherName} #{opEmployeeViewBean.employee.surname}</h2>
+								
+								<ul>
+									<li><p:outputLabel value="#{opEmployeeViewBean.employee.departmentPosition.department.name}" style="text-align: center; font-weight: bold;"/></li>
+									<li><p:outputLabel value="#{opEmployeeViewBean.employee.departmentPosition.name}" style="color:#B8b8b8; text-align: center; font-weight: bold;"/></li>
+								</ul>
+								<h3 style="font-weight: bold;color: #{opEmployeeViewBean.employee.endDate==null?'green':'#ff1300'}">#{opEmployeeViewBean.employee.endDate==null?'AKTIV':'JO AKTIV'}</h3>
+						    </div>
+						    <div class="ui-g-12 ui-md-10">
+						    
+						    	<p:panelGrid id="gen_panel" layout="grid" columns="4" styleClass="ui-panelgrid-blank" >
+						    		<p:outputLabel value="Nr punonjësit" styleClass="bold"/>
+						    		<p:outputLabel value="Nr dosjes" styleClass="bold"/>
+						    		<p:outputLabel value="Data fillimit" styleClass="bold"/>
+						    		<p:outputLabel value="Data lirimit" styleClass="bold"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.employeeNo}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.dossierNo}" readonly="true"/>
+						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.startDate)}" readonly="true"/>
+						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.endDate)}" readonly="true"/>
+						    		
+						    		<p:outputLabel value="Departamenti" styleClass="bold"/>
+						    		<p:outputLabel value="Pozicioni" styleClass="bold"/>
+						    		<p:outputLabel value="Kategoria e pagës" styleClass="bold"/>
+						    		<p:outputLabel value="Arsyeja lirimit"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.department.name}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.departmentPosition.position.tag}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.paymentCategory.tag}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.endJobReason.tag}" readonly="true"/>
+						    		
+						    		
+						    		<p:outputLabel value="Emri" styleClass="bold"/> 
+						    		<p:outputLabel value="Atësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Mbiemri" styleClass="bold"/> 
+						    		<p:outputLabel value="NID" styleClass="bold"/> 
+						    		<p:inputText value="#{opEmployeeViewBean.employee.name}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.fatherName}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.surname}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.nid}" readonly="true"/>
+						    		
+						    		<p:outputLabel value="Datëlindja" styleClass="bold"/> 
+						    		<p:outputLabel value="Mëmësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Mbiemri tjetër" styleClass="bold"/>
+						    		<p:outputLabel value="Statusi civil" styleClass="bold"/> 
+						    		<p:inputText value="#{formatBean.formatDate(opEmployeeViewBean.employee.dob)}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.motherName}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.maidenName}" readonly="true"/>
+						    		<p:inputText value="#{formatBean.formatCivilStatus(opEmployeeViewBean.employee.civilStatus)}" readonly="true"/>
+
+						    		<p:outputLabel value="Gjinia" styleClass="bold"/> 
+						    		<p:outputLabel value="Vendlindja" styleClass="bold"/>
+						    		<p:outputLabel value="Kombësia" styleClass="bold"/> 
+						    		<p:outputLabel value="Shtetësia" styleClass="bold"/> 
+						    		<p:inputText value="#{opEmployeeViewBean.employee.gender}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.pob}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.nationality.name}" readonly="true"/>
+						    		<p:inputText value="#{opEmployeeViewBean.employee.citizenship.name}" readonly="true"/>
+						    		
+						    		
+						    	</p:panelGrid>
+						    
+						    </div>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+
+				<div class="ui-g-12 ui-fluid">
+
+					<p:tabView id="tab_view">
+						<p:tab title="Punësimi">
+							<h:panelGroup id="emp_tab" layout="block">
+								<ui:include src="employee_view_experiences.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Grada">
+							<h:panelGroup id="grade_tab" layout="block">
+								<ui:include src="employee_view_grades.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Performanca/Vlerësime">
+							<h:panelGroup id="validation_tab" layout="block">
+							    <ui:include src="employee_view_job_validations.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Masa disiplinore">
+							<h:panelGroup id="provision_tab" layout="block">
+								<ui:include src="employee_view_provisions.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Edukimi">
+							<h:panelGroup id="edu_tab" layout="block">
+								<ui:include src="employee_view_educations.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Kualifikimet/Trajnimet">
+							<h:panelGroup id="training_tab" layout="block">
+								<ui:include src="employee_view_qualifications.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Gjuhët e huaja">
+							<h:panelGroup id="language_tab" layout="block">
+								<ui:include src="employee_view_foreign_languages.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Dokumentet">
+							<h:panelGroup id="document_tab" layout="block">
+								<ui:include src="employee_view_documents.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Kontaktet">
+							<h:panelGroup id="contact_tab" layout="block">
+								<ui:include src="employee_view_contacts.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+						<p:tab title="Llogaria Bankare">
+							<h:panelGroup id="bank_tab" layout="block">
+								<ui:include src="employee_view_bank_accounts.xhtml" />
+							</h:panelGroup>
+						</p:tab>
+
+					</p:tabView>
+
+				</div>
+
+
+			</div>
+		
+		
+		
+         </h:panelGroup>
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,231 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" >
+
+<style>
+.ui-organigram .ui-organigram-node.division {
+	background: #93e7ff;
+	background: -moz-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: -webkit-linear-gradient(top, #93e7ff 0%, #007efc 100%);
+	background: linear-gradient(to bottom, #93e7ff 0%, #007efc 100%);
+}
+
+.ui-organigram .ui-organigram-node.employee {
+	background: #9ebee5 ;
+	background: -moz-linear-gradient(top, #9ebee5 0%, #9ebee5 100%);
+	background: -webkit-linear-gradient(top, #9ebee5 0%, #9ebee5 100%);
+	background: linear-gradient(to bottom, #9ebee5 0%, #9ebee5 100%);
+}
+</style>
+
+	<h:form id="organigrama_form">
+<p:growl showDetail="true">
+				     	<p:autoUpdate/>
+					</p:growl>
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="card card-w-title">
+					<h1>Organigrama e Ministrisë së Brendshme</h1>
+					<div class="ui-g">
+					
+						<div class="ui-g-12">
+							<p:organigram id="organigram" widgetVar="organigram"
+								value="#{opOrganigramBean.rootNode}" var="node"
+								leafNodeConnectorHeight="#{opOrganigramBean.leafNodeConnectorHeight}"
+								autoScrollToSelection="#{opOrganigramBean.autoScrollToSelection}"
+								zoom="#{opOrganigramBean.zoom}"
+								selection="#{opOrganigramBean.selection}">
+
+								<p:ajax event="select" process="@this" update="@form" />
+								<p:ajax event="contextmenu" process="@this" />
+								<p:ajax event="expand" process="@this" update="@form" />
+
+								<p:organigramNode>
+									<h:outputText value="#{node.data.display()}" escape="false"/>
+								</p:organigramNode>
+
+								<p:organigramNode type="root" style="border-radius: 10px;">
+									<p:graphicImage value="#{photoBean.photo}" width="50px">
+										<f:param name="nid" value="#{node.data.nid}" />
+									</p:graphicImage>
+									<br />
+									<h:outputText value="#{node.data.display()}" escape="false" />
+								</p:organigramNode>
+
+								<p:organigramNode type="division" skipLeafHandling="true"
+									styleClass="division" style="background:#{node.data.color==null?'#63a935':node.data.color};" >
+									<h:panelGroup layout="block" rendered="#{node.data.singlePosition}">
+										<p:graphicImage value="#{photoBean.photo}"  width="50px">
+											<f:param name="nid" value="#{node.data.nid}" />
+										</p:graphicImage>
+										<br/>
+									</h:panelGroup>
+									     <h:outputText value="#{node.data.display()}" escape="false" /><br/>
+								</p:organigramNode>
+
+								<p:organigramNode type="employee" styleClass="employee" >
+									<p:graphicImage value="#{photoBean.photo}" width="50px">
+										<f:param name="nid" value="#{node.data.nid}" />
+									</p:graphicImage><br/>
+									<h:outputText value="#{node.data.display()}" escape="false" />
+								</p:organigramNode>
+							</p:organigram>
+
+							<p:contextMenu for="organigram" nodeType="employee">
+								<p:menuitem value="Hiq punonjësin" update="organigram" action="#{opOrganigramBean.prepareRemoveEmployee()}" icon="fa fa-user-times" />
+								<p:menuitem value="Shto punonjës" update="organigram" action="#{opOrganigramBean.prepareAddEmployee()}" icon="fa fa-user-plus"/>
+								<p:menuitem value="Hiq pozicionin" update="organigram" action="#{opOrganigramBean.removePosition()}" icon="fa fa-minus"/>
+							</p:contextMenu>
+
+							<p:contextMenu for="organigram" nodeType="division">
+								<p:menuitem value="Shto pozicion" action="#{opOrganigramBean.prepareAddPosition()}" icon="fa fa-plus"
+							            	update=":add_position_dlg" oncomplete="PF('addPositionWid').show();" />
+								<p:menuitem value="Shiko listën" action="#{opOrganigramBean.listDepartmentPositions()}" icon="fa fa-eye"
+											update=":list_dept_pos_dlg" oncomplete="PF('listDeptPosWid').show();" />
+								<p:menuitem value="Shto departament" action="#{opOrganigramBean.prepareAddDepartment()}" icon="fa fa-plus"
+								            update=":add_dept_dlg" oncomplete="PF('addDeptWid').show();"  />
+								<p:menuitem value="Shfaq pozicionet në diagramë" action="#{opOrganigramBean.expandDepartmentPositions()}" icon="fa fa-list-alt"
+											update="@form" />
+								<p:menuitem value="Modifiko departamentin" icon="fa fa-pencil-square-o" />
+							</p:contextMenu>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+	
+	
+	<p:dialog id="add_dept_dlg" widgetVar="addDeptWid" header="Shto Departament" modal="true"
+	                   width="800" closeOnEscape="true" responsive="true">
+	
+		<h:form id="add_dept_frm">
+			
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+						<p:outputLabel value="Emri Departamentit"/>
+						<p:inputText id="dept_name" value="#{opOrganigramBean.departmentForm.name}"/>
+						<p:outputLabel value="Kategoria" />
+						<p:selectOneMenu value="#{opOrganigramBean.departmentForm.categoryId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Kategoria"/>
+							<f:selectItems value="#{cacheBean.departmentCategories}" var="dc" itemValue="#{dc.id}" itemLabel="#{dc.tag}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="Nr pozicioneve"/>
+						<p:inputText value="#{opOrganigramBean.departmentForm.positionsNo}"/>
+						<p:outputLabel value="Expanded(hapur)"/>
+						<p:selectBooleanCheckbox id="expanded" value="#{opOrganigramBean.departmentForm.expanded}"/>
+						<p:outputLabel value="Ngjyra"/>
+						<p:colorPicker value="#{opOrganigramBean.departmentForm.color}" mode="inline" />
+							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addDepartment()}"
+							                 update=":organigrama_form" oncomplete="PF('addDeptWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Regjistro departamentin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('addDeptWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+							</p:commandButton>
+							
+							
+					</p:panelGrid>
+				</div>
+
+			</div>
+						
+		</h:form>
+		
+	</p:dialog>
+	
+	
+	<p:dialog id="add_position_dlg" widgetVar="addPositionWid" modal="true"
+	 header="Shto Pozicion" width="500" closeOnEscape="true" responsive="true">
+	
+		<h:form id="add_position_frm">
+			
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+				    
+				    	<p:outputLabel value="Emri pozicionit"/>
+						<p:inputText value="#{opOrganigramBean.deptPositionForm.name}"/>
+						
+						<p:outputLabel value="Funksioni" />
+						<p:selectOneMenu value="#{opOrganigramBean.deptPositionForm.positionId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Funksioni"/>
+							<f:selectItems value="#{cacheBean.positions}" var="df" itemValue="#{df.id}" itemLabel="#{df.tag}"/>
+						</p:selectOneMenu>	
+						<p:outputLabel value="Kategoria pagës" />
+						<p:selectOneMenu value="#{opOrganigramBean.deptPositionForm.paymentCategoryId}" autoWidth="false">
+							<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
+							<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
+						</p:selectOneMenu>						
+						
+							
+							<p:commandButton value="Regjistro" action="#{opOrganigramBean.addPosition()}"
+							                 update=":organigrama_form" oncomplete="PF('addPositionWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Regjistro pozicionin" message="Jeni të sigurt?"/>
+							 </p:commandButton>
+							<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('addPositionWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+							</p:commandButton>
+							
+							
+					</p:panelGrid>
+				</div>
+
+			</div>
+						
+		</h:form>
+		
+	</p:dialog>
+	
+	
+	<p:dialog id="list_dept_pos_dlg" widgetVar="listDeptPosWid" modal="true"
+	 header="Lista e pozicioneve" width="800" closeOnEscape="true" responsive="true">
+		<h:form id="dept_persons_frm">
+		
+			<p:dataTable value="#{opOrganigramBean.departmentPositions}" var="dp" emptyMessage="Nuk ka persona"
+		                 rowIndexVar="r" rows="10" paginator="true" paginatorAlwaysVisible="false" 
+		                 rowsPerPageTemplate="5,10,15,20,50" styleClass="no-border">
+			<p:column headerText="#">
+				#{r+1}
+			</p:column>
+			<p:column headerText="Foto">
+			    <p:graphicImage value="#{photoBean.photo}"  width="50px">
+							<f:param name="nid" value="#{dp.currentEmployee.employee.nid}" />
+				</p:graphicImage>
+			</p:column>
+			<p:column headerText="Punonjësi">
+			 #{dp.currentEmployee.employee.name} #{dp.currentEmployee.employee.fatherName} #{dp.currentEmployee.employee.surname}
+			</p:column>
+			<p:column headerText="Departamenti">
+				#{dp.department.name}
+			</p:column>
+			<p:column headerText="Pozicioni">
+				#{dp.position.tag}
+			</p:column>
+			
+			
+			</p:dataTable>
+		
+		
+		</h:form>
+	</p:dialog>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</ui:composition>
