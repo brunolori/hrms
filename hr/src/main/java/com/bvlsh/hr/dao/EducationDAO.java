@@ -25,12 +25,17 @@ public class EducationDAO {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public List<Education> searchEducations(EducationSx sx) {
+	public List<Education> searchEducations(EducationSx sx, List<Integer> deptIds) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM Education ed WHERE ed.status=:st ";
-
 		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND ed.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
+
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
 			sql += "AND ed.employee.employeeNo like :emp_no ";

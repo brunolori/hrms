@@ -27,8 +27,8 @@ public class AdministrativeProvisionService {
 	@Autowired CrudDAO crudDAO;
 	@Autowired AdministrativeProvisionDAO provisionDAO;
 
-	public List<AdministrativeProvision> searchProvisions(AdministrativeProvisionSx sx, String uname) {
-		return provisionDAO.searchProvisions(sx);
+	public List<AdministrativeProvision> searchProvisions(AdministrativeProvisionSx sx, List<Integer> deptIds, String uname) {
+		return provisionDAO.searchProvisions(sx,deptIds);
 	}
 
 	

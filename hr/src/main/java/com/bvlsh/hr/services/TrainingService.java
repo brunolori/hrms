@@ -26,8 +26,8 @@ public class TrainingService {
 	@Autowired CrudDAO crudDAO;
 	@Autowired TrainingDAO trainingDAO;
 
-	public List<Training> searchTrainings(TrainingSx sx, String uname) {
-		return trainingDAO.searchTrainings(sx);
+	public List<Training> searchTrainings(TrainingSx sx, List<Integer> deptIds, String uname) {
+		return trainingDAO.searchTrainings(sx, deptIds);
 	}
 
 	

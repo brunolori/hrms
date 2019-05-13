@@ -26,9 +26,9 @@ public class BankService {
 	@Autowired BankDAO bankDAO;
 	
 	
-	public List<BankAccount> searchBankAccounts(BankAccountSx sx, String uname)
+	public List<BankAccount> searchBankAccounts(BankAccountSx sx, List<Integer> deptIds, String uname)
 	{
-		return bankDAO.searchBankAccounts(sx);
+		return bankDAO.searchBankAccounts(sx, deptIds);
 	}
 	
 	

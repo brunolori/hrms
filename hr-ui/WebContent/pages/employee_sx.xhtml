@@ -39,8 +39,9 @@
 									</p:selectOneMenu>
 									
 									
-									<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeSxBean.req.departmentId}" autoWidth="false">
-										<f:selectItem itemValue="#{null}" itemLabel="Departamenti" />
+									<p:selectOneMenu placeholder="Drejtoria" value="#{opEmployeeSxBean.req.departmentId}" autoWidth="false"
+									filterMatchMode="contains" filter="true">
+										<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 										<f:selectItems value="#{opEmployeeSxBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}" />								
 									</p:selectOneMenu>
 									<p:selectOneMenu placeholder="Pozicioni" value="#{opEmployeeSxBean.req.positionId}" autoWidth="false">

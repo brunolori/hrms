@@ -64,10 +64,11 @@
 								        	completeMethod="#{cacheBean.filterState}" var="nc"
 											itemLabel="#{nc}" itemValue="#{nc.code}" >
 								 </p:autoComplete>
-								<p:outputLabel value="Departamenti"/>
-								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeAddBean.departmentId}" autoWidth="false">
+								<p:outputLabel value="Drejtoria"/>
+								<p:selectOneMenu placeholder="Drejtoria" value="#{opEmployeeAddBean.departmentId}" autoWidth="false"
+								filterMatchMode="contains" filter="true">
 									<p:ajax listener="#{opEmployeeAddBean.onDepartmentSelect()}" update="position"/>
-									<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
+									<f:selectItem itemValue="#{null}" itemLabel="Drejtoria"/>
 									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="Pozicioni"/>

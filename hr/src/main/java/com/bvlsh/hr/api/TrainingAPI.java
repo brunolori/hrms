@@ -65,8 +65,9 @@ public class TrainingAPI {
 	public ResponseEntity<?> searchTrainings(@RequestHeader(value="Authorization") String token,@RequestBody TrainingSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<TrainingDTO> list = new Assembler().trainingListToDto(trainingService.searchTrainings(sx, uname));
+		List<TrainingDTO> list = new Assembler().trainingListToDto(trainingService.searchTrainings(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

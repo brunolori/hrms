@@ -1,15 +1,17 @@
 package com.bvlsh.hr.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.bvlsh.hr.assemblers.Assembler;
+import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.dao.CrudDAO;
+import com.bvlsh.hr.entities.Department;
+import com.bvlsh.hr.entities.Role;
 import com.bvlsh.hr.entities.User;
 import com.bvlsh.hr.exceptions.ValidationException;
 import com.bvlsh.hr.forms.PasswordForm;
+import com.bvlsh.hr.forms.UserForm;
 import com.bvlsh.hr.models.Principal;
 import com.bvlsh.hr.models.UserToken;
 import com.bvlsh.hr.utils.StringUtil;
@@ -87,6 +89,84 @@ public class UserService {
 		
 		
 	}
+	
+	@Transactional
+	public User registerUser(UserForm form, String uname) {
+
+		if(!StringUtil.isValid(form.getUsername()))
+		{
+			throw new ValidationException("Plotësoni Username!");
+		}
+		if(!StringUtil.isValid(form.getSecret()))
+		{
+			throw new ValidationException("Plotësoni Passwordin!");
+		}
+		
+		if(form.getRootDepartmentId() == null)
+		{
+			throw new ValidationException("Zgjidhni drejtorine përkatëse");
+		}
+		
+		if(form.getRoleCode() == null)
+		{
+			throw new ValidationException("Zgjidhni rolin përkatëse");
+		}
+	
+	
+		User u = new User();
+        u.setUsername(form.getUsername());
+        u.setSecret(form.getSecret());
+		u.setStatus(IStatus.ACTIVE);
+		if(form.getRootDepartmentId() != null)
+		{
+			u.setRootDepartment(crudDAO.findById(Department.class, form.getRootDepartmentId()));
+		}
+		
+		u.setRole(crudDAO.findById(Role.class, form.getRoleCode()));
+		
+		return crudDAO.create(u);
+	
+	}
+	
+	@Transactional
+	public User modifyUser(UserForm form, String uname) {
+
+		if(!StringUtil.isValid(form.getUsername()))
+		{
+			throw new ValidationException("Plotësoni Username!");
+		}
+		if(!StringUtil.isValid(form.getSecret()))
+		{
+			throw new ValidationException("Plotësoni Passwordin!");
+		}
+		
+		if(form.getRootDepartmentId() == null)
+		{
+			throw new ValidationException("Zgjidhni drejtorine përkatëse");
+		}
+		
+		if(form.getRoleCode() == null)
+		{
+			throw new ValidationException("Zgjidhni rolin përkatëse");
+		}
+	
+	
+		User u = new User();
+        u.setUsername(form.getUsername());
+        u.setSecret(form.getSecret());
+		u.setStatus(IStatus.ACTIVE);
+		if(form.getRootDepartmentId() != null)
+		{
+			u.setRootDepartment(crudDAO.findById(Department.class, form.getRootDepartmentId()));
+		}
+		
+		u.setRole(crudDAO.findById(Role.class, form.getRoleCode()));
+		
+		return crudDAO.update(u);
+	
+	}
+	
+	
 	
 	
 }

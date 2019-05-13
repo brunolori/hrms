@@ -25,10 +25,16 @@ public class GradeDAO {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public List<EmployeeGrade> searchGrades(GradeSx sx) {
+	public List<EmployeeGrade> searchGrades(GradeSx sx, List<Integer> deptIds) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM EmployeeGrade g WHERE g.status=:st ";
+		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND g.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{

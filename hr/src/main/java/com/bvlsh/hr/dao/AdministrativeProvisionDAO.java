@@ -24,11 +24,17 @@ public class AdministrativeProvisionDAO {
 	EntityManager em;
 
 	@SuppressWarnings("rawtypes")
-	public List<AdministrativeProvision> searchProvisions(AdministrativeProvisionSx sx) {
+	public List<AdministrativeProvision> searchProvisions(AdministrativeProvisionSx sx, List<Integer> deptIds) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM AdministrativeProvision ap WHERE ap.status=:st ";
 
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND ap.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
+		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
 			sql += "AND ap.employee.employeeNo like :emp_no ";

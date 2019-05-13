@@ -15,83 +15,87 @@ public class StatisticService {
 	@Autowired StatisticDAO stsDAO;
 	
 	
-	public Long departmentsCount()
+	public Long departmentsCount(List<Integer> deptIds)
 	{
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			return new Long(deptIds.size());
+		}
 		return stsDAO.departmentsCount();
 	}
 	
-	public Long positionsCount()
+	public Long positionsCount(List<Integer> deptIds)
 	{
-		return stsDAO.positionsCount();
+		return stsDAO.positionsCount(deptIds);
 	}
 	
-	public Long freePositionsCount()
+	public Long freePositionsCount(List<Integer> deptIds)
 	{
-		return stsDAO.freePositionsCount();
+		return stsDAO.freePositionsCount(deptIds);
 	}
 	
-	public Long employeesCount()
+	public Long employeesCount(List<Integer> deptIds)
 	{
-		return stsDAO.employeesCount();
+		return stsDAO.employeesCount(deptIds);
 	}
 	
-	public Long employeesCountByGender(String gender)
+	public Long employeesCountByGender(String gender, List<Integer> deptIds)
 	{
-		return stsDAO.employeesCountByGender(gender);
-	}
-	
-	
-	
-	public List<KeyValue> employeesByStudyField()
-	{
-		return stsDAO.employeesByStudyField();
-	}
-	
-	public List<KeyValue> employeesByGrade()
-	{
-		return stsDAO.employeesByGrade();
+		return stsDAO.employeesCountByGender(gender, deptIds);
 	}
 	
 	
-	public List<KeyValue> employeesByForeignLanguage()
+	
+	public List<KeyValue> employeesByStudyField(List<Integer> deptIds)
 	{
-		return stsDAO.employeesByForeignLanguage();
+		return stsDAO.employeesByStudyField(deptIds);
 	}
 	
-	public List<KeyValue> employeesByPaymentCategory()
+	public List<KeyValue> employeesByGrade(List<Integer> deptIds)
 	{
-		return stsDAO.employeesByPaymentCategory();
+		return stsDAO.employeesByGrade(deptIds);
 	}
 	
 	
-	public List<KeyValue> employeesByJobEndingReason(Date from, Date to)
+	public List<KeyValue> employeesByForeignLanguage(List<Integer> deptIds)
 	{
-		return stsDAO.employeesByJobEndingReason(from, to);
+		return stsDAO.employeesByForeignLanguage(deptIds);
 	}
 	
-	public List<KeyValue> employmentsByPeriod(Date from, Date to)
+	public List<KeyValue> employeesByPaymentCategory(List<Integer> deptIds)
 	{
-		return stsDAO.employmentsByPeriod(from, to);
+		return stsDAO.employeesByPaymentCategory(deptIds);
 	}
 	
-	public List<KeyValue> jobEndingsByPeriod(Date from, Date to)
+	
+	public List<KeyValue> employeesByJobEndingReason(Date from, Date to, List<Integer> deptIds)
 	{
-		return stsDAO.jobEndingsByPeriod(from, to);
+		return stsDAO.employeesByJobEndingReason(from, to, deptIds);
 	}
 	
-	public List<KeyValue> provisionsByPeriod(Date from, Date to)
+	public List<KeyValue> employmentsByPeriod(Date from, Date to, List<Integer> deptIds)
 	{
-		return stsDAO.provisionsByPeriod(from, to);
+		return stsDAO.employmentsByPeriod(from, to, deptIds);
 	}
 	
-	public List<KeyValue> validationsByPeriod(Date from, Date to)
+	public List<KeyValue> jobEndingsByPeriod(Date from, Date to, List<Integer> deptIds)
 	{
-		return stsDAO.validationsByPeriod(from, to);
+		return stsDAO.jobEndingsByPeriod(from, to, deptIds);
 	}
 	
-	public List<KeyValue> trainingsByPeriod(Date from, Date to)
+	public List<KeyValue> provisionsByPeriod(Date from, Date to, List<Integer> deptIds)
 	{
-		return stsDAO.trainingsByPeriod(from, to);
+		return stsDAO.provisionsByPeriod(from, to, deptIds);
+	}
+	
+	public List<KeyValue> validationsByPeriod(Date from, Date to, List<Integer> deptIds)
+	{
+		return stsDAO.validationsByPeriod(from, to, deptIds);
+	}
+	
+	public List<KeyValue> trainingsByPeriod(Date from, Date to, List<Integer> deptIds)
+	{
+		return stsDAO.trainingsByPeriod(from, to, deptIds);
 	}
 
 }

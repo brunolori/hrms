@@ -65,8 +65,9 @@ public class GradeAPI {
 	public ResponseEntity<?> searchGrades(@RequestHeader(value="Authorization") String token,@RequestBody GradeSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<EmployeeGradeDTO> list = new Assembler().employeeGradeListToDto(gradeService.searchGrades(sx, uname));
+		List<EmployeeGradeDTO> list = new Assembler().employeeGradeListToDto(gradeService.searchGrades(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

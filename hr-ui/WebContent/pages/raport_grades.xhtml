@@ -25,7 +25,8 @@
 											<f:selectItem itemValue="F" itemLabel="Femër" />
 										</p:selectOneMenu>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}" autoWidth="false">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapGradeBean.req.departmentId}" autoWidth="false" 
+										filterMatchMode="contains" filter="true">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapGradeBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>

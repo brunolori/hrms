@@ -25,11 +25,17 @@ public class BankDAO {
 	EntityManager em;
 	
 	@SuppressWarnings("rawtypes")
-	public List<BankAccount> searchBankAccounts(BankAccountSx sx)
+	public List<BankAccount> searchBankAccounts(BankAccountSx sx, List<Integer> deptIds)
 	{
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM BankAccount ba WHERE ba.status=:st ";
 
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND ba.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
+		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{
 			sql += "AND ba.employee.employeeNo like :emp_no ";

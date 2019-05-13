@@ -25,10 +25,16 @@ public class JobValidationDAO {
 	EntityManager em;
 
 	@SuppressWarnings("rawtypes")
-	public List<JobValidation> searchJobValidations(JobValidationSx sx) {
+	public List<JobValidation> searchJobValidations(JobValidationSx sx, List<Integer> deptIds) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM JobValidation jv WHERE jv.status=:st ";
+		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND jv.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{

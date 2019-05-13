@@ -979,7 +979,7 @@ public class Assembler {
 		dto.setUsername(e.getUsername());
 		dto.setSecret(e.getSecret());
 		dto.setRole(toDto(e.getRole()));
-		dto.setEmployee(toDto(e.getEmployee()));
+		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
 		
 		return dto;
 		

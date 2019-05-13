@@ -4,11 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.entities.User;
 import com.bvlsh.hr.exceptions.InvalidTokenException;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
@@ -68,21 +68,25 @@ public class TokenUtil {
 		cal.add(Calendar.HOUR, 4);
 		Date expired = cal.getTime();
 		
-		String jws = Jwts.builder()
+		JwtBuilder builder = Jwts.builder()
 				  .setIssuer("HRMS")
 				  .setSubject(user.getUsername())
-				  .claim("role", user.getRole().getCode())
-				  .claim("deptIds", deptIds)
-				  .claim("limited",(user.getLimitedUser() != null && user.getLimitedUser()==IStatus.ACTIVE))
-				  .setIssuedAt(issued)
-			      .setExpiration(expired)
-				  .signWith(
-				    SignatureAlgorithm.HS256,
-				    TextCodec.BASE64.decode(SecurityConstants.SECRET)
-				  )
-				  .compact();
+				  .claim("role", user.getRole().getCode());
 		
-		return jws;
+		if(user.getRootDepartment() != null)
+		{
+			builder.claim("deptIds", deptIds)
+			        .claim("limited",true);
+		}
+		
+		builder.setIssuedAt(issued)
+	      .setExpiration(expired)
+		  .signWith(
+		    SignatureAlgorithm.HS256,
+		    TextCodec.BASE64.decode(SecurityConstants.SECRET)
+		  );
+				
+		return builder.compact();
 	}
 	
 }

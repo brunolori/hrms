@@ -20,7 +20,8 @@
 										<p:inputText placeholder="Emri" value="#{opRapProvisionBean.req.name}"/>
 										<p:inputText placeholder="Mbiemri" value="#{opRapProvisionBean.req.surname}"/>
 										
-										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapProvisionBean.req.departmentId}" autoWidth="false">
+										<p:selectOneMenu placeholder="Drejtoria" value="#{opRapProvisionBean.req.departmentId}" autoWidth="false" 
+										filterMatchMode="contains" filter="true">
 											<f:selectItem itemValue="#{null}" itemLabel="Drejtoria" />
 											<f:selectItems value="#{opRapProvisionBean.departments}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 										</p:selectOneMenu>

@@ -25,6 +25,9 @@ public class TokenService {
 		return TokenUtil.getUsername(token);
 	}
 	
-	
+	public List<Integer> getDeptIds(String token)
+	{
+		return TokenUtil.getDeptIds(token);
+	}
 
 }

@@ -21,6 +21,7 @@ import com.bvlsh.hr.ui.dto.ValidationTypeDTO;
 import com.bvlsh.hr.ui.dto.PaymentCategoryDTO;
 import com.bvlsh.hr.ui.dto.PositionDTO;
 import com.bvlsh.hr.ui.dto.ProvisionTypeDTO;
+import com.bvlsh.hr.ui.dto.RoleDTO;
 import com.bvlsh.hr.ui.dto.StateDTO;
 import com.bvlsh.hr.ui.dto.StudyFieldDTO;
 import com.bvlsh.hr.ui.dto.TrainingTypeDTO;
@@ -57,6 +58,7 @@ public class CacheBean implements Serializable {
 	List<DepartmentCategoryDTO> departmentCategories;
 	List<GradeDTO> grades;
 	List<JobEndingReasonDTO> jobEndingReasons;
+	List<RoleDTO> roles;
 	
 	
 	@PostConstruct
@@ -77,6 +79,7 @@ public class CacheBean implements Serializable {
 		this.states = new HelperService().loadStates();
 		this.grades = new HelperService().loadGrades();
 		this.jobEndingReasons = new HelperService().loadJobEndingReasons();
+		this.roles = new HelperService().loadRoles();
 		
 	}
 	

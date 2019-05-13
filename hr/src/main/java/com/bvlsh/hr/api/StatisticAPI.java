@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bvlsh.hr.models.KeyValue;
 import com.bvlsh.hr.services.StatisticService;
+import com.bvlsh.hr.services.TokenService;
 import com.bvlsh.hr.utils.DateUtil;
 
 @RestController
@@ -21,14 +22,15 @@ import com.bvlsh.hr.utils.DateUtil;
 public class StatisticAPI {
 	
 	@Autowired StatisticService statisticService;
-	
+	@Autowired TokenService tokenService;
 	
 	@RequestMapping(value="/departmentsCount", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> departmentsCount(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		Long cnt = statisticService.departmentsCount();
+		Long cnt = statisticService.departmentsCount(deptIds);
 	    return new ResponseEntity<>(cnt,HttpStatus.OK);
 		
 	}
@@ -36,9 +38,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/positionsCount", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> positionsCount(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		Long cnt = statisticService.positionsCount();
+		Long cnt = statisticService.positionsCount(deptIds);
 	    return new ResponseEntity<>(cnt,HttpStatus.OK);
 		
 	}
@@ -46,9 +48,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/freePositionsCount", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> freePositionsCount(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		Long cnt = statisticService.freePositionsCount();
+		Long cnt = statisticService.freePositionsCount(deptIds);
 	    return new ResponseEntity<>(cnt,HttpStatus.OK);
 		
 	}
@@ -56,9 +58,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesCount", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesCount(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		Long cnt = statisticService.employeesCount();
+		Long cnt = statisticService.employeesCount(deptIds);
 	    return new ResponseEntity<>(cnt,HttpStatus.OK);
 		
 	}
@@ -66,9 +68,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesCountByGender/{gender}", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesCountByGender(@RequestHeader(value="Authorization") String token, @PathVariable String gender)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		Long cnt = statisticService.employeesCountByGender(gender);
+		Long cnt = statisticService.employeesCountByGender(gender, deptIds);
 	    return new ResponseEntity<>(cnt,HttpStatus.OK);
 		
 	}
@@ -77,9 +79,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesByStudyField", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesByStudyField(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<KeyValue> list = statisticService.employeesByStudyField();
+		List<KeyValue> list = statisticService.employeesByStudyField(deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -92,9 +94,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesByGrade", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesByGrade(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<KeyValue> list = statisticService.employeesByGrade();
+		List<KeyValue> list = statisticService.employeesByGrade(deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -106,9 +108,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesByForeignLanguage", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesByForeignLanguage(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<KeyValue> list = statisticService.employeesByForeignLanguage();
+		List<KeyValue> list = statisticService.employeesByForeignLanguage(deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -120,9 +122,9 @@ public class StatisticAPI {
 	@RequestMapping(value="/employeesByPaymentCategory", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> employeesByPaymentCategory(@RequestHeader(value="Authorization") String token)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<KeyValue> list = statisticService.employeesByPaymentCategory();
+		List<KeyValue> list = statisticService.employeesByPaymentCategory(deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -135,12 +137,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> employeesByJobEndingReason(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.employeesByJobEndingReason(from, to);
+		List<KeyValue> list = statisticService.employeesByJobEndingReason(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -153,12 +155,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> employmentsByPeriod(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.employmentsByPeriod(from, to);
+		List<KeyValue> list = statisticService.employmentsByPeriod(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -171,12 +173,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> jobEndingsByPeriod(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.jobEndingsByPeriod(from, to);
+		List<KeyValue> list = statisticService.jobEndingsByPeriod(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -190,12 +192,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> provisionsByPeriod(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.provisionsByPeriod(from, to);
+		List<KeyValue> list = statisticService.provisionsByPeriod(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -208,12 +210,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> validationsByPeriod(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.validationsByPeriod(from, to);
+		List<KeyValue> list = statisticService.validationsByPeriod(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
@@ -227,12 +229,12 @@ public class StatisticAPI {
 	public ResponseEntity<?> trainingsByPeriod(@RequestHeader(value="Authorization") String token,
 			@RequestParam(name = "from") String fromDate,@RequestParam(name = "to") String toDate)
 	{
-		//String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
 		Date from = DateUtil.formatReverseStringToDate(fromDate);
 		Date to = DateUtil.formatReverseStringToDate(toDate);
 		
-		List<KeyValue> list = statisticService.trainingsByPeriod(from, to);
+		List<KeyValue> list = statisticService.trainingsByPeriod(from, to, deptIds);
 		if(list == null || list.isEmpty())
 		{
 			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);

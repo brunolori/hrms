@@ -20,8 +20,9 @@ public class UserDTO implements Serializable {
   
     private String username;
     private String secret;
-    private EmployeeHistoryDTO employee;
+    private boolean status;
     private RoleDTO role;
+    private DepartmentDTO rootDepartment;
 
    
 }

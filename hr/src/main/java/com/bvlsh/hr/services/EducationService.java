@@ -28,8 +28,8 @@ public class EducationService {
 	@Autowired EducationDAO educationDAO;
 
 	
-	public List<Education> searchEducations(EducationSx sx, String uname) {
-		return educationDAO.searchEducations(sx);
+	public List<Education> searchEducations(EducationSx sx, List<Integer>deptIds, String uname) {
+		return educationDAO.searchEducations(sx, deptIds);
 	}
 
 	@Transactional

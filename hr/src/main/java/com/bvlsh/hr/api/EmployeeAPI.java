@@ -75,8 +75,9 @@ public class EmployeeAPI {
 	public ResponseEntity<?> searchEmployee(@RequestHeader(value="Authorization") String token,@RequestBody EmployeeSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<EmployeeDTO> list = new Assembler().employeeListToDto(employeeService.searchEmployee(sx, uname));
+		List<EmployeeDTO> list = new Assembler().employeeListToDto(employeeService.searchEmployee(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

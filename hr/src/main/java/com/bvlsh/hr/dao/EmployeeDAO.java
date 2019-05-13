@@ -46,13 +46,18 @@ public class EmployeeDAO {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List<Employee> searchEmployee(EmployeeSx sx) {
+	public List<Employee> searchEmployee(EmployeeSx sx, List<Integer> deptIds) {
 
 		
 		
 		HashMap<String,Object> params = new HashMap<>();
 		String sql = "FROM Employee e WHERE 1=1 ";
 		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND e.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
 		
 		if(StringUtil.isValid(sx.getCivilStatus()))
 		{

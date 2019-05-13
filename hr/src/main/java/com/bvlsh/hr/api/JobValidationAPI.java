@@ -65,8 +65,9 @@ public class JobValidationAPI {
 	public ResponseEntity<?> searchJobValidations(@RequestHeader(value="Authorization") String token,@RequestBody JobValidationSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<JobValidationDTO> list = new Assembler().jobValidationListToDto(jobValidationService.searchJobValidations(sx, uname));
+		List<JobValidationDTO> list = new Assembler().jobValidationListToDto(jobValidationService.searchJobValidations(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

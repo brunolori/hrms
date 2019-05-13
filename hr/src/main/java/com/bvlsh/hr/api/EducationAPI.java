@@ -64,11 +64,12 @@ public class EducationAPI {
 		
 		
 		@RequestMapping(value="/searchEducations", method=RequestMethod.POST, produces={"application/json"})
-		public ResponseEntity<?> searchEducations(@RequestHeader(value="Authorization") String token,@RequestBody EducationSx sx)
+		public ResponseEntity<?> searchEducations(@RequestHeader(value="Authorization") String token, @RequestBody EducationSx sx)
 		{
 			String uname = tokenService.getUsername(token);
+			List<Integer> deptIds = tokenService.getDeptIds(token);
 					
-			List<EducationDTO> list = new Assembler().educationListToDto(educationService.searchEducations(sx, uname));
+			List<EducationDTO> list = new Assembler().educationListToDto(educationService.searchEducations(sx, deptIds, uname));
 			
 			if(list == null || list.isEmpty())
 			{

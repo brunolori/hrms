@@ -20,7 +20,8 @@
 						<f:selectItems value="#{cacheBean.educationTypes}" var="et" itemValue="#{et.id}" itemLabel="#{et.tag}"/>
 					</p:selectOneMenu>
 					<p:outputLabel value="Institucioni"/>
-					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.institutionId}" autoWidth="false">
+					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.institutionId}" autoWidth="false"
+					filterMatchMode="contains" filter="true">
 						<f:selectItem itemValue="#{null}" itemLabel="Institucioni"/>
 						<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
 					</p:selectOneMenu>

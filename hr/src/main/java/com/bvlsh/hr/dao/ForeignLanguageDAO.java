@@ -22,12 +22,16 @@ public class ForeignLanguageDAO {
 	EntityManager em;
 	
 	@SuppressWarnings("rawtypes")
-	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx) {
+	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx, List<Integer> deptIds) {
 
 		HashMap<String,Object> params = new HashMap<>();
 		String sql = "FROM EmployeeForeignLanguage efl WHERE efl.status=:st ";
 		
-		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND efl.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
 
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{

@@ -25,9 +25,9 @@ public class ForeignLanguageService {
 	@Autowired CrudDAO crudDAO;
 	@Autowired ForeignLanguageDAO foreignLanguageDAO;
 
-	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx, String uname) {
+	public List<EmployeeForeignLanguage> searchForeignLanguages(ForeignLanguageSx sx, List<Integer> deptIds, String uname) {
 
-		return foreignLanguageDAO.searchForeignLanguages(sx);
+		return foreignLanguageDAO.searchForeignLanguages(sx, deptIds);
 
 	}
 

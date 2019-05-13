@@ -66,8 +66,9 @@ public class BankAPI {
 	public ResponseEntity<?> searchBankAccounts(@RequestHeader(value="Authorization") String token,@RequestBody BankAccountSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<BankAccountDTO> list = new Assembler().bankAccountListToDto(bankService.searchBankAccounts(sx, uname));
+		List<BankAccountDTO> list = new Assembler().bankAccountListToDto(bankService.searchBankAccounts(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

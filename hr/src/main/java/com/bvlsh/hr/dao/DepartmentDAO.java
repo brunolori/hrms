@@ -50,7 +50,16 @@ public class DepartmentDAO {
 				.getResultList();
 	}
 
-	public List<Department> listDepartments() {
+	public List<Department> listDepartments(List<Integer> deptIds) {
+		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			return em.createQuery("FROM Department d WHERE d.status=:st AND d.id IN :deptIds ORDER BY d.name")
+					.setParameter("st", IStatus.ACTIVE)
+					.setParameter("deptIds", deptIds)
+					.getResultList();
+		}
+		
 		return em.createQuery("FROM Department d WHERE d.status=:st ORDER BY d.name")
 				.setParameter("st", IStatus.ACTIVE)
 				.getResultList();

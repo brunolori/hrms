@@ -475,9 +475,9 @@ public class EmployeeService {
 		
 	}
 	
-	public List<Employee> searchEmployee(EmployeeSx sx, String uname)
+	public List<Employee> searchEmployee(EmployeeSx sx, List<Integer> deptIds, String uname)
 	{
-		return employeeDAO.searchEmployee(sx);
+		return employeeDAO.searchEmployee(sx, deptIds);
 	}
 	
 	public List<EmployeeHistory> getEmployeeHistory(String nid, String uname)

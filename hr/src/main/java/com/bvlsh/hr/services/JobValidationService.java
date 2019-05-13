@@ -26,8 +26,8 @@ public class JobValidationService {
 	@Autowired JobValidationDAO jobValidationDAO;
 	
 	
-	public List<JobValidation> searchJobValidations(JobValidationSx sx, String uname) {
-		return jobValidationDAO.searchJobValidations(sx);
+	public List<JobValidation> searchJobValidations(JobValidationSx sx, List<Integer> deptIds, String uname) {
+		return jobValidationDAO.searchJobValidations(sx, deptIds);
 	}
 	
 	@Transactional

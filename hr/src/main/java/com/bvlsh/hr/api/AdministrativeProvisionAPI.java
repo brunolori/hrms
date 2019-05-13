@@ -64,8 +64,9 @@ public class AdministrativeProvisionAPI {
 	public ResponseEntity<?> searchProvisions(@RequestHeader(value="Authorization") String token,@RequestBody AdministrativeProvisionSx sx)
 	{
 		String uname = tokenService.getUsername(token);
-				
-		List<AdministrativeProvisionDTO> list = new Assembler().administrativePositionListToDto(provisionService.searchProvisions(sx, uname));
+		List<Integer> deptIds = tokenService.getDeptIds(token);
+		
+		List<AdministrativeProvisionDTO> list = new Assembler().administrativePositionListToDto(provisionService.searchProvisions(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

@@ -33,9 +33,9 @@ public class DepartmentAPI {
 	@RequestMapping(value="/getRootDepartment", method=RequestMethod.GET, produces={"application/json"})
 	public ResponseEntity<?> getRootDepartment(@RequestHeader(value="Authorization") String token)
 	{
-		tokenService.getUsername(token);
+		String uname = tokenService.getUsername(token);
 		
-		DepartmentDTO d = new Assembler().toDto(departmentService.getRootDepartment());
+		DepartmentDTO d = new Assembler().toDto(departmentService.getRootDepartment(uname));
 				
 		return new ResponseEntity<>(d,HttpStatus.OK);
 		
@@ -56,8 +56,9 @@ public class DepartmentAPI {
 	public ResponseEntity<?> listDepartments(@RequestHeader(value="Authorization") String token)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 		
-		List<DepartmentDTO> list = new Assembler().departmentListToDto(departmentService.listDepartments(uname));
+		List<DepartmentDTO> list = new Assembler().departmentListToDto(departmentService.listDepartments(uname, deptIds));
 		
 		if(list == null || list.isEmpty())
 		{

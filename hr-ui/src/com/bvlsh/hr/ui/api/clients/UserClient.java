@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.bvlsh.hr.ui.api.security.ApiErrorHandler;
 import com.bvlsh.hr.ui.constants.IApiClient;
 import com.bvlsh.hr.ui.forms.PasswordForm;
+import com.bvlsh.hr.ui.forms.UserForm;
 import com.bvlsh.hr.ui.models.Principal;
 import com.bvlsh.hr.ui.dto.UserDTO;
 import com.bvlsh.hr.ui.models.UserToken;
@@ -68,52 +69,48 @@ public class UserClient {
 	
 	
 	
-	public UserDTO registerUser(UserDTO dto)
+	public UserDTO registerUser(UserForm form)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/user/register";
-	    
+		final String BASE_URL = IApiClient.SERVER + "/api/user/registerUser";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setErrorHandler(new ApiErrorHandler());
-		
 		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-		headers.set("Authorization", "Bearer "+Util.getToken());
-		HttpEntity<?> entity = new HttpEntity<UserDTO>(dto,headers);
-		
-		ResponseEntity<UserDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, UserDTO.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-		{
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+
+		ResponseEntity<UserDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity,
+				UserDTO.class);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}				
-		
+		}
+
 		return null;
 	}
 	
 	
-	public UserDTO modifyUser(UserDTO dto)
+	public UserDTO modifyUser(UserForm form)
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/user/modify";
-	    
+		final String BASE_URL = IApiClient.SERVER + "/api/user/modifyUser";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setErrorHandler(new ApiErrorHandler());
-		
 		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-		headers.set("Authorization", "Bearer "+Util.getToken());
-		HttpEntity<?> entity = new HttpEntity<UserDTO>(dto,headers);
-		
-		ResponseEntity<UserDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, UserDTO.class);
-		
-		if(response.getStatusCode() == HttpStatus.OK)
-		{
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+
+		ResponseEntity<UserDTO> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity,
+				UserDTO.class);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
-		}				
-		
+		}
+
 		return null;
 	}
 	

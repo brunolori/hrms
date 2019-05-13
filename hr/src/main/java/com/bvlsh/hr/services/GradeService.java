@@ -24,8 +24,8 @@ public class GradeService {
 	@Autowired CrudDAO crudDAO;
 	@Autowired GradeDAO gradeDAO;
 	
-	public List<EmployeeGrade> searchGrades(GradeSx sx, String uname) {
-		return gradeDAO.searchGrades(sx);
+	public List<EmployeeGrade> searchGrades(GradeSx sx, List<Integer> deptIds, String uname) {
+		return gradeDAO.searchGrades(sx, deptIds);
 	}
 	
 	@Transactional

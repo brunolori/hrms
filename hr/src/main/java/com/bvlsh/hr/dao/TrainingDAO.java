@@ -24,10 +24,16 @@ public class TrainingDAO {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public List<Training> searchTrainings(TrainingSx sx) {
+	public List<Training> searchTrainings(TrainingSx sx, List<Integer> deptIds) {
 
 		HashMap<String, Object> params = new HashMap<>();
 		String sql = "FROM Training t WHERE t.status=:st ";
+		
+		if(deptIds != null && !deptIds.isEmpty())
+		{
+			sql += "AND t.employee.departmentPosition.department.id IN :deptIds ";
+			params.put("deptIds", deptIds);
+		}
 
 		if(StringUtil.isValid(sx.getEmployeeNo()))
 		{

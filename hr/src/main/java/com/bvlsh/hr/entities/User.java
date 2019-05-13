@@ -48,6 +48,8 @@ public class User implements Serializable {
     @JoinColumn(name = "ROLE_CODE", referencedColumnName = "CODE")
     @ManyToOne
     private Role role;
+    @Column(name = "STATUS")
+    private Integer status;
 
    
 }

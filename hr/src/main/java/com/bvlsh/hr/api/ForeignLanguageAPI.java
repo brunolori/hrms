@@ -65,8 +65,9 @@ public class ForeignLanguageAPI {
 	public ResponseEntity<?> searchForeignLanguages(@RequestHeader(value="Authorization") String token,@RequestBody ForeignLanguageSx sx)
 	{
 		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
 				
-		List<EmployeeForeignLanguageDTO> list = new Assembler().employeeForeignLanguageListToDto(foreignLanguageService.searchForeignLanguages(sx, uname));
+		List<EmployeeForeignLanguageDTO> list = new Assembler().employeeForeignLanguageListToDto(foreignLanguageService.searchForeignLanguages(sx, deptIds, uname));
 		
 		if(list == null || list.isEmpty())
 		{

@@ -16,6 +16,7 @@ import com.bvlsh.hr.entities.DepartmentCategory;
 import com.bvlsh.hr.entities.DepartmentPosition;
 import com.bvlsh.hr.entities.PaymentCategory;
 import com.bvlsh.hr.entities.Position;
+import com.bvlsh.hr.entities.User;
 import com.bvlsh.hr.exceptions.ValidationException;
 import com.bvlsh.hr.forms.DepartmentForm;
 import com.bvlsh.hr.forms.DepartmentPositionForm;
@@ -34,12 +35,17 @@ public class DepartmentService {
 		return crudDAO.findById(Department.class, id);
 	}
 	
-	public List<Department> listDepartments(String uname) {
-		return departmentDAO.listDepartments();
+	public List<Department> listDepartments(String uname, List<Integer> deptIds) {
+		return departmentDAO.listDepartments(deptIds);
 	}
 	
-	public Department getRootDepartment() // duhet vene useri
+	public Department getRootDepartment(String uname)
 	{
+		User u = crudDAO.findById(User.class, uname);
+		if(u.getRootDepartment() != null) 
+		{
+			return u.getRootDepartment();
+		}
 		return departmentDAO.getRootDepartment();
 	}
 	
