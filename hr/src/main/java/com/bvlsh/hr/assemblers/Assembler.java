@@ -980,7 +980,10 @@ public class Assembler {
 		dto.setSecret(e.getSecret());
 		dto.setRole(toDto(e.getRole()));
 		dto.setStatus((e.getStatus() != null) && (e.getStatus() == IStatus.ACTIVE));
-		
+		if(e.getRootDepartment() != null)
+		{
+		   dto.setRootDepartment(toDto(e.getRootDepartment()));
+		}
 		return dto;
 		
 	}

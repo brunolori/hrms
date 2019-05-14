@@ -1,11 +1,14 @@
 package com.bvlsh.hr.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.bvlsh.hr.assemblers.Assembler;
 import com.bvlsh.hr.constants.IStatus;
 import com.bvlsh.hr.dao.CrudDAO;
+import com.bvlsh.hr.dao.UserDAO;
 import com.bvlsh.hr.entities.Department;
 import com.bvlsh.hr.entities.Role;
 import com.bvlsh.hr.entities.User;
@@ -23,6 +26,7 @@ public class UserService {
 	
 	@Autowired CrudDAO crudDAO;
 	@Autowired TokenService tokenService;
+	@Autowired UserDAO userDAO;
 	
 	
 	
@@ -79,7 +83,7 @@ public class UserService {
 		
 		if(!StringUtil.isValid(form.getNewPassword()) || form.getNewPassword().length() < 6)
 		{
-			throw new ValidationException("Fjalekalimi duhet te jete te pakten 6 karaktere");
+			throw new ValidationException("Fjalëkalimi duhet të jetë të paktën 6 karaktere!");
 		}
 		
 		
@@ -112,7 +116,13 @@ public class UserService {
 			throw new ValidationException("Zgjidhni rolin përkatëse");
 		}
 	
-	
+		User ex = crudDAO.findById(User.class, form.getUsername());
+		if(ex != null)
+		{
+			throw new ValidationException("Perdoruesi '" + ex.getUsername() + "' ekziston ne sistem. Struktura: "
+		                               + ex.getRootDepartment().getName() + ", STATUS==>" + (ex.getStatus()==1?"AKTIV":"JO AKTIV"));
+		}
+		
 		User u = new User();
         u.setUsername(form.getUsername());
         u.setSecret(form.getSecret());
@@ -151,8 +161,8 @@ public class UserService {
 		}
 	
 	
-		User u = new User();
-        u.setUsername(form.getUsername());
+		User u = crudDAO.findById(User.class, form.getUsername());
+        //u.setUsername(form.getUsername());
         u.setSecret(form.getSecret());
 		u.setStatus(IStatus.ACTIVE);
 		if(form.getRootDepartmentId() != null)
@@ -167,6 +177,8 @@ public class UserService {
 	}
 	
 	
-	
+	public List<User> searchUsers(List<Integer> deptIds, String uname) {
+		return userDAO.searchUsers(deptIds);
+	}
 	
 }

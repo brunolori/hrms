@@ -17,20 +17,18 @@ public class UserService {
 
 	public void changePassword(PasswordForm form) {
 		new UserClient().changePassword(form);
-		
+
 	}
-		
+
 	public List<UserDTO> loadUsers() {
 		return new UserClient().loadUsers();
 	}
-	
-	public UserDTO registerUser(UserForm form)
-	{
+
+	public UserDTO registerUser(UserForm form) {
 		return new UserClient().registerUser(form);
 	}
 
-	public UserDTO modifyUser(UserForm form)
-	{
+	public UserDTO modifyUser(UserForm form) {
 		return new UserClient().modifyUser(form);
 	}
 

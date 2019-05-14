@@ -55,7 +55,7 @@ public class AdUserBean implements Serializable {
 		
 		try {
     		new UserService().registerUser(form);
-    		//this.departmentPositions = new DepartmentService().getDepartmentPositions(this.selectedDepartment.getId());
+    		init();
     		Messages.throwFacesMessage("Përdoruesi u rregjistrua me sukses!", 1);
     	}catch(Exception e) {Messages.throwFacesMessage(e);}
 	}
@@ -63,11 +63,10 @@ public class AdUserBean implements Serializable {
 	public void modify() {
 		try {
     		new UserService().modifyUser(form);
-    		//this.departmentPositions = new DepartmentService().getDepartmentPositions(this.selectedDepartment.getId());
-    		Messages.throwFacesMessage("Përdoruesi u rregjistrua me sukses!", 1);
+    		init();
+    		Messages.throwFacesMessage("Përdoruesi u modifikua me sukses!", 1);
     	}catch(Exception e) {Messages.throwFacesMessage(e);}
 	}
 	
-	public void delete() {}
 
 }

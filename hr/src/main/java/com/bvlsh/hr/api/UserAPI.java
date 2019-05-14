@@ -1,5 +1,7 @@
 package com.bvlsh.hr.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +64,7 @@ public class UserAPI {
 	
 	
 	@RequestMapping(value="/modifyUser", method=RequestMethod.POST, produces={"application/json"})
-	public ResponseEntity<?> modifyEducation(@RequestHeader(value="Authorization") String token, @RequestBody UserForm form)
+	public ResponseEntity<?> modifyUser(@RequestHeader(value="Authorization") String token, @RequestBody UserForm form)
 	{
 			String uname = tokenService.getUsername(token);
 			
@@ -72,7 +74,22 @@ public class UserAPI {
 	}
 	
 	
-	
+	@RequestMapping(value="/searchUsers", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> searchUsers(@RequestHeader(value="Authorization") String token)
+	{
+		String uname = tokenService.getUsername(token);
+		List<Integer> deptIds = tokenService.getDeptIds(token);
+				
+		List<UserDTO> list = new Assembler().userListToDto(userService.searchUsers(deptIds, uname));
+		
+		if(list == null || list.isEmpty())
+		{
+			return new ResponseEntity<>("Nuk ka te dhena",HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
+	}
 	
 	
 	

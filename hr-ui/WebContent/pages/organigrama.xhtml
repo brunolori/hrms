@@ -6,11 +6,15 @@
 	xmlns:o="http://omnifaces.org/ui" >
 
 <style>
+
+.ui-organigram .ui-organigram-node.root {
+	background: #bae0e3;
+
+}
+
 .ui-organigram .ui-organigram-node.division {
-	background: #93e7ff;
-	background: -moz-linear-gradient(top, #93e7ff 0%, #007efc 100%);
-	background: -webkit-linear-gradient(top, #93e7ff 0%, #007efc 100%);
-	background: linear-gradient(to bottom, #93e7ff 0%, #007efc 100%);
+	background: #bae0e3;
+
 }
 
 .ui-organigram .ui-organigram-node.employee {
@@ -22,14 +26,21 @@
 </style>
 
 	<h:form id="organigrama_form">
-<p:growl showDetail="true">
-				     	<p:autoUpdate/>
-					</p:growl>
+						<p:growl showDetail="true">
+					     	<p:autoUpdate/>
+						</p:growl>
 		<div class="ui-g ui-fluid">
 			<div class="ui-g-12">
 				<div class="card card-w-title">
-					<h1>Organigrama e Ministrisë së Brendshme</h1>
+					
 					<div class="ui-g">
+						
+					<div class="ui-g-6">
+				    	<p:graphicImage width="80" name="mb.jpg" library="images"/>
+					</div>
+					<div class="ui-g-6">
+						<h1 style="text-align: right;">Organigrama e Ministrisë së Brendshme</h1>
+					</div>
 					
 						<div class="ui-g-12">
 							<p:organigram id="organigram" widgetVar="organigram"
@@ -44,7 +55,7 @@
 								<p:ajax event="expand" process="@this" update="@form" />
 
 								<p:organigramNode>
-									<h:outputText value="#{node.data.display()}" escape="false"/>
+									<h:outputText value="#{node.data.display()}" escape="false" style="color: black;"/>
 								</p:organigramNode>
 
 								<p:organigramNode type="root" style="border-radius: 10px;">
@@ -52,7 +63,7 @@
 										<f:param name="nid" value="#{node.data.nid}" />
 									</p:graphicImage>
 									<br />
-									<h:outputText value="#{node.data.display()}" escape="false" />
+									<h:outputText value="#{node.data.display()}" escape="false" style="color: black;" />
 								</p:organigramNode>
 
 								<p:organigramNode type="division" skipLeafHandling="true"
@@ -63,7 +74,7 @@
 										</p:graphicImage>
 										<br/>
 									</h:panelGroup>
-									     <h:outputText value="#{node.data.display()}" escape="false" /><br/>
+									     <h:outputText value="#{node.data.display()}" escape="false" style="color: black;" /><br/>
 								</p:organigramNode>
 
 								<p:organigramNode type="employee" styleClass="employee" >

@@ -23,9 +23,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class GuestPreferences implements Serializable {
     
-    private String color = "blue";
+    private String color = "indigo";
     
-    private boolean dark = true;
+    private boolean dark = false;
         
     private String layoutMode = "static";// slim, static, horizontal, overlay
 

@@ -116,7 +116,7 @@ public class UserClient {
 	
 	public List<UserDTO> loadUsers()
 	{
-		final String BASE_URL = IApiClient.SERVER+"/api/user/searchUser";		
+		final String BASE_URL = IApiClient.SERVER+"/api/user/searchUsers";		
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
 		
 		
