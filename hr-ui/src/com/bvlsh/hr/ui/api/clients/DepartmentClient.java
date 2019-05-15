@@ -241,6 +241,22 @@ public class DepartmentClient {
 		return null;
 	}
 
+
+
+	public void deleteDepartmentPosition(Integer id) {
+		final String BASE_URL = IApiClient.SERVER+"/api/department/deleteDepartmentPosition/"+id;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer "+Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);	
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+				
+	    restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, Void.class);
+	}
+
 	
 	
 }

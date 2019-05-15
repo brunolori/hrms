@@ -203,7 +203,7 @@ public class StatisticDAO {
 	{
 		
 		String sql = "SELECT new "+KeyValue.class.getName()+"(e.endJobReason.tag, COUNT(e) AS cnt) FROM EmployeeHistory e WHERE e.status=:st "
-				+ "e.endDate>=:st_date AND e.endDate>=:end_date ";
+				+ "AND e.endDate>=:st_date AND e.endDate<=:end_date ";
 		
 		if(deptIds != null && !deptIds.isEmpty())
 		{

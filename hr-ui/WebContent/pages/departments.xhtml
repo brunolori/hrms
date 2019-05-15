@@ -109,8 +109,15 @@
 								<p:column headerText="veprime" style="text-align: left;">
 									<p:commandButton icon="fa fa-pencil" title="Ndrysho Pozicionin" action="#{opDepartmentBean.prepareModifyDepartmentPosition(dp)}" styleClass="green-btn"
 									 update=":pos_dlg" oncomplete="PF('posWid').show();"/>
-									<p:commandButton title="Fshijë Pozicionin" icon="fa fa-times" rendered="#{dp.currentEmployee == null}" styleClass="red-btn"/>
-									<p:commandButton title="Largo Punonjësin" icon="fa fa-ban" rendered="#{dp.currentEmployee != null}" styleClass="red-btn"/>
+									<p:commandButton title="Fshijë Pozicionin" icon="fa fa-times" 
+									action="#{opDepartmentBean.deleteDepartmentPosition(dp)}" update="department_form:details"
+									rendered="#{dp.currentEmployee == null}" styleClass="red-btn">
+										<p:confirm header="Fshijë pozicionin" message="Jeni të sigurt?"/>
+									</p:commandButton>
+									<p:commandButton title="Largo Punonjësin" icon="fa fa-ban" 
+									action="#{opDepartmentBean.prepareRemoveEmployee(dp)}" oncomplete="PF('removeEmpWid').show();"
+									update=":remove_emp_dlg"
+									rendered="#{dp.currentEmployee != null}" styleClass="red-btn"/>
 								</p:column>
 								
 							</p:dataTable>
@@ -126,7 +133,7 @@
 	
 	
 	<p:dialog id="pos_dlg" widgetVar="posWid" modal="true"
-	 header="Shto Pozicion" width="500" closeOnEscape="true" responsive="true">
+	 header="#{opDepartmentBean.positionForm.id == null?'Shto Pozicion':'Modifiko Pozicionin'}" width="600" closeOnEscape="true" responsive="true">
 	
 		<h:form id="add_position_frm">
 			
@@ -135,9 +142,10 @@
 					<p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
 				    
 				    	<p:outputLabel value="Emri pozicionit"/>
-						<p:inputText value="#{opDepartmentBean.positionForm.name}"/>
+						<p:inputText value="#{opDepartmentBean.positionForm.name}" placeholder="Emri pozicionit"/>
 						<p:outputLabel value="Departamenti" />
-						<p:selectOneMenu value="#{opDepartmentBean.positionForm.departmentId}" autoWidth="false">
+						<p:selectOneMenu value="#{opDepartmentBean.positionForm.departmentId}" autoWidth="false"
+						                disabled="#{opDepartmentBean.positionForm.id == null}">
 							<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
 							<f:selectItems value="#{cacheBean.listDepartments()}" var="dd" itemValue="#{dd.id}" itemLabel="#{dd.name}"/>
 						</p:selectOneMenu>	
@@ -177,8 +185,51 @@
 		
 	</p:dialog>
 	
-	<p:dialog id="remove_emp_dlg">
+	<p:dialog id="remove_emp_dlg" widgetVar="removeEmpWid" modal="true"
+	 header="Liro punonjësin" width="600" closeOnEscape="true" responsive="true">
 	
+		<h:form id="remove_emp_frm">
+		
+			<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+			<p:outputLabel value="#{opDepartmentBean.selectedDepartmentPosition.currentEmployee.employee.name} 
+				#{opDepartmentBean.selectedDepartmentPosition.currentEmployee.employee.fatherName}
+				#{opDepartmentBean.selectedDepartmentPosition.currentEmployee.employee.surname}"
+				styleClass="bold" style="font-size: 16px"
+				/>
+				<br/>
+				<p:outputLabel value="(#{opDepartmentBean.selectedDepartmentPosition.name})" style="font-size: 14px; color: #b4b4b4"/>
+				<hr/>
+				
+			</div>
+			
+				<div class="ui-g-12">
+				    <p:panelGrid layout="grid" columns="2" columnClasses="bold,empty" styleClass="ui-panelgrid-blank" >
+				    
+				    	<p:outputLabel value="Data e lirimit"/>
+						<p:calendar value="#{opDepartmentBean.employeeForm.endDate}" pattern="dd.MM.yyyy" navigator="true" placeholder="Data e lirimit"/>
+						<p:outputLabel value="Arsyeja" />
+						<p:selectOneMenu value="#{opDepartmentBean.employeeForm.endJobReasonId}" autoWidth="false" >
+							<f:selectItem itemValue="#{null}" itemLabel="Arsyeja"/>
+							<f:selectItems value="#{cacheBean.jobEndingReasons}" var="je" itemValue="#{je.id}" itemLabel="#{je.tag}"/>
+						</p:selectOneMenu>	
+						
+						<p:commandButton value="Ruaj" action="#{opDepartmentBean.removeEmployee()}"
+							                 update=":department_form:details" oncomplete="PF('removeEmpWid').hide();"
+							                 styleClass="green-btn">
+							   <p:confirm header="Liro punonjësin" message="Jeni të sigurt?"/>
+						</p:commandButton>
+						<p:commandButton value="Anullo" styleClass="red-btn" oncomplete="PF('removeEmpWid').hide();">
+								<p:confirm header="Anullo regjistrimin" message="Jeni të sigurt?"/>
+						</p:commandButton>
+						
+						
+					</p:panelGrid>
+				</div>
+			</div>
+		
+		</h:form>
 		
 	
 	</p:dialog>

@@ -142,7 +142,16 @@ public class DepartmentAPI {
 			return new ResponseEntity<>(dto, HttpStatus.OK);		
 	}
 	
-	
+	@RequestMapping(value="deleteDepartmentPosition/{id}", method=RequestMethod.GET, produces={"application/json"})
+	public ResponseEntity<?> deleteDepartmentPosition(@RequestHeader(value="Authorization") String token, @PathVariable Integer id)
+	{
+		String uname = tokenService.getUsername(token);
+		
+		departmentService.deleteDepartmentPosition(id,uname);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
 	
 	
 

@@ -80,7 +80,7 @@ public class LoginBean implements Serializable {
 			
 			this.userToken = new UserService().login(principal);
 			
-			nav.navigate("home");
+			nav.navigate("dashboard");
 			Util.redirect("pages/main");			
 
 		}catch(Exception a) {

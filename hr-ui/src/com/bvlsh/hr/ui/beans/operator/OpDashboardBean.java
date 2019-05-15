@@ -125,7 +125,7 @@ public class OpDashboardBean implements Serializable {
         bgColors.add("rgb(255, 205, 86)");
         dataSet.setBackgroundColor(bgColors);
         
-        List<KeyValue> list = new StatisticService().employeesByStudyField();
+        List<KeyValue> list = new StatisticService().employeesByPaymentCategory();
         if(list != null && !list.isEmpty())
         {
         	List<Number> values = new ArrayList<>();
@@ -145,6 +145,19 @@ public class OpDashboardBean implements Serializable {
         }
         
         data.addChartDataSet(dataSet);
+        
+        PieChartOptions options = new PieChartOptions();
+        Legend legend = new Legend();
+        legend.setDisplay(true);
+        legend.setPosition("left");
+        LegendLabel legendLabels = new LegendLabel();
+        legendLabels.setFontStyle("bold");
+        legendLabels.setFontColor("#2980B9");
+        legendLabels.setFontSize(11);
+        legend.setLabels(legendLabels);
+        options.setLegend(legend);
+ 
+        payCategoryPieModel.setOptions(options);
          
         payCategoryPieModel.setData(data);
     }
@@ -186,6 +199,19 @@ public class OpDashboardBean implements Serializable {
         }
         
         data.addChartDataSet(dataSet);
+        
+        PieChartOptions options = new PieChartOptions();
+        Legend legend = new Legend();
+        legend.setDisplay(true);
+        legend.setPosition("left");
+        LegendLabel legendLabels = new LegendLabel();
+        legendLabels.setFontStyle("bold");
+        legendLabels.setFontColor("#2980B9");
+        legendLabels.setFontSize(11);
+        legend.setLabels(legendLabels);
+        options.setLegend(legend);
+ 
+        eduPieModel.setOptions(options);
          
         eduPieModel.setData(data);
     }
@@ -277,6 +303,19 @@ public class OpDashboardBean implements Serializable {
         }
         
         data.addChartDataSet(dataSet);
+        
+        PieChartOptions options = new PieChartOptions();
+        Legend legend = new Legend();
+        legend.setDisplay(true);
+        legend.setPosition("left");
+        LegendLabel legendLabels = new LegendLabel();
+        legendLabels.setFontStyle("bold");
+        legendLabels.setFontColor("#2980B9");
+        legendLabels.setFontSize(11);
+        legend.setLabels(legendLabels);
+        options.setLegend(legend);
+ 
+        languagePieModel.setOptions(options);
          
         languagePieModel.setData(data);
     }
@@ -307,7 +346,7 @@ public class OpDashboardBean implements Serializable {
         	
         }else
         {
-        	dataSet.setData(Arrays.asList(1));
+        	dataSet.setData(Arrays.asList(0));
         	data.setLabels(Arrays.asList("nuk ka te dhena"));
         }
         data.addChartDataSet(dataSet);
@@ -331,13 +370,14 @@ public class OpDashboardBean implements Serializable {
         BarChartDataSet dataSet = new BarChartDataSet();
         dataSet.setLabel("Arsyet e lirimit");
          
-        List<KeyValue> list = new StatisticService().employmentsByPeriod(from, to);
+        List<KeyValue> list = new StatisticService().employeesByJobEndingReason(from, to);
         if(list != null && !list.isEmpty())
         {
         	List<Number> values = new ArrayList<>();
         	List<String> labels = new ArrayList<>();
         	for(KeyValue kv : list)
         	{
+        		System.out.println(kv.getKey()+" "+kv.getValue());
         		values.add((Integer)kv.getValue());
         		labels.add(kv.getKey());
         	}
@@ -385,7 +425,7 @@ public class OpDashboardBean implements Serializable {
          
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Arsyet");
+        title.setText("Arsyet e Lirimit");
         options.setTitle(title);
  
         Legend legend = new Legend();
@@ -427,7 +467,7 @@ public class OpDashboardBean implements Serializable {
         	
         }else
         {
-        	dataSet.setData(Arrays.asList(1));
+        	dataSet.setData(Arrays.asList(0));
         	data.setLabels(Arrays.asList("nuk ka te dhena"));
         }
         data.addChartDataSet(dataSet);
@@ -461,7 +501,7 @@ public class OpDashboardBean implements Serializable {
         	
         }else
         {
-        	dataSet.setData(Arrays.asList(1));
+        	dataSet.setData(Arrays.asList(0));
         	data.setLabels(Arrays.asList("nuk ka te dhena"));
         }
         data.addChartDataSet(dataSet);
@@ -494,7 +534,7 @@ public class OpDashboardBean implements Serializable {
         	
         }else
         {
-        	dataSet.setData(Arrays.asList(1));
+        	dataSet.setData(Arrays.asList(0));
         	data.setLabels(Arrays.asList("nuk ka te dhena"));
         }
         data.addChartDataSet(dataSet);
@@ -526,7 +566,7 @@ public class OpDashboardBean implements Serializable {
         	
         }else
         {
-        	dataSet.setData(Arrays.asList(1));
+        	dataSet.setData(Arrays.asList(0));
         	data.setLabels(Arrays.asList("nuk ka te dhena"));
         }
         data.addChartDataSet(dataSet);

@@ -66,6 +66,23 @@ public class EmployeeClient {
 		return null;
 	}
 	
+	public void removeEmploymeeFromPosition(EmployeeForm form)
+	{
+		final String BASE_URL = IApiClient.SERVER + "/api/employee/removeEmployeeFromPosition";
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ApiErrorHandler());
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + Util.getToken());
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<?> entity = new HttpEntity<>(form, headers);
+
+		restTemplate.exchange(builder.toUriString(), HttpMethod.POST, entity, Void.class);
+
+		
+	}
+	
 	
 	public EmployeeDTO changeEmployeePosition(EmployeeForm form)
 	{

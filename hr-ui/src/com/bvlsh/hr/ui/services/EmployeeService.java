@@ -28,6 +28,11 @@ public class EmployeeService {
 		return new EmployeeClient().updateEmployment(form);
 	}
 	
+	public void removeEmploymeeFromPosition(EmployeeForm form)
+	{
+		new EmployeeClient().removeEmploymeeFromPosition(form);
+	}
+	
 	public EmployeeDTO changeEmployeePosition(EmployeeForm form)
 	{
 		return new EmployeeClient().changeEmployeePosition(form);

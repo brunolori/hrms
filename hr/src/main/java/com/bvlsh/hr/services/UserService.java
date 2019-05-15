@@ -39,13 +39,16 @@ public class UserService {
 		
 		User u = crudDAO.findById(User.class, username);
 		
-		if(u == null) throw new ValidationException("Perdoruesi nuk ekziston");
-		/*
+		if(u == null) 
+		{
+			throw new ValidationException("Perdoruesi nuk ekziston");
+		}
+		
 		if(u.getStatus() != IStatus.ACTIVE) 
 		{
 			throw new ValidationException("Perdoruesi nuk eshte aktiv");
 		}
-		*/
+		
 		if(!password.equals(u.getSecret()))
 		{
 			throw new ValidationException("Fjalekalimi i gabuar");
@@ -164,7 +167,7 @@ public class UserService {
 		User u = crudDAO.findById(User.class, form.getUsername());
         //u.setUsername(form.getUsername());
         u.setSecret(form.getSecret());
-		u.setStatus(IStatus.ACTIVE);
+		u.setStatus(form.isStatus()?IStatus.ACTIVE:IStatus.NOT_ACTIVE);
 		if(form.getRootDepartmentId() != null)
 		{
 			u.setRootDepartment(crudDAO.findById(Department.class, form.getRootDepartmentId()));

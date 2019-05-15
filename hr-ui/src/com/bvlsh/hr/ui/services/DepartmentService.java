@@ -57,6 +57,10 @@ public class DepartmentService {
 		return new DepartmentClient().modifyDepartmentPosition(positionForm);
 	}
 
+	public void deleteDepartmentPosition(Integer id) {
+		 new DepartmentClient().deleteDepartmentPosition(id);
+	}
+
 	
 
 }

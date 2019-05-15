@@ -157,19 +157,22 @@ public class EmployeeService {
 		{
 			emp = crudDAO.update(emp);
 			EmployeeHistory h = employeeDAO.getEmployeeLastEmployment(emp.getNid());
-			//mbyll punesimin e fundit dhe liro pozicionin
-			if(h.getEndDate() == null)
-			{
-				h.setEndDate(form.getEndDate());
-				h.setEndJobReason(crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId()));
-				h.setUpdateTime(Calendar.getInstance().getTime());
-				h.setUpdateUser(uname);
-				crudDAO.update(h);
-				DepartmentPosition pos = h.getDepartmentPosition();
-				pos.setCurrentEmployee(null);;
-				crudDAO.update(pos);
-			}
 			
+			if(h != null)
+			{
+				//mbyll punesimin e fundit dhe liro pozicionin
+				if(h.getEndDate() == null)
+				{
+					h.setEndDate(form.getEndDate());
+					h.setEndJobReason(crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId()));
+					h.setUpdateTime(Calendar.getInstance().getTime());
+					h.setUpdateUser(uname);
+					crudDAO.update(h);
+					DepartmentPosition pos = h.getDepartmentPosition();
+					pos.setCurrentEmployee(null);;
+					crudDAO.update(pos);
+				}
+			}
 		}
 		//krijo punesimin e ri
 		EmployeeHistory history = new EmployeeHistory();
@@ -339,16 +342,17 @@ public class EmployeeService {
 			}
 		}
 		
+		Integer lastPositionId = emp.getDepartmentPosition().getId();
 		
 		// #### po modifikon punesimin e fundit ######
 		
 		if(form.getEndDate() != null)// dmth po i jep fund punesimit dhe updeto employee dhe organigram position
-		{
+		{			
 			if(form.getEndJobReasonId() == null) // nuk ka plotesuar arsyen e lirimit
 			{
 				throw new ValidationException("Ploteso arsyen e lirimit ose hiq daten e lirimit");
 			}
-				DepartmentPosition dp = emp.getDepartmentPosition();
+				DepartmentPosition dp = emp.getDepartmentPosition();								
 				dp.setCurrentEmployee(null);
 				crudDAO.update(dp);
 		}
@@ -395,15 +399,91 @@ public class EmployeeService {
 		history.setUpdateUser(uname);
 		history = crudDAO.update(history);
 		
-		pos.setCurrentEmployee(history);
-		pos.setUpdateTime(Calendar.getInstance().getTime());
-		pos.setUpdateUser(uname);
-		crudDAO.update(pos);
-		
+		if(lastPositionId != pos.getId())
+		{
+			pos.setCurrentEmployee(history);
+			pos.setUpdateTime(Calendar.getInstance().getTime());
+			pos.setUpdateUser(uname);
+			crudDAO.update(pos);
+		}
 		return history;
 					
 	}
 		
+	@Transactional
+	public void removeEmployeeFromPosition(EmployeeForm form, String uname)
+	{
+		if(form == null)
+		{
+			throw new ValidationException("Forma e pa plotësuar!");
+		}
+		
+		if(form.getEmploymentId() == null)
+		{
+			throw new ValidationException("Punesimi i pa percaktuar!");
+		}
+		
+		if(!StringUtil.isValid(form.getNid()))
+		{
+			throw new ValidationException("Plotësoni Numrin Personal!");
+		}
+		
+		if(form.getDepartmentPositionId() == null)
+		{
+			throw new ValidationException("Plotësoni Pozicionin e Punës!");
+		}
+		
+		if(form.getEndDate() == null)
+		{
+			throw new ValidationException("Plotësoni datën e lirimit!");
+		}
+		
+		if(form.getEndJobReasonId() == null)
+		{
+			throw new ValidationException("Plotësoni arsyen e lirimit!");
+		}
+		
+		JobEndingReason jer = crudDAO.findById(JobEndingReason.class, form.getEndJobReasonId());
+		
+					
+		EmployeeHistory lastEmployment = employeeDAO.getEmployeeLastEmployment(form.getNid());		
+		EmployeeHistory history = crudDAO.findById(EmployeeHistory.class, form.getEmploymentId());
+		
+		if(lastEmployment != null)
+		{
+			//dmth po modifikon nje punesim te meparshem dhe kontrrollo daten
+			if(lastEmployment.getId() != history.getId())
+			{
+				throw new ValidationException("Punësimi i mëparshëm nuk mund të ndryshohet!");
+			}
+		}
+		
+		Employee emp = crudDAO.findById(Employee.class, form.getNid());	
+		emp.setEndDate(form.getEndDate());
+		emp.setEndJobReason(jer);
+		emp.setUpdateTime(Calendar.getInstance().getTime());
+		emp.setUpdateUser(uname);
+		emp = crudDAO.update(emp);
+		
+		DepartmentPosition dp = emp.getDepartmentPosition();
+		if(dp.getId() != form.getDepartmentPositionId())
+		{
+			throw new ValidationException("Pozicionet nuk perputhen (Konflikt ne sistem)");
+		}
+		dp.setCurrentEmployee(null);
+		dp.setUpdateTime(Calendar.getInstance().getTime());
+		dp.setUpdateUser(uname);
+		crudDAO.update(dp);
+				
+		history.setEndDate(form.getEndDate());
+		history.setEndJobReason(jer);
+		history.setUpdateTime(Calendar.getInstance().getTime());
+		history.setUpdateUser(uname);
+		history = crudDAO.update(history);		
+		
+		
+	}
+	
 	@Transactional
 	public Employee updateEmployeeGeneralities(EmployeeForm form, String uname)
 	{

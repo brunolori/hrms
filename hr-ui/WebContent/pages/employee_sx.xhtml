@@ -10,8 +10,8 @@
 
 			<div class="ui-g ui-fluid">
 				<div class="ui-g-12">
-					<div class="card card-w-title">
-						<h1 style="font-style: italic;">Kërko punonjësit</h1>
+					<p:panel header="KËRKO PUNONJËSIT">
+						
 						<div class="ui-g">
 							<div class="ui-g-12">
 
@@ -88,30 +88,32 @@
 							</div>
 
 						</div>
+						
+					</p:panel>
 					</div>
-				</div>
+				
 							
 				<div class="ui-g-12 ui-fluid">
-					<p:dataTable value="#{opEmployeeSxBean.employees}" var="e" rowKey="#{e.nid}" styleClass="no-border"
+					<p:dataTable value="#{opEmployeeSxBean.employees}" var="e" rowKey="#{e.nid}" styleClass="no-border" emptyMessage="Asnjë punonjës i listuar"
 					    selection="#{opEmployeeSxBean.employee}" selectionMode="single"
 						paginatorAlwaysVisible="false" paginator="true" rows="20"
 						rowIndexVar="r"	rowsPerPageTemplate="10,20,30,50" reflow="true">
 						<p:ajax event="rowSelect" listener="#{opEmployeeSxBean.onEmployeeSelect()}" update=":main" />
 						<f:facet name="header">Lista punonjësve</f:facet>
-						<p:column headerText="#"> #{r+1}</p:column>
-						<p:column headerText="NID">#{e.nid}</p:column>
-						<p:column headerText="Emri">#{e.name}</p:column>
-						<p:column headerText="Atësia">#{e.fatherName}</p:column>
-						<p:column headerText="Mbiemri">#{e.surname}</p:column>
-						<p:column headerText="Datëlindja">#{formatBean.formatDate(e.dob)}</p:column>
-						<p:column headerText="Departamenti">#{e.departmentPosition.department.name}</p:column>
-						<p:column headerText="Pozicioni">#{e.departmentPosition.name}</p:column>
-						<p:column headerText="Grada">#{e.grade.tag}</p:column>
-						<p:column headerText="Nr.Dosje">#{e.dossierNo}</p:column>
-						<p:column headerText="Nr.Punonjësi">#{e.employeeNo}</p:column>
-						<p:column headerText="Gjinia">#{e.gender}</p:column>
-						<p:column headerText="Statusi Civil">#{e.civilStatus}</p:column>
-						<p:column headerText="Dt fillimit">#{formatBean.formatDate(e.startDate)}</p:column>
+						<p:column headerText="#" style="text-align:left;"> #{r+1}</p:column>
+						<p:column headerText="NID" style="text-align:left;">#{e.nid}</p:column>
+						<p:column headerText="Emri" style="text-align:left;">#{e.name}</p:column>
+						<p:column headerText="Atësia" style="text-align:left;">#{e.fatherName}</p:column>
+						<p:column headerText="Mbiemri" style="text-align:left;">#{e.surname}</p:column>
+						<p:column headerText="Datëlindja" style="text-align:left;">#{formatBean.formatDate(e.dob)}</p:column>
+						<p:column headerText="Departamenti" style="text-align:left;">#{e.departmentPosition.department.name}</p:column>
+						<p:column headerText="Pozicioni" style="text-align:left;">#{e.departmentPosition.name}</p:column>
+						<p:column headerText="Grada" style="text-align:left;">#{e.grade.tag}</p:column>
+						<p:column headerText="Nr.Dosje" style="text-align:left;">#{e.dossierNo}</p:column>
+						<p:column headerText="Nr.Punonjësi" style="text-align:left;">#{e.employeeNo}</p:column>
+						<p:column headerText="Gjinia" style="text-align:left;">#{e.gender}</p:column>
+						<p:column headerText="Statusi Civil" style="text-align:left;">#{e.civilStatus}</p:column>
+						<p:column headerText="Dt fillimit" style="text-align:left;">#{formatBean.formatDate(e.startDate)}</p:column>
 					</p:dataTable>
 				</div>
 

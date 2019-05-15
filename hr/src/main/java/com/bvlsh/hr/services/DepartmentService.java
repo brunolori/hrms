@@ -233,6 +233,18 @@ public class DepartmentService {
 		
 		return crudDAO.update(dp);
 	}
+
+	
+	@Transactional
+	public void deleteDepartmentPosition(Integer id, String uname) {
+		
+		DepartmentPosition dp = crudDAO.findById(DepartmentPosition.class, id);
+		dp.setUpdateTime(Calendar.getInstance().getTime());
+		dp.setUpdateUser(uname);
+		dp.setStatus(IStatus.NOT_ACTIVE);
+		crudDAO.update(dp);
+		
+	}
 	
 	
 	

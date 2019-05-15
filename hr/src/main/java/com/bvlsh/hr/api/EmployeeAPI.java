@@ -50,6 +50,16 @@ public class EmployeeAPI {
 			return new ResponseEntity<>(dto,HttpStatus.OK);		
 	}
 	
+	@RequestMapping(value="/removeEmployeeFromPosition", method=RequestMethod.POST, produces={"application/json"})
+	public ResponseEntity<?> removeEmployeeFromPosition(@RequestHeader(value="Authorization") String token, @RequestBody EmployeeForm form)
+	{
+			String uname = tokenService.getUsername(token);
+			
+			employeeService.removeEmployeeFromPosition(form, uname);
+			
+			return new ResponseEntity<>(HttpStatus.OK);		
+	}
+	
 	@RequestMapping(value="/changeEmployeePosition", method=RequestMethod.POST, produces={"application/json"})
 	public ResponseEntity<?> changeEmployeePosition(@RequestHeader(value="Authorization") String token, @RequestBody EmployeeForm form)
 	{

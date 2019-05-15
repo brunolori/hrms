@@ -48,6 +48,8 @@ public class OpDepartmentBean implements Serializable {
     
     DepartmentDTO selectedDepartment;
     List<DepartmentPositionDTO> departmentPositions;
+    
+    DepartmentPositionDTO selectedDepartmentPosition;
      
      
     @PostConstruct
@@ -96,7 +98,8 @@ public class OpDepartmentBean implements Serializable {
     	this.positionForm = new DepartmentPositionForm();
     	this.employeeForm = new EmployeeForm();
     	this.selectedDepartment = null;
-    	this.departmentPositions = null;    	
+    	this.departmentPositions = null;  
+    	this.selectedDepartmentPosition = null;
     }
     
     public void registerDepartment()
@@ -154,6 +157,15 @@ public class OpDepartmentBean implements Serializable {
     	}catch(Exception e) {Messages.throwFacesMessage(e);}
     }
         
+    public void deleteDepartmentPosition(DepartmentPositionDTO dto)
+    {		
+		try {
+			new DepartmentService().deleteDepartmentPosition(dto.getId());
+			this.departmentPositions = new DepartmentService().getDepartmentPositions(this.selectedDepartment.getId());
+    		Messages.throwFacesMessage("Pozicioni u fshi me sukses!", 1);
+		}catch(Exception e) {Messages.throwFacesMessage(e);}
+    }
+    
     public void prepareRemoveEmployee(DepartmentPositionDTO dp)
     {
     	if(dp.getCurrentEmployee() == null)
@@ -164,14 +176,21 @@ public class OpDepartmentBean implements Serializable {
     	
     	this.employeeForm = new EmployeeForm();
     	this.employeeForm.setEmploymentId(dp.getCurrentEmployee().getId());
+    	
+    	this.employeeForm.setNid(dp.getCurrentEmployee().getEmployee().getNid());
+    	this.employeeForm.setDepartmentPositionId(dp.getId());
+
+    	
+    	this.selectedDepartmentPosition = dp;
     	    	
     }
     
     public void removeEmployee()
     {
     	try {
-	    	new EmployeeService().updateEmployment(this.employeeForm);
+	    	new EmployeeService().removeEmploymeeFromPosition(employeeForm);
 	    	this.departmentPositions = new DepartmentService().getDepartmentPositions(this.selectedDepartment.getId());
+	    	this.selectedDepartmentPosition = null;
 	    	Messages.throwFacesMessage("Pozicioni u lirua!", 1);
     	}catch(Exception e) {Messages.throwFacesMessage(e);}
     }
