@@ -14,25 +14,25 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Tipi i edukimit"/>
+					<p:outputLabel value="Tipi i edukimit" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.educationTypeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Tipi i edukimit"/>
 						<f:selectItems value="#{cacheBean.educationTypes}" var="et" itemValue="#{et.id}" itemLabel="#{et.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Institucioni"/>
+					<p:outputLabel value="Institucioni" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.institutionId}" autoWidth="false"
 					filterMatchMode="contains" filter="true">
 						<f:selectItem itemValue="#{null}" itemLabel="Institucioni"/>
 						<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Fusha studimit"/>
+					<p:outputLabel value="Fusha studimit" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.educationForm.studyFieldId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Fusha studimit"/>
 						<f:selectItems value="#{cacheBean.studyFields}" var="sf" itemValue="#{sf.id}" itemLabel="#{sf.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Data"/>
+					<p:outputLabel value="Data" styleClass="bold"/>
 					<p:calendar value="#{opEmployeeViewBean.educationForm.issueDate}" pattern="dd.MM.yyyy" placeholder="Data"/>
-					<p:outputLabel value="Shënime"/>
+					<p:outputLabel value="Shënime" styleClass="bold"/>
 					<p:inputTextarea value="#{opEmployeeViewBean.educationForm.description}" placeholder="Shënime"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveEducation()}" 
@@ -55,7 +55,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.educations}" var="e" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.educations}" var="e" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë e dhënë e listuar"
 					rowStyleClass="#{e.id==opEmployeeViewBean.educationForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

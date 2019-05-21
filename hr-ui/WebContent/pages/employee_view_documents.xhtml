@@ -15,11 +15,11 @@
 			<div class="ui-g nopad">
 			<div class="ui-g-12 nopad">
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Emri dokumentit"/>
+					<p:outputLabel value="Emri dokumentit" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.documentForm.documentName}" placeholder="Emri dokumentit"/>
-					<p:outputLabel value="Data dokumentit"/>
+					<p:outputLabel value="Data dokumentit" styleClass="bold"/>
 					<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opEmployeeViewBean.documentForm.documentDate}" placeholder="Data dokumentit"/>
-					<p:outputLabel value="Përshkrimi"/>
+					<p:outputLabel value="Përshkrimi" styleClass="bold"/>
 					<p:inputTextarea value="#{opEmployeeViewBean.documentForm.description}" placeholder="Përshkrimi"/>
 				</p:panelGrid>
 				</div>
@@ -56,7 +56,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.documents}" var="d" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.documents}" var="d" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë dokument i listuar"
 					rowStyleClass="#{d.id==opEmployeeViewBean.documentForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

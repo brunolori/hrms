@@ -204,6 +204,7 @@ public class OpEmployeeViewBean implements Serializable {
 		this.departmentId = dto.getDepartmentPosition().getDepartment().getId();
 		this.employeeForm.setEmploymentId(dto.getId());
 		this.employeeForm.setNid(this.employee.getNid());
+		System.out.println(dto.getDepartmentPosition().getId());
 		this.employeeForm.setDepartmentPositionId(dto.getDepartmentPosition().getId());
 		this.employeeForm.setEndDate(dto.getEndDate());
 		this.employeeForm.setStartDate(dto.getStartDate());

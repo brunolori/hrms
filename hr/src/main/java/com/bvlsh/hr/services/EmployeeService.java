@@ -530,7 +530,10 @@ public class EmployeeService {
 		
 		Employee emp = crudDAO.findById(Employee.class, form.getNid());	
 		
-		emp.setCitizenship(crudDAO.findById(State.class, form.getCitizenshipCode()));
+		if(StringUtil.isValid(form.getCitizenshipCode()))
+		{
+			emp.setCitizenship(crudDAO.findById(State.class, form.getCitizenshipCode()));
+		}
 		emp.setCivilStatus(form.getCivilStatus());
 		emp.setDob(form.getDob());
 		//emp.setDossierNo(form.getDossierNo());
@@ -540,7 +543,9 @@ public class EmployeeService {
 		emp.setMotherName(form.getMotherName());
 		emp.setMaidenName(form.getMaidenName());
 		emp.setName(form.getName());
-		emp.setNationality(crudDAO.findById(State.class, form.getNationalityCode()));
+		if(StringUtil.isValid(form.getNationalityCode())) {
+		   emp.setNationality(crudDAO.findById(State.class, form.getNationalityCode()));
+		}
 		emp.setNid(form.getNid());
 		emp.setPaymentCategory(crudDAO.findById(PaymentCategory.class, form.getPaymentCategoryId()));
 		emp.setPob(form.getPob());

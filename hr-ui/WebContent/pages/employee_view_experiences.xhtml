@@ -14,44 +14,44 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Departamenti"/>
-								<p:selectOneMenu placeholder="Departamenti" value="#{opEmployeeViewBean.departmentId}" autoWidth="false" 
+					<p:outputLabel value="Drejtoria" styleClass="bold"/>
+								<p:selectOneMenu placeholder="Drejtoria" value="#{opEmployeeViewBean.departmentId}" autoWidth="false" filter="true" filterMatchMode="contains"
 								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}"
 								>
 									<p:ajax update="position"/>
 									<f:selectItem itemValue="#{null}" itemLabel="Departamenti"/>
 									<f:selectItems value="#{cacheBean.listDepartments()}" var="d" itemValue="#{d.id}" itemLabel="#{d.name}"/>
 								</p:selectOneMenu>
-								<p:outputLabel value="Pozicioni"/>
+								<p:outputLabel value="Pozicioni" styleClass="bold"/>
 								<p:selectOneMenu id="position" placeholder="Pozicioni" value="#{opEmployeeViewBean.employeeForm.departmentPositionId}"
 	disabled="#{opEmployeeViewBean.departmentId == null or (opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null)}" 
 								    autoWidth="false">
 									<f:selectItem itemValue="#{null}" itemLabel="Pozicioni"/>
 									<f:selectItems value="#{cacheBean.listDepartmentPositions(opEmployeeViewBean.departmentId)}" 
-									var="dp" itemValue="#{dp.id}" itemLabel="#{dp.position.tag}" 
+									var="dp" itemValue="#{dp.id}" itemLabel="#{dp.name}" 
 									itemDisabled="#{dp.currentEmployee != null and dp.currentEmployee.id != opEmployeeViewBean.employeeForm.employmentId}"/>
 								</p:selectOneMenu>
-								<p:outputLabel value="Kategoria e pagës"/>
+								<p:outputLabel value="Kategoria e pagës" styleClass="bold"/>
 								<p:selectOneMenu placeholder="Kategoria e pagës" value="#{opEmployeeViewBean.employeeForm.paymentCategoryId}" autoWidth="false"
 								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}">
 									<f:selectItem itemValue="#{null}" itemLabel="Kategoria e pagës"/>
 									<f:selectItems value="#{cacheBean.paymentCategories}" var="pc" itemValue="#{pc.id}" itemLabel="#{pc.tag}"/>
 								</p:selectOneMenu>
-								<p:outputLabel value="Data e fillimit"/>
+								<p:outputLabel value="Data e fillimit" styleClass="bold"/>
 								<p:calendar pattern="dd.MM.yyyy" navigator="true" placeholder="Data e fillimit" 
 								value="#{opEmployeeViewBean.employeeForm.startDate}" 
 								disabled="#{opEmployeeViewBean.employeeForm.employmentId != null and opEmployeeViewBean.employeeForm.endDate != null}"/>
 								
-								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm" 
+								<p:outputLabel value="Data e lënies së pozicionit të mëparshëm"  styleClass="bold" 
 								  rendered="#{opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null}"/>
-								<p:outputLabel value="Data e lirimit" 
+								<p:outputLabel value="Data e lirimit"  styleClass="bold" 
 								  rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}"/>
 								<p:calendar pattern="dd.MM.yyyy" rendered="#{opEmployeeViewBean.employeeForm.employmentId != null or 
 								(opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null)}"
 								navigator="true" placeholder="Data e lirimit" value="#{opEmployeeViewBean.employeeForm.endDate}"/>
-								<p:outputLabel value="Arsyeja e lënies së pozicionit të mëparshëm" 
+								<p:outputLabel value="Arsyeja e lënies së pozicionit të mëparshëm"  styleClass="bold"
 								  rendered="#{opEmployeeViewBean.employee.endDate==null and opEmployeeViewBean.employeeForm.employmentId == null}"/>
-								<p:outputLabel value="Arsyeja e lirimit" 
+								<p:outputLabel value="Arsyeja e lirimit"  styleClass="bold"
 								  rendered="#{opEmployeeViewBean.employeeForm.employmentId != null}"/>
 								<p:selectOneMenu placeholder="Arsyeja e lirimit" 
 								   value="#{opEmployeeViewBean.employeeForm.endJobReasonId}" 
@@ -86,6 +86,7 @@
 			
 				<p:dataTable value="#{opEmployeeViewBean.employment}" var="e" rowIndexVar="r" reflow="true" styleClass="no-border"
 					rowStyleClass="#{e.id==opEmployeeViewBean.employeeForm.employmentId?'ui-state-hover':''}"
+					emptyMessage="Asnjë punësim i listuar"
 				>
 					<p:column headerText="#" style="text-align: left;">
 						#{r+1}

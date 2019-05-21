@@ -14,20 +14,20 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Tipi i masës"/>
+					<p:outputLabel value="Tipi i masës" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.provisionForm.provisionTypeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Tipi i masës"/>
 						<f:selectItems value="#{cacheBean.provisionTypes}" var="pt" itemValue="#{pt.id}" itemLabel="#{pt.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Nr aktit"/>
+					<p:outputLabel value="Nr aktit" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.provisionForm.actNo}" placeholder="Nr aktit"/>
-					<p:outputLabel value="Data aktit"/>
+					<p:outputLabel value="Data aktit" styleClass="bold"/>
 					<p:calendar value="#{opEmployeeViewBean.provisionForm.actDate}" pattern="dd.MM.yyyy" placeholder="Data aktit"/>
-					<p:outputLabel value="Data fillimit"/>
+					<p:outputLabel value="Data fillimit" styleClass="bold"/>
 					<p:calendar value="#{opEmployeeViewBean.provisionForm.startDate}" pattern="dd.MM.yyyy" placeholder="Data fillimit"/>
-					<p:outputLabel value="Vlefshmëria (muaj)"/>
+					<p:outputLabel value="Vlefshmëria (muaj)" styleClass="bold"/>
 					<p:inputNumber decimalPlaces="0" value="#{opEmployeeViewBean.provisionForm.validityInMonths}" placeholder="Vlefshmëria në muaj"/>
-					<p:outputLabel value="Arsyeja"/>
+					<p:outputLabel value="Arsyeja" styleClass="bold"/>
 					<p:inputTextarea value="#{opEmployeeViewBean.provisionForm.reason}" placeholder="Arsyeja"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveProvision()}" 
@@ -50,7 +50,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.provisions}" var="ap" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.provisions}" var="ap" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë masë e listuar"
 					rowStyleClass="#{ap.id==opEmployeeViewBean.provisionForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

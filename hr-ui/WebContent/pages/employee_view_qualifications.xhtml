@@ -14,24 +14,24 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Tipi trajnimit"/>
+					<p:outputLabel value="Tipi trajnimit" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.trainingForm.trainingTypeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Tipi trajnimit"/>
 						<f:selectItems value="#{cacheBean.trainingTypes}" var="tt" itemValue="#{tt.id}" itemLabel="#{tt.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Institucioni"/>
+					<p:outputLabel value="Institucioni" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.trainingForm.institutionId}" autoWidth="false"
 					filterMatchMode="contains" filter="true">
 						<f:selectItem itemValue="#{null}" itemLabel="Institucioni"/>
 						<f:selectItems value="#{cacheBean.institutions}" var="i" itemValue="#{i.id}" itemLabel="#{i.name}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Data"/>
+					<p:outputLabel value="Data" styleClass="bold"/>
 					<p:calendar pattern="dd.MM.yyyy" navigator="true" value="#{opEmployeeViewBean.trainingForm.trainingDate}" placeholder="Data trajnimit"/>
-					<p:outputLabel value="Përfunduar?"/>
+					<p:outputLabel value="Përfunduar?" styleClass="bold"/>
 					<p:selectBooleanCheckbox value="#{opEmployeeViewBean.trainingForm.completed}"/>
-					<p:outputLabel value="Rezultati"/>
+					<p:outputLabel value="Rezultati" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.trainingForm.result}" placeholder="Rezultati"/>
-					<p:outputLabel value="Shënime"/>
+					<p:outputLabel value="Shënime" styleClass="bold"/>
 					<p:inputTextarea value="#{opEmployeeViewBean.trainingForm.description}" placeholder="Shënime"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveTraining()}" 
@@ -54,7 +54,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.trainings}" var="t" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.trainings}" var="t" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë kualifikim i listuar"
 					rowStyleClass="#{t.id==opEmployeeViewBean.trainingForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

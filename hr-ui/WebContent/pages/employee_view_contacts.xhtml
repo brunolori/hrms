@@ -14,12 +14,12 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Tipi kontaktit"/>
+					<p:outputLabel value="Tipi kontaktit" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.contactForm.contactTypeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Tipi kontaktit"/>
 						<f:selectItems value="#{cacheBean.contactTypes}" var="ct" itemValue="#{ct.id}" itemLabel="#{ct.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Kontakti"/>
+					<p:outputLabel value="Kontakti" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.contactForm.value}" placeholder="Kontakti"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveContact()}" 
@@ -42,7 +42,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.contacts}" var="c" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.contacts}" var="c" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë kontakt i listuar"
 					rowStyleClass="#{c.id==opEmployeeViewBean.contactForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

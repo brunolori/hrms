@@ -68,7 +68,7 @@ public class EmployeeDAO {
 		if(StringUtil.isValid(sx.getDossierNo()))
 		{
 			sql += "AND e.dossierNo=:dos_no ";
-			params.put("doc_no", sx.getDossierNo().toUpperCase().replace(" ", ""));
+			params.put("dos_no", sx.getDossierNo().toUpperCase().replace(" ", ""));
 		}
 		
 		if(StringUtil.isValid(sx.getEmployeeNo()))
@@ -85,7 +85,7 @@ public class EmployeeDAO {
 		
 		if(StringUtil.isValid(sx.getGender()))
 		{
-			sql += "AND e.gender :gnd ";
+			sql += "AND e.gender=:gnd ";
 			params.put("gnd", sx.getGender().toUpperCase());
 		}
 		

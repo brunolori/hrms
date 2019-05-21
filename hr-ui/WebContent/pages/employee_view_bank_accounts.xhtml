@@ -14,12 +14,12 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Banka"/>
+					<p:outputLabel value="Banka" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.bankAccountForm.bankId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Banka"/>
 						<f:selectItems value="#{cacheBean.banks}" var="b" itemValue="#{b.id}" itemLabel="#{b.name}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Nr llogarisë (IBAN)"/>
+					<p:outputLabel value="Nr llogarisë (IBAN)" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.bankAccountForm.iban}" placeholder="IBAN"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveBankAccount()}" 
@@ -42,7 +42,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.bankAccounts}" var="ba" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.bankAccounts}" var="ba" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë llogari bankare e listuar"
 					rowStyleClass="#{ba.id==opEmployeeViewBean.bankAccountForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

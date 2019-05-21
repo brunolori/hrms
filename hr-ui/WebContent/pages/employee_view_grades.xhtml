@@ -14,14 +14,14 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Grada"/>
+					<p:outputLabel value="Grada" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.gradeForm.gradeId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Grada"/>
 						<f:selectItems value="#{cacheBean.grades}" var="g" itemValue="#{g.id}" itemLabel="#{g.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Data fillimit"/>
+					<p:outputLabel value="Data fillimit" styleClass="bold"/>
 					<p:calendar value="#{opEmployeeViewBean.gradeForm.startDate}" pattern="dd.MM.yyyy" placeholder="Data fillimit"/>
-					<p:outputLabel value="Data mbarimit"/>
+					<p:outputLabel value="Data mbarimit" styleClass="bold"/>
 					<p:calendar value="#{opEmployeeViewBean.gradeForm.endDate}" pattern="dd.MM.yyyy" placeholder="Data mbarimit"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveGrade()}" 
@@ -44,7 +44,7 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.grades}" var="pg" rowIndexVar="r" reflow="true" styleClass="no-border"
+				<p:dataTable value="#{opEmployeeViewBean.grades}" var="pg" rowIndexVar="r" reflow="true" styleClass="no-border" emptyMessage="Asnjë gradë e listuar"
 					rowStyleClass="#{pg.id==opEmployeeViewBean.gradeForm.id?'ui-state-hover':''}"
 				>
 					<p:column headerText="#" style="text-align: left;">

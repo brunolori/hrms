@@ -64,8 +64,12 @@ public class EmployeeService {
 		if(list == null || list.isEmpty()) return null;
 		
 		PersonRest r = list.get(0);
-		
-		EmployeeDTO e = new EmployeeDTO();
+		EmployeeDTO e;
+		e = getEmployeeByNid(nid);
+		if(e == null)
+		{
+			e = new EmployeeDTO();
+		}
 		e.setFatherName(r.getFathername());
 		e.setName(r.getName());
 		e.setGender(r.getGender());

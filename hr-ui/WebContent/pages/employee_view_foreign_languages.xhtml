@@ -14,14 +14,14 @@
 			<div class="ui-g-12 ui-md-4">
 			
 				<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank">
-					<p:outputLabel value="Gjuha"/>
+					<p:outputLabel value="Gjuha" styleClass="bold"/>
 					<p:selectOneMenu value="#{opEmployeeViewBean.languageForm.foreignLanguageId}" autoWidth="false">
 						<f:selectItem itemValue="#{null}" itemLabel="Gjuha"/>
 						<f:selectItems value="#{cacheBean.foreignLanguages}" var="fl" itemValue="#{fl.id}" itemLabel="#{fl.tag}"/>
 					</p:selectOneMenu>
-					<p:outputLabel value="Niveli"/>
+					<p:outputLabel value="Niveli" styleClass="bold"/>
 					<p:inputText value="#{opEmployeeViewBean.languageForm.level}" placeholder="Niveli"/>
-					<p:outputLabel value="Shënime"/>
+					<p:outputLabel value="Shënime" styleClass="bold"/>
 					<p:inputTextarea value="#{opEmployeeViewBean.languageForm.description}" placeholder="Shënime"/>
 					
 					<p:commandButton value="Regjistro" action="#{opEmployeeViewBean.saveLanguage()}" 
@@ -44,9 +44,9 @@
 			</div>
 			<div class="ui-g-12 ui-md-8">
 			
-				<p:dataTable value="#{opEmployeeViewBean.languages}" var="l" rowIndexVar="r" reflow="true" styleClass="no-border"
-					rowStyleClass="#{l.id==opEmployeeViewBean.languageForm.id?'ui-state-hover':''}"
-				>
+				<p:dataTable value="#{opEmployeeViewBean.languages}" var="l" rowIndexVar="r" reflow="true" styleClass="no-border" 
+				             emptyMessage="Asnjë gjuhë e huaj e listuar"
+					         rowStyleClass="#{l.id==opEmployeeViewBean.languageForm.id?'ui-state-hover':''}">
 					<p:column headerText="#" style="text-align: left;">
 						#{r+1}
 					</p:column>
